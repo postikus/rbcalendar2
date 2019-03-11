@@ -270,36 +270,34 @@
 </div>
 
 <script>
-    var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-    var cur_month = 3;
-    var view = 'calendar';
+    (function () {
+        var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+        var cur_month = 3;
+        var view = 'calendar';
 
-    $('#calendar-view-button, #list-view-button').click(function () {
-        if (!$(this).hasClass('fa-active')){
-            $('#calendar-view-button, #list-view-button').toggleClass('fa-active');
-            $('#calendar-container, #grid-container').toggleClass('d-none');
-        }
-    });
-
-//    $('#list-view-button').click(function () {
-//        $('#calendar-view-button').toggleClass('fa-active');
-//        $('#list-view-button').toggleClass('fa-active');
-//    });
-
-    $('#month-select-arrow-left-button,#month-select-arrow-right-button').click(function () {
-       $('#calendar-cells-container').animate({
-            opacity: 0.25
-        }, 300, function() {
-           // Animation complete.
-           $('#calendar-cells-container').animate({
-                opacity: 1
-           }, 300, function() {
-               // Animation complete.
-               cur_month === 11 ? (cur_month = 0) : (cur_month++);
-               $('#month-select-name-container').html(months[cur_month] + ' 2019' );
-           });
+        $('#calendar-view-button, #list-view-button').click(function () {
+            if (!$(this).hasClass('fa-active')){
+                $('#calendar-view-button, #list-view-button').toggleClass('fa-active');
+                $('#calendar-container, #grid-container').toggleClass('d-none');
+            }
         });
-    });
+
+        $('#month-select-arrow-left-button,#month-select-arrow-right-button').click(function () {
+            $('#calendar-cells-container').animate({
+                opacity: 0.25
+            }, 300, function() {
+                // Animation complete.
+                $('#calendar-cells-container').animate({
+                    opacity: 1
+                }, 300, function() {
+                    // Animation complete.
+                    cur_month === 11 ? (cur_month = 0) : (cur_month++);
+                    $('#month-select-name-container').html(months[cur_month] + ' 2019' );
+                });
+            });
+        });
+    }());
+
 </script>
 
 </body>
