@@ -50,7 +50,7 @@
     /*background-color: #005cbf;*/
     font-size: 30px;
     min-height: 35px;
-    color: #eeeeee;
+    color: rgba(119, 119, 119, 0.92);
 }
 
 #calendar-view-button, #list-view-button{
@@ -95,7 +95,7 @@
 }
 
 .calendar-cell-today{
-    background-color: #e55f50;
+    background-color: rgba(229, 95, 80, 0.8);;
 }
 
 .calendar-cell-date{
