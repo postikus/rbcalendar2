@@ -7,20 +7,47 @@
 ///
 
 (function($public, $window, undefined) {
-    /*privat ->*/
     var _private = {};
+    var cl = function(msg){
+        if(_private.mode === 'test'){
+            console.log(msg);
+        }
+    };
+    /*privat ->*/
+    _private.state = 'start_init';
+    _private.mode = 'prod';
+    _private.default_mount_id = '#App';
+
+    _private.init_calendar = function (_mount_id) {
+        cl('Start mounting');
+        var $_mount_obj = $(_mount_id);
+        var _calendar_inner_html;
+        if ($_mount_obj.length === 0){
+            cl('No valid mount object parameter. Aborting...');
+        }
+        else{
+            _calendar_inner_html = '';
+            /*magic goes here -> */
+            _calendar_inner_html += 'test';
+            cl(_calendar_inner_html);
+            /* <- magic goes here*/
+            $_mount_obj.html(_calendar_inner_html);
+        }
+    };
 
     /*<-privat*/
     /*public->*/
-    _private.default_mount_id = '#App';
+
 
     $public.init = function(args) {
-
+        args = args || {};
+        _private.mode = args.mode;
         if (args.mount_id) {
-            _private.init_calendar_grid(args.mount_id);
+            _private.state = 'started';
+            _private.init_calendar(args.mount_id);
         }
         else{
-            _private.init_calendar_grid($_private.default_mount_id);
+            _private.init_calendar(_private.default_mount_id);
         }
     };
     /*<-public*/
@@ -29,7 +56,7 @@
 window.addEventListener('DOMContentLoaded', function() {
 
     rb_calendar.init({
-        mount_id: '#app'
+        mount_id: '#rb_calendar'
     });
 
     // // Let’s extend the rb_calendar with new functionality:
