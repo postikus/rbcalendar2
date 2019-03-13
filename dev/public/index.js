@@ -24,7 +24,7 @@
             cl('calendar view mounted');
         };
 
-        _private.init_filters = function(){
+        _private.get_filters_html = function(){
           var filters_html = '';
             filters_html +=  '                <div>\n' +
               '                    <div class="row" id="filters-header-container">\n' +
@@ -117,20 +117,26 @@
         };
 
 
-        _private.get_calendar_html = function(){
-            var calendar_html = '';
-            calendar_html += '                <div id="calendar-container">\n' +
-            '                    <div class="row justify-content-center" id="month-select-container">\n' +
-            '                        <div class="col text-center" id="month-select-arrow-name">\n' +
-            '                            <span id="month-select-left-button"><button type="button" class="btn btn-outline-secondary btn-sm" id="month-select-arrow-left-button"><</button></span>\n' +
-            '                            <span id="month-select-name-container">\n' +
-            '                                Март 2019\n' +
-            '                            </span>\n' +
-            '                            <span id="month-select-right-button"><button type="button" class="btn btn-outline-secondary btn-sm" id="month-select-arrow-right-button">></button></span>\n' +
-            '                            <!--<div class="position-absolute">month-select-container</div>-->\n' +
-            '                        </div>\n' +
-            '                    </div>\n' +
-            '                    <div class="row" id="calendar-weekdays-container">\n' +
+        _private.get_calendar_header_html = function(){
+            var calendar_header_html = '';
+            calendar_header_html +=
+                '                    <div class="row justify-content-center" id="month-select-container">\n' +
+                '                        <div class="col text-center" id="month-select-arrow-name">\n' +
+                '                            <span id="month-select-left-button"><button type="button" class="btn btn-outline-secondary btn-sm" id="month-select-arrow-left-button"><</button></span>\n' +
+                '                            <span id="month-select-name-container">\n' +
+                '                                Март 2019\n' +
+                '                            </span>\n' +
+                '                            <span id="month-select-right-button"><button type="button" class="btn btn-outline-secondary btn-sm" id="month-select-arrow-right-button">></button></span>\n' +
+                '                            <!--<div class="position-absolute">month-select-container</div>-->\n' +
+                '                        </div>\n' +
+                '                    </div>\n';
+
+            return calendar_header_html;
+        };
+
+        _private.get_weekdayheaders = function(){
+            var calendar_weekday_html = '';
+            calendar_weekday_html +=
             '                        <div class="col-12">\n' +
             '                            <div class="container-fluid">\n' +
             '                                <div class="row">\n' +
@@ -142,10 +148,21 @@
             '                                        <div class="weekday-name">Пятница</div>\n' +
             '                                    </div>\n' +
             '                                </div>\n' +
-            '                            </div>\n' +
-            '                        </div>\n' +
-            '                    </div>\n' +
-            '                    <div class="row" id="calendar-cells-container">\n' +
+            '                                </div>\n' +
+            '                            </div>\n';
+
+            return calendar_weekday_html;
+        };
+
+        _private.get_calendar_html = function(){
+            var calendar_html = '';
+            calendar_html += '<div id="calendar-container">\n';
+            calendar_html += _private.get_calendar_header_html();
+            calendar_html += '<div class="row" id="calendar-weekdays-container">\n';
+            calendar_html += _private.get_weekdayheaders();
+            calendar_html += '</div>\n';
+
+            calendar_html +=  '                    <div class="row" id="calendar-cells-container">\n' +
             '                        <div class="col-12">\n' +
             '                            <div class="container-fluid">\n' +
             '                                <div class="row calendar-cells">\n' +
@@ -361,9 +378,10 @@
                     '            <div class="col-9" id="calendar-mount-container">\n';
 
                     _calendar_inner_html += _private.get_calendar_html();
-                    _calendar_inner_html += '            </div>\n' +
+                    _calendar_inner_html +=
+                    '            </div>\n' +
                     '            <div class="col-3" id="filters-container">\n';
-                    _calendar_inner_html += _private.init_filters();
+                    _calendar_inner_html += _private.get_filters_html();
 
                     _calendar_inner_html += '            </div>\n' +
                     '        </div>\n' +

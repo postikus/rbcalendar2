@@ -29,10 +29,11 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dev/public/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="368" column="38" lean-forward="false" selection-start-line="368" selection-start-column="38" selection-end-line="368" selection-end-column="38" />
+            <state relative-caret-position="182">
+              <caret line="381" column="53" lean-forward="false" selection-start-line="381" selection-start-column="53" selection-end-line="381" selection-end-column="53" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <element signature="e#773#7621#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -77,6 +78,8 @@
       <find>fa-heart</find>
       <find>card-header</find>
       <find>namespace</find>
+      <find>init_filters</find>
+      <find>get_filters_html</find>
       <find>col-3</find>
     </findStrings>
     <replaceStrings>
@@ -85,6 +88,7 @@
       <replace>border-top border-left&quot;</replace>
       <replace>fa-heart fa-red</replace>
       <replace>rb_calendar</replace>
+      <replace>get_filters_html</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -237,12 +241,12 @@
       <workItem from="1552284585658" duration="6000" />
       <workItem from="1552316186438" duration="2127000" />
       <workItem from="1552319569690" duration="4841000" />
-      <workItem from="1552505518441" duration="10933000" />
+      <workItem from="1552505518441" duration="12778000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55560000" />
+    <option name="totallyTimeSpent" value="57405000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -341,7 +345,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -733,10 +737,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dev/public/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="368" column="38" lean-forward="false" selection-start-line="368" selection-start-column="38" selection-end-line="368" selection-end-column="38" />
+        <state relative-caret-position="182">
+          <caret line="381" column="53" lean-forward="false" selection-start-line="381" selection-start-column="53" selection-end-line="381" selection-end-column="53" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <element signature="e#773#7621#0" expanded="false" />
           </folding>
         </state>
       </provider>
