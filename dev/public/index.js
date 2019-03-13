@@ -7,12 +7,6 @@
 ///
 
 ;(function($public, $window, undefined) {
-    var cl = function(msg){
-        if(_private.mode === 'test'){
-            console.log(msg);
-        }
-    };
-
     /*privat ->*/
     var _private = {
         state: 'start_init',
@@ -20,8 +14,30 @@
         default_mount_id: '#App'
     };
 
+    var _options = (function (_private, $public){
+        var __options = {};
+        for (var private_attrname in _private) { __options[private_attrname] = _private[private_attrname]; }
+        for (var public_attrname in $public) { __options[public_attrname] = $public[public_attrname]; }
+        return __options;
+    })(_private, $public);
 
-    _private.init_calendar = function (_mount_id) {
+
+    var cl = function(msg){
+        if(_options.mode === 'test'){
+            console.log(msg);
+        }
+    };
+
+
+
+    _options.init_calendar_view = function($_calendar_v_mount_obj){
+        cl('calendar view init');
+        var calendar_view_html = '';
+        $_calendar_v_mount_obj.html(calendar_view_html);
+        cl('calendar view mounted');
+    };
+
+    _options.init_calendar = function (_mount_id) {
         cl('Start mounting');
         var $_mount_obj = $(_mount_id);
         var _calendar_inner_html;
@@ -411,13 +427,13 @@
 
     $public.init = function(args) {
         args = args || {};
-        _private.mode = args.mode;
+        _options.mode = args.mode;
         if (args.mount_id) {
-            _private.state = 'started';
-            _private.init_calendar(args.mount_id);
+            _options.state = 'started';
+            _options.init_calendar(args.mount_id);
         }
         else{
-            _private.init_calendar(_private.default_mount_id);
+            _options.init_calendar(_private.default_mount_id);
         }
     };
     /*<-public*/
@@ -425,9 +441,9 @@
 
 window.addEventListener('DOMContentLoaded', function() {
 
-    rb_calendar.init({
-        mount_id: '#rb_calendar'
-    });
+    // rb_calendar.init({
+    //     mount_id: '#rb_calendar'
+    // });
 
     // // Let’s extend the rb_calendar with new functionality:
     // (function($public, undefined) {
