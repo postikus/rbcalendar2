@@ -1,35 +1,45 @@
-;(function (rb_calendar, undefined) {
-    /*private properties ->*/
+/* global jQuery, rb_calendar */
 
+///
+/// Immediately-invoked Function Expressions (IIFE)s
+/// rb_calendar Extension
+/// Module Pattern with Imports and Exports
+///
 
+(function($public, $window, undefined) {
+    /*privat ->*/
+    var _private = {};
 
+    /*<-privat*/
+    /*public->*/
+    _private.default_mount_id = '#App';
 
+    $public.init = function(args) {
 
-
-    /*<- private properties*/
-    /*public methods and properties ->*/
-    rb_calendar.foobar = "foobar";
-
-
-    rb_calendar.say = function (msg) {
-        speak(msg);
+        if (args.mount_id) {
+            _private.init_calendar_grid(args.mount_id);
+        }
+        else{
+            _private.init_calendar_grid($_private.default_mount_id);
+        }
     };
+    /*<-public*/
+}(window.rb_calendar = (window.rb_calendar || {}), window, jQuery));
 
+window.addEventListener('DOMContentLoaded', function() {
 
-    rb_calendar.sayHello = function () {
-        rb_calendar.say("hello world");
-    };
+    rb_calendar.init({
+        mount_id: '#app'
+    });
 
-    /*<- public methods and properties*/
+    // // Let’s extend the rb_calendar with new functionality:
+    // (function($public, undefined) {
+    //
+    //     $public.sayGoodbye = function() {
+    //         this.say('goodbye');
+    //     };
+    //
+    // })(window.rb_calendar = (window.rb_calendar || {}));
+    // rb_calendar.sayGoodbye(); // goodbye
 
-    /*private methods ->*/
-    function speak(msg) {
-        console.log("You said: " + msg);
-    }
-    /*<- private methods*/
-    /****
-    /* check to evaluate whether "rb_calendar" exists in the
-    /* global rb_calendar - if not, assign window.rb_calendar an
-    /* object literal
-    ****/
-})(window.rb_calendar = window.rb_calendar || {});
+});
