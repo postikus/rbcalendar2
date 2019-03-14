@@ -9,6 +9,8 @@
     <link href="public/libs/bootstrap-4.3.1-dist/css/bootstrap.css" rel="stylesheet">
     <link href="public/libs/fontawesome-free-5.7.2-web/css/all.css" rel="stylesheet">
     <link href="public/style.css" rel="stylesheet">
+    <link href="public/css/style-popup.css" rel="stylesheet">
+    <link href="public/css/style-update.css" rel="stylesheet">
     <script src="public/libs/jquery-3.3.1.min.js"></script>
 </head>
 <body>
@@ -57,10 +59,28 @@
                                 <div class="row calendar-cells">
                                     <div class="col-12">
                                         <div class="calendar-cell"><div class="calendar-cell-date text-right">10</div></div>
-                                        <div class="calendar-cell calendar-cell-today"><div class="calendar-cell-date text-right">11</div></div>
+                                        <div class="calendar-cell calendar-cell-today">
+                                            <div class="calendar-cell-date text-right">11</div>
+                                        <div class="calendar-event ce-4" style="margin-top: 21px" data-event-color_2>
+                                            <div class="calendar-event-container container-fluid">
+                                                <div class="row">
+                                                    <div class="col-9">
+                                                        <div class="calendar-event-type calendar-event-type-green"></div>
+                                                        <span class="calendar-event-name">Управление временем</span>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="calendar-event-icons text-right">
+                                                            5 <i class="fa fa-users"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <label for="modalPopup1" data-modalBtn class="calendar-event_btn" title="show more info"></label>
+                                        </div>
+                                        </div>
                                         <div class="calendar-cell">
                                             <div class="calendar-cell-date text-right">12</div>
-                                            <div class="calendar-event ce-2">
+                                            <div class="calendar-event ce-2" data-event-color_1>
                                                 <div class="calendar-event-container container-fluid">
                                                     <div class="row">
                                                         <div class="col-9">
@@ -74,6 +94,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <label for="modalPopup1" data-modalBtn class="calendar-event_btn" title="show more info"></label>
                                             </div>
                                         </div>
                                         <div class="calendar-cell"><div class="calendar-cell-date text-right">13</div></div>
@@ -94,7 +115,7 @@
                                         <div class="calendar-cell"><div class="calendar-cell-date text-right">24</div></div>
                                         <div class="calendar-cell">
                                             <div class="calendar-cell-date text-right">25</div>
-                                            <div class="calendar-event ce-4">
+                                            <div class="calendar-event ce-4" data-event-color_2>
                                                 <div class="calendar-event-container container-fluid">
                                                     <div class="row">
                                                         <div class="col-9">
@@ -108,6 +129,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <label for="modalPopup1" data-modalBtn class="calendar-event_btn" title="show more info"></label>
                                             </div>
                                         </div>
                                         <div class="calendar-cell"><div class="calendar-cell-date text-right">26</div></div>
@@ -118,10 +140,10 @@
                                 <div class="row calendar-cells">
                                     <div class="col-12">
                                         <div class="calendar-cell"><div class="calendar-cell-date text-right">31</div></div>
-                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">1</div></div>
-                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">2</div></div>
-                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">3</div></div>
-                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">4</div></div>
+                                        <div class="calendar-cell" data-ex><div class="calendar-cell-date text-right">1</div></div>
+                                        <div class="calendar-cell" data-ex><div class="calendar-cell-date text-right">2</div></div>
+                                        <div class="calendar-cell" data-ex><div class="calendar-cell-date text-right">3</div></div>
+                                        <div class="calendar-cell" data-ex><div class="calendar-cell-date text-right">4</div></div>
                                     </div>
                                 </div>
                             </div>
@@ -411,6 +433,57 @@
     }());
 
 </script>
+
+<!-- end of body -->
+<div data-modal>
+    <input type="checkbox" id="modalPopup1" data-hiddenElement data-modalTrigger>
+     <label for="modalPopup1" data-modalOverlay title="close popup"></label>
+     <div data-modalWindow>
+      <!-- content start -->
+      <div class="m-header">
+          <div class="m-cell-1">
+              <div class="m-name">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+          </div>
+          <div class="m-cell-2">
+              <div class="m-control">
+                    <a href="" class="m-control-link" title="link"><i class="fa-2x far fa-clock"></i></a>
+                    <a href="" class="m-control-link" title="link"><i class="fa-2x far fa-clock"></i></a>
+                    <a href="" class="m-control-link" title="link"><i class="fa-2x far fa-clock"></i></a>
+                <a href="" class="m-control-link" title="link"><i class="fa-2x far fa-clock"></i></a>
+                <a href="" class="m-control-link" title="link"><i class="fa-2x far fa-clock"></i></a>
+              </div>
+          </div>
+      </div>
+      <div class="m-main">
+        <div class="m-cell-1">
+            <div class="m-title">title title 1</div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, est nam perspiciatis provident esse error veritatis nulla corrupti mollitia sapiente labore, ipsum officia tenetur, cumque excepturi quo libero quis non.</p>
+            <div class="m-title">title title 2</div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, est nam perspiciatis provident esse error veritatis nulla corrupti mollitia sapiente labore, ipsum officia tenetur, cumque excepturi quo libero quis non.</p>
+            <img src="https://picsum.photos/140/60/" alt="" style="width:auto;height:auto;">
+        </div>
+        <div class="m-cell-2">
+            <div class="m-title">title title 1</div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <div class="m-title">title title 2</div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, est nam perspiciatis provident esse error </p>
+                
+        </div>
+       
+      </div>
+      <div class="m-footer">
+          <div class="m-cell-1">
+                <button class="btn">Зарегистрироваться</button>    
+          </div>
+          <div class="m-cell-2">
+                <button class="btn">Зарегистрироваться</button>    
+          </div>
+      </div>
+      <!-- content end -->
+     </div>
+   </div>
+   
+<script src="public/js/popup.js"></script>
 
 </body>
 </html>
