@@ -18,6 +18,21 @@
             cur_date: new Date()
         };
 
+        _private.CalendarObj = function (_date){
+            var self = this;
+            // this.month_array = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+            // this.this_month_name_ru = this.month_array[this.month];
+            this.this_month = _date.getMonth();
+            this.this_year = (1900 + _date.getYear());
+            this.this_days_in_month = _private.daysInMonth(this.this_month, this.this_year);
+            this.this_month_first_dayweek = new Date(this.this_year, this.this_month, 1).getDay();
+        };
+
+        _private.CalendarObj.prototype.cl = function () {
+            var self = this;
+            cl(self);
+        };
+
         _private.init_calendar_view = function($_calendar_v_mount_obj){
             cl('calendar view init');
             var calendar_view_html = '';
@@ -93,10 +108,8 @@
 
         _private.get_filters_html = function(){
           var filters_html = '';
-            filters_html += '<div>';
                 filters_html += '<div class="row" id="filters-header-container">';
                 filters_html += _private.get_calendar_view_button_container();
-            filters_html += '</div>';
             filters_html += _private.get_filters_row_container('search');
             filters_html += _private.get_filters_row_container('checkbox', {id: 'defaultCheck9', label: 'Я участвую'});
             filters_html += _private.get_filters_row_container('checkbox', {id: 'defaultCheck8', label: 'Открыта регистрация'});
@@ -152,13 +165,12 @@
 
         _private.get_weekdayheaders = function(){
             var calendar_weekday_html = '';
+            var weekdays_name_rus_array = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскремение'];
             calendar_weekday_html += '<div class="row" id="calendar-weekdays-container">';
                 calendar_weekday_html += '<div class="col-12" id="weekdays-container">';
-                    calendar_weekday_html += '<div class="weekday-name">Понедельник</div>';
-                    calendar_weekday_html += '<div class="weekday-name">Вторник</div>';
-                    calendar_weekday_html += '<div class="weekday-name">Среда</div>';
-                    calendar_weekday_html += '<div class="weekday-name">Четверг</div>';
-                    calendar_weekday_html += '<div class="weekday-name">Пятница</div>';
+                    for (var weekday_counter = 0; weekday_counter < 5; weekday_counter++){
+                        calendar_weekday_html += '<div class="weekday-name">'+weekdays_name_rus_array[weekday_counter]+'</div>';
+                    }
                 calendar_weekday_html += '</div>';
             calendar_weekday_html += '</div>';
 
@@ -189,21 +201,12 @@
             return new Date(year, month, 0).getDate();
         };
 
-        _private.CalendarObj = function (_date){
-            var self = this;
-            this.month_array = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-            this.this_month = _date.getMonth();
-            this.this_year = _date.getYear();
-            this.this_month_name_ru = this.month_array[this.month];
-            this.this_days_in_month = _private.daysInMonth(this.this_month, this.this_year);
-
-        };
 
 
         _private.get_calendar_block_html = function (__current_date) {
             var calendar_object = new _private.CalendarObj(__current_date);
+            calendar_object.cl();
             var __calendar_block_html = '';
-            __calendar_block_html += calendar_object.this_days_in_month;
             __calendar_block_html +=  '<div class="row" id="calendar-cells-container">';
                 __calendar_block_html +=  '<div class="col-12">';
                     __calendar_block_html +=  '<div class="container-fluid no-padding">';
