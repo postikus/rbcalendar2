@@ -13,8 +13,9 @@
         _private = {
             state: 'start_init',
             mode: 'prod',
-            mount_id: '#calendar-app'
-            ,foobar: 'foobar_private'
+            mount_id: '#calendar-app',
+            foobar: 'foobar_private',
+            cur_date: new Date()
         };
 
         _private.init_calendar_view = function($_calendar_v_mount_obj){
@@ -24,94 +25,107 @@
             cl('calendar view mounted');
         };
 
+        _private.get_calendar_view_button_container = function () {
+            var __calendar_view_button_html = '';
+            __calendar_view_button_html += '<div class="col-12 text-right" id="filters-header-icons">';
+                __calendar_view_button_html += '<i class="fas fa-th fa-active" id="calendar-view-button"></i>';
+                __calendar_view_button_html += '<i class="fas fa-list" id="list-view-button"></i>';
+            __calendar_view_button_html += '</div>';
+            return __calendar_view_button_html;
+        };
+
+        _private.get_search_html = function () {
+            var __search_html = '';
+            __search_html += '<input class="form-control" id="calendar-search" placeholder="Поиск">';
+            return __search_html;
+        };
+
+        _private.get_checkbox_html = function (__q_object) {
+          var __checkbox_html = '';
+          __checkbox_html +=   '<div class="form-check">';
+            __checkbox_html +=   '<input class="form-check-input" type="checkbox" value="" id="'+__q_object.id+'">';
+            __checkbox_html += '<label class="form-check-label" for="'+__q_object.id+'">';
+            __checkbox_html += __q_object.label;
+            __checkbox_html += '</label>';
+          __checkbox_html += '</div>';
+          return __checkbox_html;
+        };
+
+        _private.get_checkboxs_html = function (__q_object) {
+            var __checkboxs_html = '';
+            __checkboxs_html += '<div class="filter-name" id="'+__q_object.id+'">'+__q_object.label+'</div>';
+            for (var __checkbox_counter = 0; __checkbox_counter < __q_object.checkbox_array.length; __checkbox_counter++){
+                __checkboxs_html += '<div class="form-check">';
+                    __checkboxs_html += '<input class="form-check-input" type="checkbox" value="" id="'+__q_object.checkbox_array[__checkbox_counter].id+'">';
+                    __checkboxs_html += '<label class="form-check-label" for="'+__q_object.checkbox_array[__checkbox_counter].id+'">';
+                        __checkboxs_html += __q_object.checkbox_array[__checkbox_counter].label;
+                    __checkboxs_html += '</label>';
+                __checkboxs_html += '</div>';
+            }
+            return __checkboxs_html;
+        };
+
+
+            _private.get_filters_row_container = function (type, q_object) { //search/checkbox/checkboxs
+            var __filter_row_html = '';
+            __filter_row_html += '<div class="row filter-row-container">';
+                __filter_row_html += '<div class="col-12 filter-col-container">';
+                    switch (type){
+                        case 'search':
+                            __filter_row_html += _private.get_search_html();
+                            break;
+                        case 'checkbox':
+                            __filter_row_html += _private.get_checkbox_html(q_object);
+                            break;
+                        case 'checkboxs':
+                            __filter_row_html += _private.get_checkboxs_html(q_object);
+                            break;
+                        default:
+                            __filter_row_html += '';
+                            break;
+                    }
+                __filter_row_html += '</div>';
+            __filter_row_html += '</div>';
+            return __filter_row_html;
+        };
+
+
+
         _private.get_filters_html = function(){
           var filters_html = '';
-            filters_html +=  '                <div>\n' +
-              '                    <div class="row" id="filters-header-container">\n' +
-              '                        <div class="col-12 text-right" id="filters-header-icons">\n' +
-              '                            <i class="fas fa-th fa-active" id="calendar-view-button"></i>\n' +
-              '                            <i class="fas fa-list" id="list-view-button"></i>\n' +
-              '                        </div>\n' +
-              '                    </div>\n' +
-              '                    <div class="row filter-row-container">\n' +
-              '                        <div class="col-12 filter-col-container">\n' +
-              '                            <input class="form-control" id="calendar-search" placeholder="Поиск">\n' +
-              '                        </div>\n' +
-              '                    </div>\n' +
-              '                    <div class="row filter-row-container">\n' +
-              '                        <div class="col-12 filter-col-container">\n' +
-              '                            <div class="form-check">\n' +
-              '                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck9">\n' +
-              '                                <label class="form-check-label" for="defaultCheck9">\n' +
-              '                                    Я участвую\n' +
-              '                                </label>\n' +
-              '                            </div>\n' +
-              '                            <div class="form-check">\n' +
-              '                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck8">\n' +
-              '                                <label class="form-check-label" for="defaultCheck8">\n' +
-              '                                    Открыта регистрация\n' +
-              '                                </label>\n' +
-              '                            </div>\n' +
-              '                        </div>\n' +
-              '                    </div>\n' +
-              '                    <div class="row filter-row-container">\n' +
-              '                        <div class="col-12 filter-col-container">\n' +
-              '                            <div class="filter-name">Форма обучения:</div>\n' +
-              '                            <div class="form-check">\n' +
-              '                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">\n' +
-              '                                <label class="form-check-label" for="defaultCheck1">\n' +
-              '                                    Внешнее\n' +
-              '                                </label>\n' +
-              '                            </div>\n' +
-              '                            <div class="form-check">\n' +
-              '                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">\n' +
-              '                                <label class="form-check-label" for="defaultCheck2">\n' +
-              '                                    Внутреннее\n' +
-              '                                </label>\n' +
-              '                            </div>\n' +
-              '                        </div>\n' +
-              '                    </div>\n' +
-              '                    <div class="row filter-row-container">\n' +
-              '                        <div class="col-12 filter-col-container">\n' +
-              '                            <div class="filter-name">Для кого:</div>\n' +
-              '                            <div class="form-check">\n' +
-              '                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">\n' +
-              '                                <label class="form-check-label" for="defaultCheck3">\n' +
-              '                                    Для руководителей\n' +
-              '                                </label>\n' +
-              '                            </div>\n' +
-              '                            <div class="form-check">\n' +
-              '                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">\n' +
-              '                                <label class="form-check-label" for="defaultCheck4">\n' +
-              '                                    Для сотрудников\n' +
-              '                                </label>\n' +
-              '                            </div>\n' +
-              '                        </div>\n' +
-              '                    </div>\n' +
-              '                    <div class="row filter-row-container">\n' +
-              '                        <div class="col-12 filter-col-container">\n' +
-              '                            <div class="filter-name">Тип:</div>\n' +
-              '                            <div class="form-check">\n' +
-              '                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">\n' +
-              '                                <label class="form-check-label" for="defaultCheck5">\n' +
-              '                                    Тренинги личной эффективности\n' +
-              '                                </label>\n' +
-              '                            </div>\n' +
-              '                            <div class="form-check">\n' +
-              '                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck6">\n' +
-              '                                <label class="form-check-label" for="defaultCheck6">\n' +
-              '                                    Менеджерские программы\n' +
-              '                                </label>\n' +
-              '                            </div>\n' +
-              '                            <div class="form-check">\n' +
-              '                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck7">\n' +
-              '                                <label class="form-check-label" for="defaultCheck7">\n' +
-              '                                    Профессиональное обучение\n' +
-              '                                </label>\n' +
-              '                            </div>\n' +
-              '                        </div>\n' +
-              '                    </div>\n' +
-              '                </div>\n';
+            filters_html += '<div>';
+                filters_html += '<div class="row" id="filters-header-container">';
+                filters_html += _private.get_calendar_view_button_container();
+            filters_html += '</div>';
+            filters_html += _private.get_filters_row_container('search');
+            filters_html += _private.get_filters_row_container('checkbox', {id: 'defaultCheck9', label: 'Я участвую'});
+            filters_html += _private.get_filters_row_container('checkbox', {id: 'defaultCheck8', label: 'Открыта регистрация'});
+            filters_html += _private.get_filters_row_container('checkboxs', {
+                id: 'test1',
+                label: 'Форма обучения:',
+                checkbox_array:[
+                    {id: 'defaultCheck1', label: 'Внешнее'},
+                    {id: 'defaultCheck2', label: 'Внутреннее'}
+                ]
+            });
+            filters_html += _private.get_filters_row_container('checkboxs', {
+                id: 'test2',
+                label: 'Для кого:',
+                checkbox_array:[
+                    {id: 'defaultCheck3', label: 'Для руководителей'},
+                    {id: 'defaultCheck4', label: 'Для сотрудников'}
+                ]
+            });
+            filters_html += _private.get_filters_row_container('checkboxs', {
+                id: 'test3',
+                label: 'Тип:',
+                checkbox_array:[
+                    {id: 'defaultCheck5', label: 'Тренинги личной эффективности'},
+                    {id: 'defaultCheck6', label: 'Менеджерские программы'},
+                    {id: 'defaultCheck7', label: 'Профессиональное обучение'}
+                ]
+            });
+
 
             return filters_html;
         };
@@ -175,11 +189,11 @@
 
         _private.get_calendar_html = function(){
             var calendar_html = '';
-            calendar_html += '<div id="calendar-container">\n';
+            calendar_html += '<div id="calendar-container">';
                 calendar_html += _private.get_calendar_header_html();
-                calendar_html += '<div class="row" id="calendar-weekdays-container">\n';
+                calendar_html += '<div class="row" id="calendar-weekdays-container">';
                     calendar_html += _private.get_weekdayheaders();
-                    calendar_html += '</div>\n';
+                    calendar_html += '</div>';
                     calendar_html +=  '<div class="row" id="calendar-cells-container">';
                         calendar_html +=  '<div class="col-12">';
                         calendar_html +=  '<div class="container-fluid">';
