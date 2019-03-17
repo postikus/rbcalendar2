@@ -152,17 +152,13 @@
 
         _private.get_weekdayheaders = function(){
             var calendar_weekday_html = '';
-            calendar_weekday_html += '<div class="col-12">';
-                calendar_weekday_html += '<div class="container-fluid">';
-                    calendar_weekday_html += '<div class="row">';
-                        calendar_weekday_html += '<div class="col-12" id="weekdays-container">';
-                            calendar_weekday_html += '<div class="weekday-name">Понедельник</div>';
-                            calendar_weekday_html += '<div class="weekday-name">Вторник</div>';
-                            calendar_weekday_html += '<div class="weekday-name">Среда</div>';
-                            calendar_weekday_html += '<div class="weekday-name">Четверг</div>';
-                            calendar_weekday_html += '<div class="weekday-name">Пятница</div>';
-                        calendar_weekday_html += '</div>';
-                    calendar_weekday_html += '</div>';
+            calendar_weekday_html += '<div class="row" id="calendar-weekdays-container">';
+                calendar_weekday_html += '<div class="col-12" id="weekdays-container">';
+                    calendar_weekday_html += '<div class="weekday-name">Понедельник</div>';
+                    calendar_weekday_html += '<div class="weekday-name">Вторник</div>';
+                    calendar_weekday_html += '<div class="weekday-name">Среда</div>';
+                    calendar_weekday_html += '<div class="weekday-name">Четверг</div>';
+                    calendar_weekday_html += '<div class="weekday-name">Пятница</div>';
                 calendar_weekday_html += '</div>';
             calendar_weekday_html += '</div>';
 
@@ -171,38 +167,44 @@
 
         _private.get_calendar_cell_html = function (__date) {
             var __calendar_cell_html = '';
-            __calendar_cell_html += '<div class="calendar-cell"><div class="calendar-cell-date text-right">'+__date+'</div></div>';
+            __calendar_cell_html += '<div class="calendar-cell">' +
+                '<div class="calendar-cell-date text-right">'+__date+'</div>' +
+            '</div>';
             return __calendar_cell_html;
         };
 
         _private.get_calendar_row_cells_html = function (__cells_array) {
             var __row_cells_html = '';
             __row_cells_html += '<div class="row calendar-cells">';
-            __row_cells_html += '<div class="col-12">';
-            for (var __cell_counter=0; __cell_counter < __cells_array.length; __cell_counter++){
-                __row_cells_html += _private.get_calendar_cell_html(__cells_array[__cell_counter].date);
-            }
-            __row_cells_html += '</div>';
+                __row_cells_html += '<div class="col-12">';
+                    for (var __cell_counter=0; __cell_counter < __cells_array.length; __cell_counter++){
+                        __row_cells_html += _private.get_calendar_cell_html(__cells_array[__cell_counter].date);
+                    }
+                __row_cells_html += '</div>';
             __row_cells_html += '</div>';
             return __row_cells_html;
         };
 
-        _private.get_calendar_html = function(){
+        _private.get_calendar_block_html = function (__current_date) {
+            var __calendar_block_html = '';
+            __calendar_block_html +=  '<div class="row" id="calendar-cells-container">';
+                __calendar_block_html +=  '<div class="col-12">';
+                    __calendar_block_html +=  '<div class="container-fluid">';
+                    for (var __month_row=0; __month_row<5; __month_row++){
+                        __calendar_block_html += _private.get_calendar_row_cells_html([{date: 1}, {date: 2}, {date: 3}, {date: 4}, {date: 5}]);
+                    }
+                    __calendar_block_html += '</div>';
+                __calendar_block_html += '</div>';
+            __calendar_block_html += '</div>';
+            return __calendar_block_html;
+        };
+
+        _private.get_calendar_html = function(__current_date){
             var calendar_html = '';
             calendar_html += '<div id="calendar-container">';
                 calendar_html += _private.get_calendar_header_html();
-                calendar_html += '<div class="row" id="calendar-weekdays-container">';
-                    calendar_html += _private.get_weekdayheaders();
-                    calendar_html += '</div>';
-                    calendar_html +=  '<div class="row" id="calendar-cells-container">';
-                        calendar_html +=  '<div class="col-12">';
-                        calendar_html +=  '<div class="container-fluid">';
-                        for (var __month_row=0; __month_row<5; __month_row++){
-                            calendar_html += _private.get_calendar_row_cells_html([{date: 1}, {date: 2}, {date: 3}, {date: 4}, {date: 5}]);
-                        }
-                        calendar_html += '</div>';
-                    calendar_html += '</div>';
-                calendar_html += '</div>';
+                calendar_html += _private.get_weekdayheaders();
+                calendar_html += _private.get_calendar_block_html(__current_date);
             calendar_html += '</div>';
 
             return calendar_html;
