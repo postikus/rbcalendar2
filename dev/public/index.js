@@ -118,243 +118,78 @@
 
 
         _private.get_calendar_header_html = function(){
-            var calendar_header_html = '';
-            calendar_header_html +=
-                '                    <div class="row justify-content-center" id="month-select-container">\n' +
-                '                        <div class="col text-center" id="month-select-arrow-name">\n' +
-                '                            <span id="month-select-left-button"><button type="button" class="btn btn-outline-secondary btn-sm" id="month-select-arrow-left-button"><</button></span>\n' +
-                '                            <span id="month-select-name-container">\n' +
-                '                                Март 2019\n' +
-                '                            </span>\n' +
-                '                            <span id="month-select-right-button"><button type="button" class="btn btn-outline-secondary btn-sm" id="month-select-arrow-right-button">></button></span>\n' +
-                '                            <!--<div class="position-absolute">month-select-container</div>-->\n' +
-                '                        </div>\n' +
-                '                    </div>\n';
+            var __calendar_header_html = '';
+            __calendar_header_html += '<div class="row justify-content-center" id="month-select-container">';
+                __calendar_header_html += '<div class="col text-center" id="month-select-arrow-name">';
+                    __calendar_header_html += '<span id="month-select-left-button">' +
+                        '<button type="button" class="btn btn-outline-secondary btn-sm" id="month-select-arrow-left-button"><</button>' +
+                    '</span>';
+                    __calendar_header_html += '<span id="month-select-name-container">';
+                        __calendar_header_html += 'Март 2019';
+                    __calendar_header_html += '</span>';
+                    __calendar_header_html += '<span id="month-select-right-button">' +
+                        '<button type="button" class="btn btn-outline-secondary btn-sm" id="month-select-arrow-right-button">></button>' +
+                    '</span>';
+                __calendar_header_html += '</div>';
+            __calendar_header_html += '</div>';
 
-            return calendar_header_html;
+            return __calendar_header_html;
         };
 
         _private.get_weekdayheaders = function(){
             var calendar_weekday_html = '';
-            calendar_weekday_html +=
-            '                        <div class="col-12">\n' +
-            '                            <div class="container-fluid">\n' +
-            '                                <div class="row">\n' +
-            '                                    <div class="col-12" id="weekdays-container">\n' +
-            '                                        <div class="weekday-name">Понедельник</div>\n' +
-            '                                        <div class="weekday-name">Вторник</div>\n' +
-            '                                        <div class="weekday-name">Среда</div>\n' +
-            '                                        <div class="weekday-name">Четверг</div>\n' +
-            '                                        <div class="weekday-name">Пятница</div>\n' +
-            '                                    </div>\n' +
-            '                                </div>\n' +
-            '                                </div>\n' +
-            '                            </div>\n';
+            calendar_weekday_html += '<div class="col-12">';
+                calendar_weekday_html += '<div class="container-fluid">';
+                    calendar_weekday_html += '<div class="row">';
+                        calendar_weekday_html += '<div class="col-12" id="weekdays-container">';
+                            calendar_weekday_html += '<div class="weekday-name">Понедельник</div>';
+                            calendar_weekday_html += '<div class="weekday-name">Вторник</div>';
+                            calendar_weekday_html += '<div class="weekday-name">Среда</div>';
+                            calendar_weekday_html += '<div class="weekday-name">Четверг</div>';
+                            calendar_weekday_html += '<div class="weekday-name">Пятница</div>';
+                        calendar_weekday_html += '</div>';
+                    calendar_weekday_html += '</div>';
+                calendar_weekday_html += '</div>';
+            calendar_weekday_html += '</div>';
 
             return calendar_weekday_html;
+        };
+
+        _private.get_calendar_cell_html = function (__date) {
+            var __calendar_cell_html = '';
+            __calendar_cell_html += '<div class="calendar-cell"><div class="calendar-cell-date text-right">'+__date+'</div></div>';
+            return __calendar_cell_html;
+        };
+
+        _private.get_calendar_row_cells_html = function (__cells_array) {
+            var __row_cells_html = '';
+            __row_cells_html += '<div class="row calendar-cells">';
+            __row_cells_html += '<div class="col-12">';
+            for (var __cell_counter=0; __cell_counter < __cells_array.length; __cell_counter++){
+                __row_cells_html += _private.get_calendar_cell_html(__cells_array[__cell_counter].date);
+            }
+            __row_cells_html += '</div>';
+            __row_cells_html += '</div>';
+            return __row_cells_html;
         };
 
         _private.get_calendar_html = function(){
             var calendar_html = '';
             calendar_html += '<div id="calendar-container">\n';
-            calendar_html += _private.get_calendar_header_html();
-            calendar_html += '<div class="row" id="calendar-weekdays-container">\n';
-            calendar_html += _private.get_weekdayheaders();
-            calendar_html += '</div>\n';
-
-            calendar_html +=  '                    <div class="row" id="calendar-cells-container">\n' +
-            '                        <div class="col-12">\n' +
-            '                            <div class="container-fluid">\n' +
-            '                                <div class="row calendar-cells">\n' +
-            '                                    <div class="col-12">\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">3</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">4</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">5</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">6</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">7</div></div>\n' +
-            '                                    </div>\n' +
-            '                                </div>\n' +
-            '                                <div class="row calendar-cells">\n' +
-            '                                    <div class="col-12">\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">10</div></div>\n' +
-            '                                        <div class="calendar-cell calendar-cell-today"><div class="calendar-cell-date text-right">11</div></div>\n' +
-            '                                        <div class="calendar-cell">\n' +
-            '                                            <div class="calendar-cell-date text-right">12</div>\n' +
-            '                                            <div class="calendar-event ce-2">\n' +
-            '                                                <div class="calendar-event-container container-fluid">\n' +
-            '                                                    <div class="row">\n' +
-            '                                                        <div class="col-9">\n' +
-            '                                                            <div class="calendar-event-type calendar-event-type-red"></div>\n' +
-            '                                                            <span class="calendar-event-name">Welcome</span>\n' +
-            '                                                        </div>\n' +
-            '                                                        <div class="col-3">\n' +
-            '                                                            <div class="calendar-event-icons text-right">\n' +
-            '                                                                12 <i class="fa fa-users"></i>\n' +
-            '                                                            </div>\n' +
-            '                                                        </div>\n' +
-            '                                                    </div>\n' +
-            '                                                </div>\n' +
-            '                                            </div>\n' +
-            '                                        </div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">13</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">14</div></div>\n' +
-            '                                    </div>\n' +
-            '                                </div>\n' +
-            '                                <div class="row calendar-cells">\n' +
-            '                                    <div class="col-12">\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">17</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">18</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">19</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">20</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">21</div></div>\n' +
-            '                                    </div>\n' +
-            '                                </div>\n' +
-            '                                <div class="row calendar-cells">\n' +
-            '                                    <div class="col-12">\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">24</div></div>\n' +
-            '                                        <div class="calendar-cell">\n' +
-            '                                            <div class="calendar-cell-date text-right">25</div>\n' +
-            '                                            <div class="calendar-event ce-4">\n' +
-            '                                                <div class="calendar-event-container container-fluid">\n' +
-            '                                                    <div class="row">\n' +
-            '                                                        <div class="col-9">\n' +
-            '                                                            <div class="calendar-event-type calendar-event-type-green"></div>\n' +
-            '                                                            <span class="calendar-event-name">Управление временем</span>\n' +
-            '                                                        </div>\n' +
-            '                                                        <div class="col-3">\n' +
-            '                                                            <div class="calendar-event-icons text-right">\n' +
-            '                                                                5 <i class="fa fa-users"></i>\n' +
-            '                                                            </div>\n' +
-            '                                                        </div>\n' +
-            '                                                    </div>\n' +
-            '                                                </div>\n' +
-            '                                            </div>\n' +
-            '                                        </div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">26</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">27</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">28</div></div>\n' +
-            '                                    </div>\n' +
-            '                                </div>\n' +
-            '                                <div class="row calendar-cells">\n' +
-            '                                    <div class="col-12">\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">31</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">1</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">2</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">3</div></div>\n' +
-            '                                        <div class="calendar-cell"><div class="calendar-cell-date text-right">4</div></div>\n' +
-            '                                    </div>\n' +
-            '                                </div>\n' +
-            '                            </div>\n' +
-            '                        </div>\n' +
-            '                    </div>\n' +
-            '                </div>\n' +
-            '                <div id="grid-container" class="d-none">\n' +
-            '                    <div class="row grid-header-container"><div class="col"></div></div>\n' +
-            '                    <div class="row grid-event-container">\n' +
-            '                        <div class="col-6">\n' +
-            '                            <div class="card">\n' +
-            '                                <h5 class="card-header card-header-blue">Управление временем</h5>\n' +
-            '                                <div class="card-body">\n' +
-            '                                    <div class="row">\n' +
-            '                                        <div class="col-9">\n' +
-            '                                            <div class="row">\n' +
-            '                                                <div class="col">\n' +
-            '                                                    <i class="fas fa-calendar-day"></i> 03.03.2019 - 05.03.2019\n' +
-            '                                                </div>\n' +
-            '                                            </div>\n' +
-            '                                            <div class="row">\n' +
-            '                                                <div class="col">\n' +
-            '                                                    <i class="far fa-clock"></i> 09:00 - 18:00\n' +
-            '                                                </div>\n' +
-            '                                            </div>\n' +
-            '                                        </div>\n' +
-            '                                        <div class="col-3">\n' +
-            '                                            <div class="row">\n' +
-            '                                                <div class="col">\n' +
-            '                                                    <div class="text-right">\n' +
-            '                                                        14 <i class="fa fa-users"></i>\n' +
-            '                                                    </div>\n' +
-            '                                                </div>\n' +
-            '                                            </div>\n' +
-            '                                            <div class="row">\n' +
-            '                                                <div class="col">\n' +
-            '                                                    <div class="text-right">\n' +
-            '                                                        3 <i class="fa fa-heart fa-red"></i>\n' +
-            '                                                    </div>\n' +
-            '                                                </div>\n' +
-            '                                            </div>\n' +
-            '                                        </div>\n' +
-            '                                    </div>\n' +
-            '                                </div>\n' +
-            '                            </div>\n' +
-            '                        </div>\n' +
-            '                        <div class="col-6">\n' +
-            '                            <div class="card">\n' +
-            '                                <h5 class="card-header card-header-red">Управление временем</h5>\n' +
-            '                                <div class="card-body">\n' +
-            '                                    <div class="row">\n' +
-            '                                        <div class="col-9">\n' +
-            '                                            <div class="row">\n' +
-            '                                                <div class="col">\n' +
-            '                                                    <i class="fas fa-calendar-day"></i> 03.03.2019 - 05.03.2019\n' +
-            '                                                </div>\n' +
-            '                                            </div>\n' +
-            '                                            <div class="row">\n' +
-            '                                                <div class="col">\n' +
-            '                                                    <i class="far fa-clock"></i> 09:00 - 18:00\n' +
-            '                                                </div>\n' +
-            '                                            </div>\n' +
-            '                                        </div>\n' +
-            '                                        <div class="col-3">\n' +
-            '                                            <div class="row">\n' +
-            '                                                <div class="col">\n' +
-            '                                                    <div class="text-right">\n' +
-            '                                                        14 <i class="fa fa-users"></i>\n' +
-            '                                                    </div>\n' +
-            '                                                </div>\n' +
-            '                                            </div>\n' +
-            '                                            <div class="row">\n' +
-            '                                                <div class="col">\n' +
-            '                                                    <div class="text-right">\n' +
-            '                                                        3 <i class="fa fa-heart fa-red"></i>\n' +
-            '                                                    </div>\n' +
-            '                                                </div>\n' +
-            '                                            </div>\n' +
-            '                                        </div>\n' +
-            '                                    </div>\n' +
-            '                                </div>\n' +
-            '                            </div>\n' +
-            '                        </div>\n' +
-            '                    </div>\n' +
-            '                    <div class="row grid-event-container">\n' +
-            '                        <div class="col">\n' +
-            '                            <div class="card">\n' +
-            '                                <h5 class="card-header card-header-green">Welcome</h5>\n' +
-            '                                <div class="card-body">\n' +
-            '                                    <div class="row">\n' +
-            '                                        <div class="col-9">\n' +
-            '                                            <div class="row">\n' +
-            '                                                <div class="col">\n' +
-            '                                                    <i class="fas fa-calendar-day"></i> 22.03.2019 - 25.03.2019\n' +
-            '                                                </div>\n' +
-            '                                            </div>\n' +
-            '                                            <div class="row">\n' +
-            '                                                <div class="col">\n' +
-            '                                                    <i class="far fa-clock"></i> 09:00 - 18:00\n' +
-            '                                                </div>\n' +
-            '                                            </div>\n' +
-            '                                        </div>\n' +
-            '                                        <div class="col-3">\n' +
-            '                                            <div class="text-right">\n' +
-            '                                                3 <i class="fa fa-users"></i> 2 <i class="fa fa-heart fa-red"></i>\n' +
-            '                                            </div>\n' +
-            '                                        </div>\n' +
-            '                                    </div>\n' +
-            '                                </div>\n' +
-            '                            </div>\n' +
-            '                        </div>\n' +
-            '                    </div>\n' +
-            '                </div>\n';
+                calendar_html += _private.get_calendar_header_html();
+                calendar_html += '<div class="row" id="calendar-weekdays-container">\n';
+                    calendar_html += _private.get_weekdayheaders();
+                    calendar_html += '</div>\n';
+                    calendar_html +=  '<div class="row" id="calendar-cells-container">';
+                        calendar_html +=  '<div class="col-12">';
+                        calendar_html +=  '<div class="container-fluid">';
+                        for (var __month_row=0; __month_row<5; __month_row++){
+                            calendar_html += _private.get_calendar_row_cells_html([{date: 1}, {date: 2}, {date: 3}, {date: 4}, {date: 5}]);
+                        }
+                        calendar_html += '</div>';
+                    calendar_html += '</div>';
+                calendar_html += '</div>';
+            calendar_html += '</div>';
 
             return calendar_html;
 
@@ -371,22 +206,18 @@
             else{
                 _calendar_inner_html = '';
                 /*magic goes here -> */
-                _calendar_inner_html +=
-                    '<div id="calendar-app">\n' +
-                    '    <div class="container-fluid" id="calendar-app-container">\n' +
-                    '        <div class="row">\n' +
-                    '            <div class="col-9" id="calendar-mount-container">\n';
-
-                    _calendar_inner_html += _private.get_calendar_html();
-                    _calendar_inner_html +=
-                    '            </div>\n' +
-                    '            <div class="col-3" id="filters-container">\n';
-                    _calendar_inner_html += _private.get_filters_html();
-
-                    _calendar_inner_html += '            </div>\n' +
-                    '        </div>\n' +
-                    '    </div>\n' +
-                    '</div>';
+                _calendar_inner_html += '<div id="calendar-app">';
+                    _calendar_inner_html += '<div class="container-fluid" id="calendar-app-container">';
+                        _calendar_inner_html += '<div class="row">';
+                            _calendar_inner_html += '<div class="col-9" id="calendar-mount-container">';
+                                _calendar_inner_html += _private.get_calendar_html();
+                            _calendar_inner_html += '</div>';
+                            _calendar_inner_html += '<div class="col-3" id="filters-container">';
+                                _calendar_inner_html += _private.get_filters_html();
+                            _calendar_inner_html += '</div>';
+                        _calendar_inner_html += '</div>';
+                    _calendar_inner_html += '</div>';
+                _calendar_inner_html += '</div>';
                 /* <- magic goes here*/
                 _private.state = 'mounted';
                 cl('Mounted');
