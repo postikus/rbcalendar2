@@ -257,6 +257,10 @@
 
                         __calendar_obj_array[__date_row_counter].push({date: __prev_date_cell_counter, id: __date_cell_counter});
                         // cl('__date_cell_counter: ' + __date_cell_counter);
+                        if (__date_cell_counter === 4){
+                            __overall_date_counter+=2;
+                        }
+
                         __date_cell_counter++;
                     }
                     // __date_cell_counter = __calendar_object.this_month_first_dayweek - 1;
@@ -268,6 +272,7 @@
                     if (__overall_date_counter === __calendar_object.this_days_in_month){
                         __overall_date_counter = 0;
                     }
+
                     if (__date_cell_counter === 4){
                         __overall_date_counter+=3;
                     }
