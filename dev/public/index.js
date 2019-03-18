@@ -182,7 +182,7 @@
                         '<button type="button" class="btn btn-outline-secondary btn-sm" id="month-select-arrow-left-button"><</button>' +
                     '</span>';
                     __calendar_header_html += '<span id="month-select-name-container">';
-                        __calendar_header_html += __calendar_object.this_month_name_ru;
+                        __calendar_header_html += __calendar_object.this_month_name_ru + ' ' + __calendar_object.this_year;
                     __calendar_header_html += '</span>';
                     __calendar_header_html += '<span id="month-select-right-button">' +
                         '<button type="button" class="btn btn-outline-secondary btn-sm" id="month-select-arrow-right-button">></button>' +
