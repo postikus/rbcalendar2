@@ -233,41 +233,23 @@
             var __overall_date_counter = 1;
             var __date_cell_counter = 0;
             var prev_months_days_count = __calendar_object.daysInMonth(__calendar_object.this_year, __calendar_object.prev_month_num);
-            // for (var __prev_month_)
-            // cl('__calendar_object.this_year:' + __calendar_object.this_year);
-            // cl('__calendar_object.prev_month_num:' + __calendar_object.prev_month_num);
-            // cl('prev_months_days_count:' + prev_months_days_count);
-            // cl(' __calendar_object.this_month_first_dayweek:' +  __calendar_object.this_month_first_dayweek);
-            // cl(' __calendar_object.this_days_in_month:' +  __calendar_object.this_days_in_month);
-            // cl(' __calendar_object.this_month:' +  __calendar_object.this_month);
-            // cl(__calendar_object.prev_month_num);
             for (var __date_row_counter = 0; __date_row_counter<row_count; __date_row_counter++){
                 __date_cell_counter=0;
                 __calendar_obj_array[__date_row_counter] = [];
-                // if (__date_row_counter === 0){
-                //     cell_count = cell_count - __calendar_object.this_month_first_dayweek + 1;
-                // }
-                // else{
-                //     cell_count = 5;
-                // }
                 if (__date_row_counter === 0){
                     for (var __prev_date_cell_counter = prev_months_days_count - __calendar_object.this_month_first_dayweek + 2;
                          __prev_date_cell_counter <= prev_months_days_count;
                          __prev_date_cell_counter++){
 
                         __calendar_obj_array[__date_row_counter].push({date: __prev_date_cell_counter, id: __date_cell_counter});
-                        // cl('__date_cell_counter: ' + __date_cell_counter);
                         if (__date_cell_counter === 4){
                             __overall_date_counter+=2;
                         }
 
                         __date_cell_counter++;
                     }
-                    // __date_cell_counter = __calendar_object.this_month_first_dayweek - 1;
                 }
-                // cl(cell_count);
                 for (__date_cell_counter; __date_cell_counter<cell_count; __date_cell_counter++){
-                    // cl('__date_cell_counter: ' + __date_cell_counter);
                     __calendar_obj_array[__date_row_counter].push({date: __overall_date_counter, id: __date_cell_counter});
                     if (__overall_date_counter === __calendar_object.this_days_in_month){
                         __overall_date_counter = 0;
@@ -336,11 +318,11 @@
 
         _private.init_calendar(_options.mount_id, _private.calendar_object);
 
-        $("#month-select-arrow-left-button").on('click', document, function () {
-            _private.calendar_object.cl();
+        // $("#month-select-arrow-left-button").on('click', document, function () {
+            // _private.calendar_object.cl();
             // _private.calendar_object.change_month_num(_private.calendar_object, _private.calendar_object.prev_month_num);
             // _private.calendar_object.cl();
-        });
+        // });
 
         // $("#month-select-arrow-right-button").on('click', document, function () {
             // _private.calendar_object.cl();

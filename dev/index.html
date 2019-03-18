@@ -17,13 +17,39 @@
 <div id="calendar-app"></div>
 <script>
     $(document).ready(function(){
+        var cur_date = new Date();
         rb_calendar.init({
             mount_id: '#calendar-app'
             ,mode: 'test'
-            ,cur_date: new Date('3/18/2019')
+            ,cur_date: cur_date
         });
+
+
+        $("#calendar-app").on('click', '#month-select-arrow-left-button', function () {
+            console.log('prev');
+            cur_date = new Date(cur_date.setMonth(cur_date.getMonth() - 1));
+            rb_calendar.init({
+                mount_id: '#calendar-app'
+                ,mode: 'test'
+                ,cur_date: cur_date
+            });
+        });
+
+        $("#calendar-app").on('click', '#month-select-arrow-right-button', function () {
+            console.log('next');
+            rb_calendar.init({
+                mount_id: '#calendar-app'
+                ,mode: 'test'
+                ,cur_date: new Date(cur_date.setMonth(cur_date.getMonth() + 1))
+            });
+        });
+
+
     });
-//    (function () {
+
+
+
+    //    (function () {
 //        console.log(rb_calendar.foobar);
 //        var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
 //        var cur_month = 3;
