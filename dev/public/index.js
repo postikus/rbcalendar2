@@ -60,7 +60,6 @@
     _private.CalendarObj.prototype.set_this_month_first_dayweek = function (){
         this.this_month_first_dayweek = new Date(this.this_year, this.this_month, 1).getDay();
     };
-
     _private.CalendarObj.prototype.set_next_prev_num = function (){
         var self = this;
         self.next_month_num = self.get_next_month_num(self.this_month);
@@ -70,9 +69,6 @@
         var self = this;
         self.prev_month_num = self.get_prev_month_num(self.this_month);
     };
-
-
-
 
     _private.CalendarObj.prototype.daysInMonth = function (year, month) {
         // console.log(year);
@@ -340,13 +336,17 @@
         this.month_date = new Date(this.this_year, direction ==='f' ? (this.this_month + 1) : (this.this_month - 1), 1);
         this.render_calendar();
     };
-
     _private.CalendarObj.prototype.render_calendar = function () {
+
+        // this.cl();
         this.set_month_date();
         this.set_this_month();
         this.set_month_name_ru();
         this.set_this_days_in_month();
         this.set_this_month_first_dayweek();
+        this.set_next_month_num(self.this_month);
+        this.set_next_prev_num(self.this_month);
+        this.cl();
         $('#calendar-mount-container').html(_private.CalendarObj.prototype.get_calendar_html(this));
     };
 
