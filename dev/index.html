@@ -17,8 +17,9 @@
 <div id="calendar-app"></div>
 <script>
     $(document).ready(function(){
+        var rb_calendar1;
         var cur_date = new Date();
-        rb_calendar.init({
+        rb_calendar1 = rb_calendar.init({
             mount_id: '#calendar-app'
             ,mode: 'test'
             ,cur_date: cur_date
@@ -27,22 +28,32 @@
 
         $("#calendar-app").on('click', '#month-select-arrow-left-button', function () {
             console.log('prev');
-            cur_date = new Date(cur_date.setMonth(cur_date.getMonth() - 1));
-            rb_calendar.init({
-                mount_id: '#calendar-app'
-                ,mode: 'test'
-                ,cur_date: cur_date
-            });
+            rb_calendar.calendar_object.change_month('b');
         });
 
         $("#calendar-app").on('click', '#month-select-arrow-right-button', function () {
             console.log('next');
-            rb_calendar.init({
-                mount_id: '#calendar-app'
-                ,mode: 'test'
-                ,cur_date: new Date(cur_date.setMonth(cur_date.getMonth() + 1))
-            });
+            rb_calendar.calendar_object.change_month('f');
         });
+
+//        $("#calendar-app").on('click', '#month-select-arrow-left-button', function () {
+//            console.log('prev');
+//            cur_date = new Date(cur_date.setMonth(cur_date.getMonth() - 1));
+//            rb_calendar.init({
+//                mount_id: '#calendar-app'
+//                ,mode: 'test'
+//                ,cur_date: cur_date
+//            });
+//        });
+//
+//        $("#calendar-app").on('click', '#month-select-arrow-right-button', function () {
+//            console.log('next');
+//            rb_calendar.init({
+//                mount_id: '#calendar-app'
+//                ,mode: 'test'
+//                ,cur_date: new Date(cur_date.setMonth(cur_date.getMonth() + 1))
+//            });
+//        });
 
 
     });
