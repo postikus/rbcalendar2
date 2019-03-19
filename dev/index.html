@@ -15,25 +15,40 @@
 </head>
 <body>
 <div id="calendar-app"></div>
+<div id="calendar-app2"></div>
 <script>
-    $(document).ready(function(){
+//    $(document).ready(function(){
         var cur_date = new Date();
-        rb_calendar.init({
+        var this_calendar = rb_calendar.init({
             mount_id: '#calendar-app'
-            ,mode: 'test'
             ,cur_date: cur_date
         });
 
+//        var this_calendar2 = rb_calendar.init({
+//            mount_id: '#calendar-app2'
+//            ,cur_date: cur_date
+//        });
 
-        $("#calendar-app").on('click', '#month-select-arrow-left-button', function () {
-            console.log('prev');
-            rb_calendar.calendar_object.change_month('b');
-        });
+//        $("#calendar-app").on('click', '.month-select-arrow-left-button', function () {
+//            console.log('prev');
+//            this_calendar.change_month('b');
+//        });
+//
+//        $("#calendar-app").on('click', '.month-select-arrow-right-button', function () {
+//            console.log('next');
+//            this_calendar.change_month('f');
+//        });
 
-        $("#calendar-app").on('click', '#month-select-arrow-right-button', function () {
-            console.log('next');
-            rb_calendar.calendar_object.change_month('f');
-        });
+//        $("#calendar-app2").on('click', '.month-select-arrow-left-button', function () {
+//            console.log('prev');
+//            this_calendar2.change_month('b');
+//        });
+//
+//        $("#calendar-app2").on('click', '.month-select-arrow-right-button', function () {
+//            console.log('next');
+//            this_calendar2.change_month('f');
+//        });
+
 
 //        $("#calendar-app").on('click', '#month-select-arrow-left-button', function () {
 //            console.log('prev');
@@ -55,7 +70,7 @@
 //        });
 
 
-    });
+//    });
 
 
 

@@ -69,7 +69,6 @@
         var self = this;
         self.prev_month_num = self.get_prev_month_num(self.this_month);
     };
-
     _private.CalendarObj.prototype.daysInMonth = function (year, month) {
         // console.log(year);
         // console.log(month);
@@ -97,15 +96,15 @@
     };
     _private.CalendarObj.prototype.get_calendar_view_button_container = function () {
         var __calendar_view_button_html = '';
-        __calendar_view_button_html += '<div class="col-12 text-right" id="filters-header-icons">';
-        __calendar_view_button_html += '<i class="fas fa-th fa-active" id="calendar-view-button"></i> ';
-        __calendar_view_button_html += '<i class="fas fa-list" id="list-view-button"></i>';
+        __calendar_view_button_html += '<div class="col-12 text-right filters-header-icons">';
+        __calendar_view_button_html += '<i class="fas fa-th fa-active calendar-view-button"></i> ';
+        __calendar_view_button_html += '<i class="fas fa-list list-view-button"></i>';
         __calendar_view_button_html += '</div>';
         return __calendar_view_button_html;
     };
     _private.CalendarObj.prototype.get_search_html = function () {
         var __search_html = '';
-        __search_html += '<input class="form-control" id="calendar-search" placeholder="Поиск">';
+        __search_html += '<input class="form-control" class="calendar-search" placeholder="Поиск">';
         return __search_html;
     };
     _private.CalendarObj.prototype.get_checkbox_html = function (__q_object) {
@@ -191,16 +190,16 @@
     };
     _private.CalendarObj.prototype.get_calendar_header_html = function(__calendar_object){
         var __calendar_header_html = '';
-        __calendar_header_html += '<div class="row justify-content-center" id="month-select-container">';
-        __calendar_header_html += '<div class="col text-center" id="month-select-arrow-name">';
-        __calendar_header_html += '<span id="month-select-left-button">' +
-            '<button type="button" class="btn btn-outline-secondary btn-sm" id="month-select-arrow-left-button"><</button>' +
+        __calendar_header_html += '<div class="row justify-content-center month-select-container">';
+        __calendar_header_html += '<div class="col text-center month-select-arrow-name">';
+        __calendar_header_html += '<span class="month-select-left-button">' +
+            '<button type="button" class="btn btn-outline-secondary btn-sm month-select-arrow-left-button"><</button>' +
             '</span>';
-        __calendar_header_html += '<span id="month-select-name-container">';
+        __calendar_header_html += '<span class="month-select-name-container">';
         __calendar_header_html += __calendar_object.this_month_name_ru + ' ' + __calendar_object.this_year;
         __calendar_header_html += '</span>';
-        __calendar_header_html += '<span id="month-select-right-button">' +
-            '<button type="button" class="btn btn-outline-secondary btn-sm" id="month-select-arrow-right-button">></button>' +
+        __calendar_header_html += '<span class="month-select-right-button">' +
+            '<button type="button" class="btn btn-outline-secondary btn-sm month-select-arrow-right-button">></button>' +
             '</span>';
         __calendar_header_html += '</div>';
         __calendar_header_html += '</div>';
@@ -293,7 +292,7 @@
     };
     _private.CalendarObj.prototype.get_calendar_html = function(__calendar_object){
         var calendar_html = '';
-        calendar_html += '<div id="calendar-container">';
+        calendar_html += '<div class="calendar-container">';
         calendar_html += _private.CalendarObj.prototype.get_calendar_header_html(__calendar_object);
         calendar_html += _private.CalendarObj.prototype.get_weekdayheaders();
         calendar_html += _private.CalendarObj.prototype.get_calendar_block_html(__calendar_object);
@@ -312,13 +311,13 @@
         else{
             _calendar_inner_html = '';
             /*magic goes here -> */
-            _calendar_inner_html += '<div id="calendar-app">';
-            _calendar_inner_html += '<div class="container-fluid" id="calendar-app-container">';
+            _calendar_inner_html += '<div class="calendar-app">';
+            _calendar_inner_html += '<div class="container-fluid calendar-app-container">';
             _calendar_inner_html += '<div class="row">';
-            _calendar_inner_html += '<div class="col-9" id="calendar-mount-container">';
+            _calendar_inner_html += '<div class="col-9 calendar-mount-container">';
             _calendar_inner_html += _private.CalendarObj.prototype.get_calendar_html(_calendar_obj);
             _calendar_inner_html += '</div>';
-            _calendar_inner_html += '<div class="col-3" id="filters-container">';
+            _calendar_inner_html += '<div class="col-3 filters-container">';
             _calendar_inner_html += _private.CalendarObj.prototype.get_filters_html();
             _calendar_inner_html += '</div>';
             _calendar_inner_html += '</div>';
@@ -329,6 +328,8 @@
             cl('Mounted');
             $_mount_obj.html(_calendar_inner_html);
         }
+
+        return _calendar_obj;
     };
 
     _private.CalendarObj.prototype.change_month = function(direction){ //f/b
@@ -337,17 +338,18 @@
         this.render_calendar();
     };
     _private.CalendarObj.prototype.render_calendar = function () {
-
+        var self = this;
         // this.cl();
-        this.set_month_date();
-        this.set_this_month();
-        this.set_month_name_ru();
-        this.set_this_days_in_month();
-        this.set_this_month_first_dayweek();
-        this.set_next_month_num(self.this_month);
-        this.set_next_prev_num(self.this_month);
-        this.cl();
-        $('#calendar-mount-container').html(_private.CalendarObj.prototype.get_calendar_html(this));
+        self.set_month_date();
+        self.set_this_month();
+        self.set_month_name_ru();
+        self.set_this_days_in_month();
+        self.set_this_month_first_dayweek();
+        self.set_next_month_num(self.this_month);
+        self.set_next_prev_num(self.this_month);
+        // self.cl();
+        cl(self.mount_id);
+        $(self.mount_id+' .calendar-mount-container').html(_private.CalendarObj.prototype.get_calendar_html(self));
     };
 
     $public.init = function(args) {
@@ -368,8 +370,30 @@
         _options.state = 'started';
 
 
-        $public.calendar_object = new _private.CalendarObj(_options.cur_date);
-        $public.calendar_object.init_calendar(_options.mount_id, $public.calendar_object);
+        _private.calendar_object = new _private.CalendarObj(_options.cur_date);
+        var new_calendar = _private.calendar_object.init_calendar(_options.mount_id, _private.calendar_object);
+        new_calendar.mount_id = _options.mount_id;
+
+
+
+        $(_options.mount_id).on('click', '.month-select-arrow-left-button', function () {
+            cl('prev');
+            new_calendar.change_month('b');
+        });
+
+        $(_options.mount_id).on('click', '.month-select-arrow-right-button', function () {
+            cl('next');
+            new_calendar.change_month('f');
+        });
+
+
+
+
+
+
+
+
+        return new_calendar;
 
         // $("#month-select-arrow-left-button").on('click', document, function () {
             // _private.calendar_object.cl();
