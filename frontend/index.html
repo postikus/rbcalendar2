@@ -46,7 +46,9 @@ var a = ('<div class="calendar-event ce-4" style="margin-top: 21px" data-event-c
         '<label for="modalTrigger" data-modalBtn class="calendar-event_btn" data-name="event1" title="show more info"></label>\n'
 );
 
-$('.calendar-cell-event-wrapper').first().html(a);
+$($('.calendar-cell-event-wrapper')[6]).append(a);
+$($('.calendar-cell-event-wrapper')[10]).append(a);
+//$($('.calendar-cell-event-wrapper')[12).append(a);
 
 
 //});
