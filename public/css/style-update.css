@@ -9,7 +9,7 @@
     vertical-align: middle;
     padding: 0;
 }
-#calendar-search {
+.calendar-search {
     font-size: 1em;
     line-height: 2em;
     padding: 0 0.7em;
