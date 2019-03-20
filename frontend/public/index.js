@@ -221,9 +221,11 @@
 
         return calendar_weekday_html;
     };
-    _private.CalendarObj.prototype.get_calendar_cell_html = function (__date, __id, ex) {
+    _private.CalendarObj.prototype.get_calendar_cell_html = function (__date, __id, ex, __calendar_object) {
         var __calendar_cell_html = '';
-        __calendar_cell_html += '<div class="calendar-cell' + ( __date === 21  ? " calendar-cell-today" : "" ) + '"'+( ex ? " data-ex" : "" )+' '+( __id ? " data-id="+__id+"" : "" ) + '>' +
+        cl(new Date(__calendar_object.this_year, __calendar_object.this_month, __date, 0).setHours(0,0,0,0));
+        cl(__calendar_object.init_date.setHours(0,0,0,0));
+        __calendar_cell_html += '<div class="calendar-cell' + ( ( (__calendar_object.init_date.setHours(0,0,0,0)) === (new Date(__calendar_object.this_year, __calendar_object.this_month, __date, 0).setHours(0,0,0,0)) ) ? " calendar-cell-today" : "" ) + '"'+( ex ? " data-ex" : "" )+' '+( __id ? " data-id="+__id+"" : "" ) + '>' +
             '<div class="calendar-cell-date text-right">'+__date+'</div>' +
             '<div class="calendar-cell-event-wrapper"></div>' +
             '</div>';
@@ -234,7 +236,7 @@
         __row_cells_html += '<div class="row calendar-cells">';
         __row_cells_html += '<div class="col-12">';
         for (var __cell_counter = 0; __cell_counter < __calendar_object.days_in_row; __cell_counter++){
-            __row_cells_html += _private.CalendarObj.prototype.get_calendar_cell_html(__cells_array[__cell_counter].date, __cells_array[__cell_counter].id, __cells_array[__cell_counter].ex);
+            __row_cells_html += _private.CalendarObj.prototype.get_calendar_cell_html(__cells_array[__cell_counter].date, __cells_array[__cell_counter].id, __cells_array[__cell_counter].ex, __calendar_object);
         }
         __row_cells_html += '</div>';
         __row_cells_html += '</div>';
