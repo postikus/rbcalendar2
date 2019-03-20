@@ -263,9 +263,9 @@
                     __overall_date_counter = ( 7 - __calendar_object.days_in_row ) + (__calendar_object.this_month_first_dayweek - __calendar_object.days_in_row);
                 }
             }
-
+            this_ex = 0;
             for (var __date_cell_counter = __this_row_cell_counter; __date_cell_counter < 7; __date_cell_counter++){
-                this_ex = 0;
+
                 __calendar_obj_array[__date_row_counter].push({date: __overall_date_counter, ex: this_ex});
                 if (__overall_date_counter === __calendar_object.this_days_in_month){
                     this_ex = 1;
