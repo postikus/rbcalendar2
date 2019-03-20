@@ -259,12 +259,10 @@
                     for (var __prev_date_cell_counter = prev_months_days_count - __calendar_object.this_month_first_dayweek + 2;
                          __prev_date_cell_counter <= prev_months_days_count;
                          __prev_date_cell_counter++){
-
-                        __calendar_obj_array[__date_row_counter].push({date: __prev_date_cell_counter, id: __date_cell_counter});
-                        if (__date_cell_counter === 4){
-                            __overall_date_counter+=2;
-                        }
-
+                            __calendar_obj_array[__date_row_counter].push({date: __prev_date_cell_counter, id: __date_cell_counter});
+                            if (__date_cell_counter === 4){
+                                __overall_date_counter+=2;
+                            }
                         __date_cell_counter++;
                     }
                 }
@@ -281,11 +279,11 @@
                 else{
                     __overall_date_counter++;
                 }
-                // if (__overall_date_counter > __calendar_object.this_days_in_month){
-                //     cl("__overall_date_counter: " + __overall_date_counter);
-                //     cl("__overall_date_counter: " + __calendar_object.this_days_in_month);
-                //     __overall_date_counter -=  __calendar_object.this_days_in_month;
-                // }
+                if (__overall_date_counter > __calendar_object.this_days_in_month){
+                    // cl("__overall_date_counter: " + __overall_date_counter);
+                    // cl("__overall_date_counter: " + __calendar_object.this_days_in_month);
+                    __overall_date_counter -=  __calendar_object.this_days_in_month;
+                }
 
                 __cell_counter++;
             }
