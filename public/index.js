@@ -209,8 +209,8 @@
     _private.CalendarObj.prototype.get_weekdayheaders = function(){
         var calendar_weekday_html = '';
         var weekdays_name_rus_array = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскремение'];
-        calendar_weekday_html += '<div class="row" id="calendar-weekdays-container">';
-        calendar_weekday_html += '<div class="col-12" id="weekdays-container">';
+        calendar_weekday_html += '<div class="row" class="calendar-weekdays-container">';
+        calendar_weekday_html += '<div class="col-12" class="weekdays-container">';
         for (var weekday_counter = 0; weekday_counter < 5; weekday_counter++){
             calendar_weekday_html += '<div class="weekday-name">'+weekdays_name_rus_array[weekday_counter]+'</div>';
         }
@@ -223,6 +223,7 @@
         var __calendar_cell_html = '';
         __calendar_cell_html += '<div class="calendar-cell" data-id="'+__id+'">' +
             '<div class="calendar-cell-date text-right">'+__date+'</div>' +
+            '<div class="calendar-cell-event-wrapper"></div>' +
             '</div>';
         return __calendar_cell_html;
     };
@@ -279,7 +280,7 @@
             }
         }
         var __calendar_block_html = '';
-        __calendar_block_html +=  '<div class="row" id="calendar-cells-container">';
+        __calendar_block_html +=  '<div class="row" class="calendar-cells-container">';
         __calendar_block_html +=  '<div class="col-12">';
         __calendar_block_html +=  '<div class="container-fluid no-padding">';
         for (var __month_row=0; __month_row<row_count; __month_row++){
@@ -348,7 +349,6 @@
         self.set_next_month_num(self.this_month);
         self.set_next_prev_num(self.this_month);
         // self.cl();
-        cl(self.mount_id);
         $(self.mount_id+' .calendar-mount-container').html(_private.CalendarObj.prototype.get_calendar_html(self));
     };
 
@@ -387,26 +387,7 @@
         });
 
 
-
-
-
-
-
-
         return new_calendar;
-
-        // $("#month-select-arrow-left-button").on('click', document, function () {
-            // _private.calendar_object.cl();
-            // _private.calendar_object.change_month_num(_private.calendar_object, _private.calendar_object.prev_month_num);
-            // _private.calendar_object.cl();
-        // });
-
-        // $("#month-select-arrow-right-button").on('click', document, function () {
-            // _private.calendar_object.cl();
-            // _private.calendar_object.change_month_num(_private.calendar_object, _private.calendar_object.next_month_num);
-            // _private.calendar_object.cl();
-        // });
-
     };
 
     /*<-public*/
