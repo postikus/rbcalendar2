@@ -12,6 +12,7 @@
     <link href="./public/css/style-popup.css" rel="stylesheet">
     <link href="./public/css/style-update.css" rel="stylesheet">
     <script src="./public/libs/jquery-3.3.1.min.js"></script>
+    <script src="./public/index.js"></script>
 
 
 </head>
@@ -19,11 +20,12 @@
 <div id="calendar-app"></div>
 
 <script>
-    $(document).ready(function(){
+//    $(document).ready(function(){
         var cur_date = new Date();
         var this_calendar = rb_calendar.init({
             mount_id: '#calendar-app'
             ,cur_date: cur_date
+            ,days_in_row: 5
         });
 
 
@@ -47,10 +49,9 @@ var a = ('<div class="calendar-event ce-4" style="margin-top: 21px" data-event-c
 $('.calendar-cell-event-wrapper').first().html(a);
 
 
-});
+//});
 
 </script>
-<script src="./public/index.js"></script>
 <script src="./public/js/popup.js"></script>
 </body>
 </html>
