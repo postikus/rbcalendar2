@@ -28,30 +28,35 @@
   document.body.appendChild( modal );
 
 
+  /* todo delete */
+  /* 
   var mBtn = document.querySelector( "[data-modalBtn][for='modalTrigger']" );
   
   function changeApply() {
     if ( modalTrigger.checked == true ) {
-      /* data */
+      
       //modalWindow.innerHTML = data.innerHTML ;
       mBtn.classList.add( "active" );
     } else {
       mBtn.classList.remove( "active" );
     }
   }
+  */
 
   if ("onpropertychange" in modalTrigger) {
     // старый IE
     modalTrigger.onpropertychange = function() {
       // проверим имя изменённого свойства
       if (event.propertyName == "checked") {
-       changeApply();
+       //changeApply();
+       // do something
      }
    };
  } else {
     // остальные браузеры
     modalTrigger.onchange = function() {
-      changeApply();
+      //changeApply();
+      // do something
     };
   }
 
@@ -68,6 +73,11 @@
 
   function getInfo( name ) {
     var resp;
+
+    /* ajax or fetch or xhr */
+    /* geve me event -> response obj */
+
+    /* todo check data into storage, if none -> send ajax */
 
     return new Promise ( function( resolve, reject ){
       
@@ -94,10 +104,8 @@
         }
         resolve( {name:name,data:resp} );
 
-      }, 2000 );  
+      }, 1000 );  
     } );
-
-    /* ajax or fetch or xhr */
     
     
   }
@@ -105,6 +113,7 @@
   function createContent( obj ) {
 
     modal.window.innerHTML = ''; 
+    modal.window.setAttribute( "data-loaded", "" ); 
 
     var _data = document.createDocumentFragment();
 
@@ -118,12 +127,12 @@
     +'<div class="m-name"> &quot;' + obj.data.name + '!!!&quot; Lorem ipsum dolor sit  elit.</div>'
     +'</div>'
     +'<div class="m-cell-2">'
-    +'<div class="m-control">'
-    +'<a href="" class="m-control-link" title="link"><i class="fa-2x far fa-clock"></i></a>'
-    +'<a href="" class="m-control-link" title="link"><i class="fa-2x far fa-clock"></i></a>'
-    +'<a href="" class="m-control-link" title="link"><i class="fa-2x far fa-clock"></i></a>'
-    +'<a href="" class="m-control-link" title="link"><i class="fa-2x far fa-clock"></i></a>'
-    +'<a href="" class="m-control-link" title="link"><i class="fa-2x far fa-clock"></i></a>'
+    +'<div class="m-icons">'
+    +'<span class="m-icons-item" title="title1"><i class="fa-2x far fa-clock"></i></span>'
+    +'<span href="" class="m-icons-item" title="item"><i class="fa-2x far fa-clock"></i></span>'
+    +'<span href="" class="m-icons-item" title="item"><i class="fa-2x far fa-clock"></i></span>'
+    +'<span href="" class="m-icons-item" title="item"><i class="fa-2x far fa-clock"></i></span>'
+    +'<span href="" class="m-icons-item" title="item"><i class="fa-2x far fa-clock"></i></span>'
     +'</div>'
     +'</div>';
     
@@ -150,10 +159,10 @@
     mFooter.classList.add( "m-footer" );
     /* TODO */
     mFooter.innerHTML = '<div class="m-cell-1">'
-    +'<button class="btn">Зарегистрироваться</button>    '
+    +'<button class="btn m-btn m-btn_black">Зарегистрироваться</button>    '
     +'</div>'
     +'<div class="m-cell-2">'
-    +'<button class="btn">Зарегистрироваться</button>    '
+    +'<button class="btn m-btn m-btn_white">Зарегистрироваться</button>    '
     +'</div>';
 
     _data.appendChild( mHeader );
@@ -169,8 +178,9 @@
 
     var response = getInfo( e.target.getAttribute( "data-name" ) );
 
-    modal.window.innerHTML = '<div id="spn" class="container" style="position: relative;top:70px;display: block;box-sizing: border-box;padding: 0px;width: 25%;height: 140px;">'
-    +'<div class="circle" style="box-sizing: border-box;width: 100px;height: 100px;border-radius: 100%; border: 16px solid rgba(55, 255, 55, 0.2);border-top-color: #FF5;animation: spin 1s infinite linear;"></div></div>';
+    modal.window.removeAttribute( "data-loaded" );
+    modal.window.innerHTML = '<div id="spn" class="container" >'
+    +'<div class="circle" ></div></div>';
 
     response.then( function( resp ){
       createContent( resp );  
