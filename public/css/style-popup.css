@@ -4,7 +4,6 @@
 }
 
 
-
 /* data-modal style */
 [data-modal] {
  /*  outline: 1px solid pink; */
@@ -27,12 +26,13 @@
 }
 [data-modalWindow] {
   display: block;
-  min-width: 320px;
-  min-height: 320px;
+  width: 82%;
+  min-width: 480px;
+  min-height: 480px;
   max-width: 90vw;
   max-height: 90vh;
-  overflow: auto;
-  padding: 16px;
+  overflow-x: visible;
+  overflow-y: auto;
   transform: translateX(-50%) translateY(-50%) scale(1.2);
   position: fixed;
   top: 50%;
@@ -44,6 +44,28 @@
   transition: transform 0.3s cubic-bezier( 0.3, 1, 0.3, 1 ),
   opacity 0.3s cubic-bezier( 0.3, 1, 0.3, 1 ),
   visibility 0.3s 0s; 
+}
+[data-modalClose]::before {
+  content: "\f00d";
+  position: absolute;
+  right: -16px;
+  width: 32px;
+  height: 32px;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+@media screen and ( min-width: 1000px ) {
+  [data-modalWindow] {
+    max-width: 820px;
+    width: 60%;
+  } 
 }
 [data-modalTrigger]:checked ~ [data-modalWindow]{
   opacity: 1;
@@ -116,7 +138,7 @@
   flex-basis: 330px;
   flex-grow: 1;
   flex-shrink: 1;
-  padding: 16px 16px 8px;
+  padding: 8px 16px;
 }
 
 .m-cell-2 {
@@ -130,7 +152,7 @@
   position: relative;
   /* right: -15px; */
   text-align: center;
-  padding: 16px 16px 8px;
+  padding: 16px;
   background-color: red; 
   color: #fff;
 }
@@ -140,7 +162,7 @@
   position: relative;
   color: red;
   font-weight:900;
-  font-size: 2em;
+  font-size: 25px;
   margin: 0.67em 0;
   text-transform:uppercase;
   line-height: 1;
@@ -156,8 +178,8 @@
 }
 
 .m-header, .m-main, .m-footer {
-  padding: 16px -16px 0;
-  margin: -16px;
+  padding: 0;
+  margin: 0;
   display: flex;
   align-items: stretch;
   justify-content: space-between;
@@ -165,7 +187,7 @@
 
 .m-icons {
   position: absolute;
-  bottom: 2em;
+  bottom: 12px;
   display: block;
   /*width: calc(100% + 32px);*/
   left: 0;
@@ -179,7 +201,7 @@
 
 .m-main .m-cell-2 {
   text-align: left;
-  padding: 0 0 0 20px;
+  padding-left: 16px;
 }
 .m-main .m-cell-2::before {
   left: 0px;
@@ -188,9 +210,17 @@
 .m-title {
   display: block;
   margin: 1em 0;
-  font-size: 20px;
+  font-size: 16px;
   text-transform: uppercase;
   font-weight: 700;
+}
+
+.m-title:first-child {
+  margin-top: 0;
+}
+
+.m-main {
+  margin: -1px 0;
 }
 
 .m-main p {
@@ -201,7 +231,7 @@
   display: block;
   margin: 16px 0;
 }
-  
+
 .m-footer {
   text-align: center;
 }
@@ -213,7 +243,7 @@
 .m-btn_black {
 
 }
-  
+
 .m-btn_white {
   color: #fff;
   margin: 16px 0 16px 10px;

@@ -21,10 +21,15 @@
   //modalWindow.innerHTML = '<div id="spn" class="container" style="position: relative;top:150px;display: inline-block;box-sizing: border-box;padding: 0px;width: 25%;height: 140px;">'
     //+'<div class="circle" style="box-sizing: border-box;width: 140px;height: 140px;border-radius: 100%; border: 24px solid rgba(55, 255, 55, 0.2);border-top-color: #FF5;animation: spin 1s infinite linear;"></div></div>';
 
+  var modalClose = document.createElement( "label" );
+  modalClose.setAttribute( "for", "modalTrigger" );
+  modalClose.setAttribute( "data-modalClose", "" );
+
 
   modal.appendChild( modalTrigger );
   modal.appendChild( modalOverlay );
   modal.appendChild( modalWindow );
+  modal.appendChild( modalClose );
   document.body.appendChild( modal );
 
 
@@ -129,10 +134,10 @@
     +'<div class="m-cell-2">'
     +'<div class="m-icons">'
     +'<span class="m-icons-item" title="title1"><i class="fa-2x far fa-clock"></i></span>'
-    +'<span href="" class="m-icons-item" title="item"><i class="fa-2x far fa-clock"></i></span>'
-    +'<span href="" class="m-icons-item" title="item"><i class="fa-2x far fa-clock"></i></span>'
-    +'<span href="" class="m-icons-item" title="item"><i class="fa-2x far fa-clock"></i></span>'
-    +'<span href="" class="m-icons-item" title="item"><i class="fa-2x far fa-clock"></i></span>'
+    +'<span class="m-icons-item" title="item"><i class="fa-2x far fa-compass"></i></span>'
+    +'<span class="m-icons-item" title="item"><i class="fa-2x far fa-handshake"></i></span>'
+    +'<span class="m-icons-item" title="item"><i class="fa-2x far fa-heart"></i></span>'
+    +'<span class="m-icons-item" title="item"><i class="fa-2x far fa-lightbulb"></i></span>'
     +'</div>'
     +'</div>';
     
