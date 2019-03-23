@@ -218,8 +218,6 @@
     };
     _private.CalendarObj.prototype.get_calendar_cell_html = function (__date, __id, __ex, __calendar_object) {
         var __calendar_cell_html = '';
-        cl(new Date(__calendar_object.date_year, __calendar_object.date_month, __date, 0).setHours(0,0,0,0));
-        cl(__calendar_object.init_date.setHours(0,0,0,0));
         __calendar_cell_html += '<div class="calendar-cell' + ( ( (__calendar_object.init_date.setHours(0,0,0,0)) === (new Date(__calendar_object.date_year, __calendar_object.date_month, __date, 0).setHours(0,0,0,0)) ) ? " calendar-cell-today" : "" ) + '"'+( __ex ? " data-ex" : "" )+' '+( __id ? " data-id="+__id+"" : "" ) + '>' +
             '<div class="calendar-cell-date text-right">'+__date+'</div>' +
             '<div class="calendar-cell-event-wrapper"></div>' +
@@ -339,7 +337,6 @@
     };
     _private.CalendarObj.prototype.render_calendar = function () {
         var __self = this;
-        // this.cl();
         __self.set_date_with_first_day();
         __self.set_date_month();
         __self.set_month_name_ru();
@@ -347,7 +344,6 @@
         __self.set_date_month_first_dayweek();
         __self.set_next_month_num(__self.date_month);
         __self.set_next_prev_num(__self.date_month);
-        // __self.cl();
         $(__self.mount_id+' .calendar-mount-container').html(_private.CalendarObj.prototype.get_calendar_html(__self));
     };
 
