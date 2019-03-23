@@ -70,30 +70,25 @@
         var __self = this;
         __self.prev_month_num = __self.get_prev_month_num(__self.date_month);
     };
-    _private.CalendarObj.prototype.daysInMonth = function (year, month) {
-        // console.log(year);
-        // console.log(month);
-        // console.log('wa' + new Date(year, (month+1), 0));
-        // console.log(new Date(year, (month+1), 0));
-
-        return new Date(year, month+1, 0).getDate();
+    _private.CalendarObj.prototype.daysInMonth = function (__year, __month) {
+        return new Date(__year, __month+1, 0).getDate();
     };
-    _private.CalendarObj.prototype.get_next_month_num = function (month_num) {
-        var next_month_num = month_num;
-        return next_month_num === 11 ? 0 : ++next_month_num;
+    _private.CalendarObj.prototype.get_next_month_num = function (__month_num) {
+        var __next_month_num = __month_num;
+        return (__next_month_num === 11 ? 0 : ++__next_month_num);
     };
-    _private.CalendarObj.prototype.get_prev_month_num = function (month_num) {
-        var prev_month_num = month_num;
-        return prev_month_num === 0 ? 11 : --prev_month_num;
+    _private.CalendarObj.prototype.get_prev_month_num = function (__month_num) {
+        var __prev_month_num = __month_num;
+        return (__prev_month_num === 0 ? 11 : --__prev_month_num);
     };
 
-    _private.CalendarObj.prototype.change_month_num = function (_this, _new_month) {
-        _this.date_with_first_day = new Date(_this.date_year, _new_month, 1);
+    _private.CalendarObj.prototype.change_month_num = function (__calendar_obj, __new_month) {
+        __calendar_obj.date_with_first_day = new Date(__calendar_obj.date_year, __new_month, 1);
     };
-    _private.CalendarObj.prototype.init_calendar_view = function($_calendar_v_mount_obj){
+    _private.CalendarObj.prototype.init_calendar_view = function(__$_calendar_v_mount_obj){
         cl('calendar view init');
-        var calendar_view_html = '';
-        $_calendar_v_mount_obj.html(calendar_view_html);
+        var __calendar_view_html = '';
+        __$_calendar_v_mount_obj.html(__calendar_view_html);
         cl('calendar view mounted');
     };
     _private.CalendarObj.prototype.get_calendar_view_button_container = function () {
@@ -155,13 +150,13 @@
         return __filter_row_html;
     };
     _private.CalendarObj.prototype.get_filters_html = function(){
-        var filters_html = '';
-        filters_html += '<div class="row" id="filters-header-container">';
-        filters_html += _private.CalendarObj.prototype.get_calendar_view_button_container();
-        filters_html += _private.CalendarObj.prototype.get_filters_row_container('search');
-        filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkbox', {id: 'defaultCheck9', label: 'Я участвую'});
-        filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkbox', {id: 'defaultCheck8', label: 'Открыта регистрация'});
-        filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkboxs', {
+        var __filters_html = '';
+        __filters_html += '<div class="row" id="filters-header-container">';
+        __filters_html += _private.CalendarObj.prototype.get_calendar_view_button_container();
+        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('search');
+        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkbox', {id: 'defaultCheck9', label: 'Я участвую'});
+        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkbox', {id: 'defaultCheck8', label: 'Открыта регистрация'});
+        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkboxs', {
             id: 'test1',
             label: 'Форма обучения:',
             checkbox_array:[
@@ -169,7 +164,7 @@
                 {id: 'defaultCheck2', label: 'Внутреннее'}
             ]
         });
-        filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkboxs', {
+        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkboxs', {
             id: 'test2',
             label: 'Для кого:',
             checkbox_array:[
@@ -177,7 +172,7 @@
                 {id: 'defaultCheck4', label: 'Для сотрудников'}
             ]
         });
-        filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkboxs', {
+        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkboxs', {
             id: 'test3',
             label: 'Тип:',
             checkbox_array:[
@@ -188,7 +183,7 @@
         });
 
 
-        return filters_html;
+        return __filters_html;
     };
     _private.CalendarObj.prototype.get_calendar_header_html = function(__calendar_object){
         var __calendar_header_html = '';
@@ -221,11 +216,11 @@
 
         return calendar_weekday_html;
     };
-    _private.CalendarObj.prototype.get_calendar_cell_html = function (__date, __id, ex, __calendar_object) {
+    _private.CalendarObj.prototype.get_calendar_cell_html = function (__date, __id, __ex, __calendar_object) {
         var __calendar_cell_html = '';
         cl(new Date(__calendar_object.date_year, __calendar_object.date_month, __date, 0).setHours(0,0,0,0));
         cl(__calendar_object.init_date.setHours(0,0,0,0));
-        __calendar_cell_html += '<div class="calendar-cell' + ( ( (__calendar_object.init_date.setHours(0,0,0,0)) === (new Date(__calendar_object.date_year, __calendar_object.date_month, __date, 0).setHours(0,0,0,0)) ) ? " calendar-cell-today" : "" ) + '"'+( ex ? " data-ex" : "" )+' '+( __id ? " data-id="+__id+"" : "" ) + '>' +
+        __calendar_cell_html += '<div class="calendar-cell' + ( ( (__calendar_object.init_date.setHours(0,0,0,0)) === (new Date(__calendar_object.date_year, __calendar_object.date_month, __date, 0).setHours(0,0,0,0)) ) ? " calendar-cell-today" : "" ) + '"'+( __ex ? " data-ex" : "" )+' '+( __id ? " data-id="+__id+"" : "" ) + '>' +
             '<div class="calendar-cell-date text-right">'+__date+'</div>' +
             '<div class="calendar-cell-event-wrapper"></div>' +
             '</div>';
