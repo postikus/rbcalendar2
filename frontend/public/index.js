@@ -16,13 +16,11 @@
         cur_date: new Date(),
         days_in_row: 7
     };
-
     var cl = function(msg){
         if(_private.mode === 'test'){
             console.log(msg);
         }
     };
-
     _private.CalendarObj = function (__date, __days_in_row){
         var __self = this;
         __self.init_date = __date;
@@ -81,7 +79,6 @@
         var __prev_month_num = __month_num;
         return (__prev_month_num === 0 ? 11 : --__prev_month_num);
     };
-
     _private.CalendarObj.prototype.change_month_num = function (__calendar_obj, __new_month) {
         __calendar_obj.date_with_first_day = new Date(__calendar_obj.date_year, __new_month, 1);
     };
@@ -181,8 +178,6 @@
                 {id: 'defaultCheck7', label: 'Профессиональное обучение'}
             ]
         });
-
-
         return __filters_html;
     };
     _private.CalendarObj.prototype.get_calendar_header_html = function(__calendar_object){
@@ -213,7 +208,6 @@
         }
         calendar_weekday_html += '</div>';
         calendar_weekday_html += '</div>';
-
         return calendar_weekday_html;
     };
     _private.CalendarObj.prototype.get_calendar_cell_html = function (__date, __id, __ex, __calendar_object) {
@@ -243,7 +237,6 @@
         var __this_row_cell_counter = 0;
         var prev_months_days_count = __calendar_object.daysInMonth(__calendar_object.date_year, __calendar_object.prev_month_num);
         var this_ex = 1;
-
         for (var __date_row_counter = 0; __date_row_counter < __calendar_object.days_in_row; __date_row_counter++){
 
             __calendar_obj_array[__date_row_counter] = [];
@@ -260,7 +253,6 @@
             }
             this_ex = 0;
             for (var __date_cell_counter = __this_row_cell_counter; __date_cell_counter < 7; __date_cell_counter++){
-
                 __calendar_obj_array[__date_row_counter].push({date: __overall_date_counter, ex: this_ex});
                 if (__overall_date_counter === __calendar_object.date_days_in_month){
                     this_ex = 1;
@@ -269,14 +261,9 @@
                 else{
                     __overall_date_counter++;
                 }
-
                 __this_row_cell_counter = 0;
             }
         }
-
-
-
-
         var __calendar_block_html = '';
         __calendar_block_html +=  '<div class="row" class="calendar-cells-container">';
         __calendar_block_html +=  '<div class="col-12">';
@@ -296,9 +283,7 @@
         calendar_html += _private.CalendarObj.prototype.get_weekdayheaders(__calendar_object);
         calendar_html += _private.CalendarObj.prototype.get_calendar_block_html(__calendar_object);
         calendar_html += '</div>';
-
         return calendar_html;
-
     };
     _private.CalendarObj.prototype.init_calendar = function (_mount_id, _calendar_obj) {
         cl('Start mounting');
@@ -327,7 +312,6 @@
             cl('Mounted');
             $_mount_obj.html(_calendar_inner_html);
         }
-
         return _calendar_obj;
     };
     _private.CalendarObj.prototype.change_month = function(direction){ //f/b
@@ -346,31 +330,21 @@
         __self.set_next_prev_num(__self.date_month);
         $(__self.mount_id+' .calendar-mount-container').html(_private.CalendarObj.prototype.get_calendar_html(__self));
     };
-
     $public.init = function(args) {
         args = args || {};
-
         var _options = (function (_private, $public){
             var __options = {};
             for (var private_attrname in _private) { __options[private_attrname] = _private[private_attrname]; }
             for (var public_attrname in $public) { __options[public_attrname] = $public[public_attrname]; }
             return __options;
         })(_private, args);
-
         cl('_options:');
         cl(_options);
-
         _options.state = 'started';
-
-
         _private.calendar_object = new _private.CalendarObj(_options.cur_date, _options.days_in_row);
         var new_calendar = _private.calendar_object.init_calendar(_options.mount_id, _private.calendar_object);
-
         new_calendar.mount_id = _options.mount_id;
-
-
         $(_options.mount_id+' .weekday-name').css('width', Math.floor(100/_options.days_in_row)+'%');
-
         $(_options.mount_id).on('click', '.month-select-arrow-left-button', function () {
             cl('prev');
             new_calendar.change_month('b');
@@ -379,9 +353,7 @@
             cl('next');
             new_calendar.change_month('f');
         });
-
         return new_calendar;
     };
-
     /*<-public*/
 }(window.rb_calendar = (window.rb_calendar || {}), window, jQuery));
