@@ -23,53 +23,52 @@
         }
     };
 
-    _private.CalendarObj = function (_date, _days_in_row){
-        var self = this;
-        self.init_date = _date;
-        self.this_full_date = new Date((1900 + _date.getYear()), _date.getMonth(), 1);
-        self.days_in_row = _days_in_row;
-        // console.log(self.this_full_date);
-        self.month_array = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-        self.this_month = self.this_full_date.getMonth();
-        self.this_month_name_ru = self.month_array[self.this_month];
-        self.this_year = (1900 + self.this_full_date.getYear());
-        self.this_days_in_month = self.daysInMonth(self.this_year, self.this_month);
-        self.this_month_first_dayweek = new Date(self.this_year, self.this_month, 1).getDay();
-        self.this_month_first_dayweek === 0 ? self.this_month_first_dayweek = 7 : '';
-        self.next_month_num = self.get_next_month_num(self.this_month);
-        self.prev_month_num = self.get_prev_month_num(self.this_month);
+    _private.CalendarObj = function (__date, __days_in_row){
+        var __self = this;
+        __self.init_date = __date;
+        __self.date_with_first_day = new Date((1900 + __date.getYear()), __date.getMonth(), 1);
+        __self.days_in_row = __days_in_row;
+        __self.month_array = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+        __self.date_month = __self.date_with_first_day.getMonth();
+        __self.date_month_name_ru = __self.month_array[__self.date_month];
+        __self.date_year = (1900 + __self.date_with_first_day.getYear());
+        __self.date_days_in_month = __self.daysInMonth(__self.date_year, __self.date_month);
+        __self.date_month_first_dayweek = new Date(__self.date_year, __self.date_month, 1).getDay();
+        __self.date_month_first_dayweek === 0 ? __self.date_month_first_dayweek = 7 : '';
+        __self.next_month_num = __self.get_next_month_num(__self.date_month);
+        __self.prev_month_num = __self.get_prev_month_num(__self.date_month);
     };
     _private.CalendarObj.prototype.cl = function () {
-        var self = this;
+        var __self = this;
         cl('-----------CALENDAR OBJ------------------->');
-        cl(self);
+        cl(__self);
         cl('<-----------CALENDAR OBJ-------------------');
     };
-    _private.CalendarObj.prototype.set_this_month = function (){
-        this.this_month = this.this_full_date.getMonth();
+    _private.CalendarObj.prototype.set_date_month = function (){
+        this.date_month = this.date_with_first_day.getMonth();
     };
     _private.CalendarObj.prototype.set_month_name_ru = function (){
-        this.this_month_name_ru = this.month_array[this.this_month];
+        this.date_month_name_ru = this.month_array[this.date_month];
     };
-    _private.CalendarObj.prototype.set_this_full_date = function (){
-        this.this_year = (1900 + this.this_full_date.getYear());
+    _private.CalendarObj.prototype.set_date_with_first_day = function (){
+        this.date_year = (1900 + this.date_with_first_day.getYear());
     };
-    _private.CalendarObj.prototype.set_this_days_in_month = function (){
-        var self = this;
-        self.this_days_in_month = self.daysInMonth(self.this_year, self.this_month);
+    _private.CalendarObj.prototype.set_date_days_in_month = function (){
+        var __self = this;
+        __self.date_days_in_month = __self.daysInMonth(__self.date_year, __self.date_month);
     };
-    _private.CalendarObj.prototype.set_this_month_first_dayweek = function (){
-        this.this_month_first_dayweek = new Date(this.this_year, this.this_month, 1).getDay();
-        this.this_month_first_dayweek === 0 ? this.this_month_first_dayweek = 7 : '';
+    _private.CalendarObj.prototype.set_date_month_first_dayweek = function (){
+        this.date_month_first_dayweek = new Date(this.date_year, this.date_month, 1).getDay();
+        this.date_month_first_dayweek === 0 ? this.date_month_first_dayweek = 7 : '';
     };
     _private.CalendarObj.prototype.set_next_prev_num = function (){
-        var self = this;
-        self.next_month_num = self.get_next_month_num(self.this_month);
+        var __self = this;
+        __self.next_month_num = __self.get_next_month_num(__self.date_month);
 
     };
     _private.CalendarObj.prototype.set_next_month_num = function (){
-        var self = this;
-        self.prev_month_num = self.get_prev_month_num(self.this_month);
+        var __self = this;
+        __self.prev_month_num = __self.get_prev_month_num(__self.date_month);
     };
     _private.CalendarObj.prototype.daysInMonth = function (year, month) {
         // console.log(year);
@@ -87,8 +86,9 @@
         var prev_month_num = month_num;
         return prev_month_num === 0 ? 11 : --prev_month_num;
     };
+
     _private.CalendarObj.prototype.change_month_num = function (_this, _new_month) {
-        _this.this_full_date = new Date(_this.this_year, _new_month, 1);
+        _this.date_with_first_day = new Date(_this.date_year, _new_month, 1);
     };
     _private.CalendarObj.prototype.init_calendar_view = function($_calendar_v_mount_obj){
         cl('calendar view init');
@@ -198,7 +198,7 @@
             '<button type="button" class="btn btn-outline-secondary btn-sm month-select-arrow-left-button"><</button>' +
             '</span>';
         __calendar_header_html += '<span class="month-select-name-container">';
-        __calendar_header_html += __calendar_object.this_month_name_ru + ' ' + __calendar_object.this_year;
+        __calendar_header_html += __calendar_object.date_month_name_ru + ' ' + __calendar_object.date_year;
         __calendar_header_html += '</span>';
         __calendar_header_html += '<span class="month-select-right-button">' +
             '<button type="button" class="btn btn-outline-secondary btn-sm month-select-arrow-right-button">></button>' +
@@ -223,9 +223,9 @@
     };
     _private.CalendarObj.prototype.get_calendar_cell_html = function (__date, __id, ex, __calendar_object) {
         var __calendar_cell_html = '';
-        cl(new Date(__calendar_object.this_year, __calendar_object.this_month, __date, 0).setHours(0,0,0,0));
+        cl(new Date(__calendar_object.date_year, __calendar_object.date_month, __date, 0).setHours(0,0,0,0));
         cl(__calendar_object.init_date.setHours(0,0,0,0));
-        __calendar_cell_html += '<div class="calendar-cell' + ( ( (__calendar_object.init_date.setHours(0,0,0,0)) === (new Date(__calendar_object.this_year, __calendar_object.this_month, __date, 0).setHours(0,0,0,0)) ) ? " calendar-cell-today" : "" ) + '"'+( ex ? " data-ex" : "" )+' '+( __id ? " data-id="+__id+"" : "" ) + '>' +
+        __calendar_cell_html += '<div class="calendar-cell' + ( ( (__calendar_object.init_date.setHours(0,0,0,0)) === (new Date(__calendar_object.date_year, __calendar_object.date_month, __date, 0).setHours(0,0,0,0)) ) ? " calendar-cell-today" : "" ) + '"'+( ex ? " data-ex" : "" )+' '+( __id ? " data-id="+__id+"" : "" ) + '>' +
             '<div class="calendar-cell-date text-right">'+__date+'</div>' +
             '<div class="calendar-cell-event-wrapper"></div>' +
             '</div>';
@@ -248,28 +248,28 @@
         var row_count = 5;
         var __overall_date_counter = 1;
         var __this_row_cell_counter = 0;
-        var prev_months_days_count = __calendar_object.daysInMonth(__calendar_object.this_year, __calendar_object.prev_month_num);
+        var prev_months_days_count = __calendar_object.daysInMonth(__calendar_object.date_year, __calendar_object.prev_month_num);
         var this_ex = 1;
 
         for (var __date_row_counter = 0; __date_row_counter < __calendar_object.days_in_row; __date_row_counter++){
 
             __calendar_obj_array[__date_row_counter] = [];
             if (__date_row_counter === 0){
-                if (__calendar_object.this_month_first_dayweek <= __calendar_object.days_in_row){
-                    for (var __prev_month_counter = 1; __prev_month_counter < __calendar_object.this_month_first_dayweek; __prev_month_counter++){
-                        __calendar_obj_array[__date_row_counter].push( { date: ( ( prev_months_days_count - __calendar_object.this_month_first_dayweek) + ( 1 + __prev_month_counter )), ex: this_ex } );
+                if (__calendar_object.date_month_first_dayweek <= __calendar_object.days_in_row){
+                    for (var __prev_month_counter = 1; __prev_month_counter < __calendar_object.date_month_first_dayweek; __prev_month_counter++){
+                        __calendar_obj_array[__date_row_counter].push( { date: ( ( prev_months_days_count - __calendar_object.date_month_first_dayweek) + ( 1 + __prev_month_counter )), ex: this_ex } );
                         __this_row_cell_counter++;
                     }
                 }
                 else{
-                    __overall_date_counter = ( 7 - __calendar_object.days_in_row ) + (7 - __calendar_object.this_month_first_dayweek);
+                    __overall_date_counter = ( 7 - __calendar_object.days_in_row ) + (7 - __calendar_object.date_month_first_dayweek);
                 }
             }
             this_ex = 0;
             for (var __date_cell_counter = __this_row_cell_counter; __date_cell_counter < 7; __date_cell_counter++){
 
                 __calendar_obj_array[__date_row_counter].push({date: __overall_date_counter, ex: this_ex});
-                if (__overall_date_counter === __calendar_object.this_days_in_month){
+                if (__overall_date_counter === __calendar_object.date_days_in_month){
                     this_ex = 1;
                     __overall_date_counter = 1;
                 }
@@ -338,22 +338,22 @@
         return _calendar_obj;
     };
     _private.CalendarObj.prototype.change_month = function(direction){ //f/b
-        cl(this.this_month);
-        this.this_full_date = new Date(this.this_year, direction ==='f' ? (this.this_month + 1) : (this.this_month - 1), 1);
+        cl(this.date_month);
+        this.date_with_first_day = new Date(this.date_year, direction ==='f' ? (this.date_month + 1) : (this.date_month - 1), 1);
         this.render_calendar();
     };
     _private.CalendarObj.prototype.render_calendar = function () {
-        var self = this;
+        var __self = this;
         // this.cl();
-        self.set_this_full_date();
-        self.set_this_month();
-        self.set_month_name_ru();
-        self.set_this_days_in_month();
-        self.set_this_month_first_dayweek();
-        self.set_next_month_num(self.this_month);
-        self.set_next_prev_num(self.this_month);
-        // self.cl();
-        $(self.mount_id+' .calendar-mount-container').html(_private.CalendarObj.prototype.get_calendar_html(self));
+        __self.set_date_with_first_day();
+        __self.set_date_month();
+        __self.set_month_name_ru();
+        __self.set_date_days_in_month();
+        __self.set_date_month_first_dayweek();
+        __self.set_next_month_num(__self.date_month);
+        __self.set_next_prev_num(__self.date_month);
+        // __self.cl();
+        $(__self.mount_id+' .calendar-mount-container').html(_private.CalendarObj.prototype.get_calendar_html(__self));
     };
 
     $public.init = function(args) {
