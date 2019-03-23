@@ -16,9 +16,10 @@
         cur_date: new Date(),
         days_in_row: 7
     };
-    var cl = function(msg){
+    var cl = function(msg, msg2){
+        msg2 = msg2 || '';
         if(_private.mode === 'test'){
-            console.log(msg);
+            console.log(msg, msg2);
         }
     };
     _private.CalendarObj = function (__date, __days_in_row){
@@ -237,6 +238,7 @@
         var __this_row_cell_counter = 0;
         var prev_months_days_count = __calendar_object.daysInMonth(__calendar_object.date_year, __calendar_object.prev_month_num);
         var this_ex = 1;
+        var next_month = 0;
         for (var __date_row_counter = 0; __date_row_counter < __calendar_object.days_in_row; __date_row_counter++){
 
             __calendar_obj_array[__date_row_counter] = [];
@@ -251,10 +253,13 @@
                     __overall_date_counter = ( 7 - __calendar_object.days_in_row ) + (7 - __calendar_object.date_month_first_dayweek);
                 }
             }
-            this_ex = 0;
+            if (!next_month){
+                this_ex = 0;
+            }
             for (var __date_cell_counter = __this_row_cell_counter; __date_cell_counter < 7; __date_cell_counter++){
                 __calendar_obj_array[__date_row_counter].push({date: __overall_date_counter, ex: this_ex});
-                if (__overall_date_counter === __calendar_object.date_days_in_month){
+                if (__overall_date_counter >= __calendar_object.date_days_in_month){
+                    next_month = 1;
                     this_ex = 1;
                     __overall_date_counter = 1;
                 }
@@ -338,8 +343,7 @@
             for (var public_attrname in $public) { __options[public_attrname] = $public[public_attrname]; }
             return __options;
         })(_private, args);
-        cl('_options:');
-        cl(_options);
+        cl('_options:', _options);
         _options.state = 'started';
         _private.calendar_object = new _private.CalendarObj(_options.cur_date, _options.days_in_row);
         var new_calendar = _private.calendar_object.init_calendar(_options.mount_id, _private.calendar_object);
@@ -366,7 +370,7 @@
             data: { name: "John", location: "Boston" }
         })
         .done(function( msg ) {
-            console.log( "Event data loaded: ", msg );
+            cl( "Event data loaded: ", msg );
         });
     };
     /*<-public*/
