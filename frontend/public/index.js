@@ -355,5 +355,19 @@
         });
         return new_calendar;
     };
+
+
+    $public.get_events = function(args){
+      args = args || {};
+      cl('get_events args:', args);
+        $.ajax({
+            method: "GET",
+            url: "../server/db.json",
+            data: { name: "John", location: "Boston" }
+        })
+        .done(function( msg ) {
+            console.log( "Event data loaded: ", msg );
+        });
+    };
     /*<-public*/
 }(window.rb_calendar = (window.rb_calendar || {}), window, jQuery));
