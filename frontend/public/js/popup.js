@@ -192,8 +192,8 @@
     +'<p>' + obj.finish_date + '</p>'
     +'<div class="m-title">Max-persons:</div>'
     +'<p>' + obj.max_pers + '</p>'
-    +'<div class="m-title">Price:</div>'
-    +'<p>' + obj.price + '</p>'
+    // +'<div class="m-title">Price:</div>'
+    // +'<p>' + obj.price + '</p>'
     +'<div class="m-title">Company:</div>'
     +'<p>' + obj.company + '</p>'
     +'<div class="m-title">Adress:</div>'
@@ -205,7 +205,7 @@
     mFooter.classList.add( "m-footer" );
     /* TODO */
     mFooter.innerHTML = '<div class="m-cell-1">'
-    +'<button class="btn m-btn m-btn_black">Зарегистрироваться</button>    '
+    // +'<button class="btn m-btn m-btn_black">Зарегистрироваться</button>    '
     +'</div>'
     +'<div class="m-cell-2">'
     +'<button class="btn m-btn m-btn_white">Зарегистрироваться</button>    '

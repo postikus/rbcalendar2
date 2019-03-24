@@ -3,7 +3,7 @@ https://www.json-generator.com/
  */
 
 [
-    '{{repeat(40,4)}}',
+    '{{repeat(400,400)}}',
     {
         id: '{{objectId()}}',
         name: '{{firstName()}} {{surname()}}',
@@ -14,8 +14,13 @@ https://www.json-generator.com/
         isObligatory: '{{bool()}}',
         description: '{{lorem(integer(10, 40), "words")}}',
         start_date: '{{date(new Date(2019, 0, 1), new Date(2020, 0, 1), "YYYY-MM-ddThh:mm:ss")}}',
-        finish_date: '{{date(new Date(2019, 0, 1), new Date(2020, 0, 1), "YYYY-MM-ddThh:mm:ss")}}'
+        finish_date: function () {
+            var start_date = new Date (this.start_date);
+            var finish_date = new Date(start_date.setDate(start_date.getDate() + Math.floor(Math.random() * 4) + 1));
+            finish_date = finish_date;
+            return finish_date
 
+        }
     }
 ]
 

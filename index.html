@@ -21,95 +21,161 @@
 
 <script>
     //    $(document).ready(function(){
+
+    // filter polifyl
+    if (!Array.prototype.filter) {
+        Array.prototype.filter = function(fun/*, thisArg*/) {
+            'use strict';
+
+            if (this === void 0 || this === null) {
+                throw new TypeError();
+            }
+
+            var t = Object(this);
+            var len = t.length >>> 0;
+            if (typeof fun !== 'function') {
+                throw new TypeError();
+            }
+
+            var res = [];
+            var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+            for (var i = 0; i < len; i++) {
+                if (i in t) {
+                    var val = t[i];
+
+                    // ПРИМЕЧАНИЕ: Технически, здесь должен быть Object.defineProperty на
+                    //             следующий индекс, поскольку push может зависеть от
+                    //             свойств на Object.prototype и Array.prototype.
+                    //             Но этот метод новый и коллизии должны быть редкими,
+                    //             так что используем более совместимую альтернативу.
+                    if (fun.call(thisArg, val, i, t)) {
+                        res.push(val);
+                    }
+                }
+            }
+
+            return res;
+        };
+    }
+
+
+    // map polyfill
+    // Шаги алгоритма ECMA-262, 5-е издание, 15.4.4.19
+    // Ссылка (en): http://es5.github.com/#x15.4.4.19
+    // Ссылка (ru): http://es5.javascript.ru/x15.4.html#x15.4.4.19
+    if (!Array.prototype.map) {
+
+        Array.prototype.map = function(callback, thisArg) {
+
+            var T, A, k;
+
+            if (this == null) {
+                throw new TypeError(' this is null or not defined');
+            }
+
+            // 1. Положим O равным результату вызова ToObject с передачей ему
+            //    значения |this| в качестве аргумента.
+            var O = Object(this);
+
+            // 2. Положим lenValue равным результату вызова внутреннего метода Get
+            //    объекта O с аргументом "length".
+            // 3. Положим len равным ToUint32(lenValue).
+            var len = O.length >>> 0;
+
+            // 4. Если вызов IsCallable(callback) равен false, выкидываем исключение TypeError.
+            // Смотрите (en): http://es5.github.com/#x9.11
+            // Смотрите (ru): http://es5.javascript.ru/x9.html#x9.11
+            if (typeof callback !== 'function') {
+                throw new TypeError(callback + ' is not a function');
+            }
+
+            // 5. Если thisArg присутствует, положим T равным thisArg; иначе положим T равным undefined.
+            if (arguments.length > 1) {
+                T = thisArg;
+            }
+
+            // 6. Положим A равным новому масиву, как если бы он был создан выражением new Array(len),
+            //    где Array является стандартным встроенным конструктором с этим именем,
+            //    а len является значением len.
+            A = new Array(len);
+
+            // 7. Положим k равным 0
+            k = 0;
+
+            // 8. Пока k < len, будем повторять
+            while (k < len) {
+
+                var kValue, mappedValue;
+
+                // a. Положим Pk равным ToString(k).
+                //   Это неявное преобразование для левостороннего операнда в операторе in
+                // b. Положим kPresent равным результату вызова внутреннего метода HasProperty
+                //    объекта O с аргументом Pk.
+                //   Этот шаг может быть объединён с шагом c
+                // c. Если kPresent равен true, то
+                if (k in O) {
+
+                    // i. Положим kValue равным результату вызова внутреннего метода Get
+                    //    объекта O с аргументом Pk.
+                    kValue = O[k];
+
+                    // ii. Положим mappedValue равным результату вызова внутреннего метода Call
+                    //     функции callback со значением T в качестве значения this и списком
+                    //     аргументов, содержащим kValue, k и O.
+                    mappedValue = callback.call(T, kValue, k, O);
+
+                    // iii. Вызовем внутренний метод DefineOwnProperty объекта A с аргументами
+                    // Pk, Описатель Свойства
+                    // { Value: mappedValue,
+                    //   Writable: true,
+                    //   Enumerable: true,
+                    //   Configurable: true }
+                    // и false.
+
+                    // В браузерах, поддерживающих Object.defineProperty, используем следующий код:
+                    // Object.defineProperty(A, k, {
+                    //   value: mappedValue,
+                    //   writable: true,
+                    //   enumerable: true,
+                    //   configurable: true
+                    // });
+
+                    // Для лучшей поддержки браузерами, используем следующий код:
+                    A[k] = mappedValue;
+                }
+                // d. Увеличим k на 1.
+                k++;
+            }
+
+            // 9. Вернём A.
+            return A;
+        };
+    }
+
+
+
+
+
+
     var cur_date = new Date();
     var this_calendar = rb_calendar.init({
         mount_id: '#calendar-app'
         ,cur_date: cur_date
         ,days_in_row: 5
+        ,json_path: './server/db.json'
     });
-    //rb_calendar.get_events({calendar_obj: this_calendar});
 
-
-    //var a = ('<div class="calendar-event ce-4" style="margin-top: 21px" data-event-color_2>\n' +
-    //            '<div class="calendar-event-container container-fluid">\n' +
-    //                '<div class="row">\n' +
-    //                    '<div class="col-9">\n' +
-    //                        '<div class="calendar-event-type calendar-event-type-green"></div>\n' +
-    //                        '<span class="calendar-event-name">Управление временем</span>\n' +
-    //                    '</div>\n' +
-    //                    '<div class="col-3">\n' +
-    //                        '<div class="calendar-event-icons text-right">\n' +
-    //                        '5 <i class="fa fa-users"></i>\n' +
-    //                    '</div>\n' +
-    //                '</div>\n' +
-    //            '</div>\n' +
-    //        '</div>\n' +
-    //        '<label for="modalTrigger" data-modalBtn class="calendar-event_btn" data-name="event1" title="show more info"></label>\n'
-    //);
-    //
-    //$($('.calendar-cell-event-wrapper')[6]).append(a);
-    //$($('.calendar-cell-event-wrapper')[10]).append(a);
-    //$($('.calendar-cell-event-wrapper')[12).append(a);
-
-
-    //});
-
-
-    function get_events( args ) {
-        args = args || {};
-        console.log('get_events args:', args);
-
-        var response;
-
-        return new Promise ( function( resolve, reject ) {
-
-            /* TODO fetch */
-            $.ajax({
-                method: "GET",
-                url: "./server/db.json",
-                data: { name: "John", location: "Boston" }
-            })
-                .done( function( msg ) {
-                    console.log( "Event data loaded: ", msg );
-                    resolve( msg );
-                });
-
-        } );
-
-
-    };
-
-    var response = get_events( "any thng" );
     var events = {};
 
-    response.then( function( resp ){
+//    rb_calendar.get_events({calendar_obj: this_calendar});
 
-        events = resp;
+//    var response = rb_calendar.get_events( "any thng" );
 
-        function _a( idx ) {
-            return '<div class="calendar-event ce-4" data-event-color_2>\n' +
-                '<div class="calendar-event-container container-fluid">\n' +
-                '<div class="row">\n' +
-                '<div class="col-9">\n' +
-                '<div class="calendar-event-type "></div>\n' +
-                '<span class="calendar-event-name">' + resp[idx].name + '</span>\n' +
-                '</div>\n' +
-                '<div class="col-3">\n' +
-                '<div class="calendar-event-icons text-right">\n' + resp[idx].max_pers +
-                ' <i class="fa fa-users"></i>\n' +
-                '</div>\n' +
-                '</div>\n' +
-                '</div>\n' +
-                '</div>\n' +
-                '<label for="modalTrigger" data-modalBtn class="calendar-event_btn" data-idx="' + idx + '" title="show more info about ' + resp[idx].name + ' "></label>\n'
-        };
-
-
-        $( $('.calendar-cell-event-wrapper')[6]).append( _a( 0 ) );
-        $( $('.calendar-cell-event-wrapper')[10]).append( _a( 3 ) );
-        $( $('.calendar-cell-event-wrapper')[15]).append( _a( 7 ) );
-
-    } ).catch( function( e ){ console.error( e ); } )
+//    response.then( function( resp ){
+//        events = resp;
+//        this_calendar.events = events;
+//        this_calendar.render_events(this_calendar.events);
+//    } ).catch( function( e ){ console.error( e ); } )
 
 </script>
 <script src="./frontend/public/js/popup.js"></script>
