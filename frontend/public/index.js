@@ -271,7 +271,7 @@
                 this_ex = 0;
             }
             for (var __date_cell_counter = __this_row_cell_counter; __date_cell_counter < 7; __date_cell_counter++){
-                __calendar_obj_array[__date_row_counter].push({date: __overall_date_counter, ex: this_ex, id: __overall_date_counter});
+                __calendar_obj_array[__date_row_counter].push({date: __overall_date_counter, ex: this_ex, id: (this_ex === 0 ? __overall_date_counter : '')});
                 if (__overall_date_counter >= __calendar_object.date_days_in_month){
                     next_month = 1;
                     this_ex = 1;
@@ -365,8 +365,8 @@
         __morphed_array.map(function(self){
             self.length = ((new Date(self.finish_date).getTime()) - (new Date(self.start_date)).getTime()) / (1000 * 3600 * 24);
             self.length_round = Math.round(self.length);
-            self.day_start = new Date(self.finish_date).getUTCDate();
-            cl('day_start', self.day_start);
+            self.day_start = new Date(self.start_date).getUTCDate();
+            // cl('day_start', self.day_start);
         });
 
         return __morphed_array;
@@ -460,9 +460,13 @@
         }
 
 
-        $( $('.calendar-cell-event-wrapper')[6]).append( _a( 1 ) );
-        $( $('.calendar-cell-event-wrapper')[10]).append( _a( 3 ) );
-        $( $('.calendar-cell-event-wrapper')[15]).append( _a( 7 ) );
+        for (var _event = 0; _event < events.length; _event++){
+            $('[data-id="'+events[_event].day_start+'"]').append( _a( _event ) );
+        }
+
+        // $( $('.calendar-cell-event-wrapper')[6]).append( _a( 1 ) );
+        // $( $('.calendar-cell-event-wrapper')[10]).append( _a( 3 ) );
+        // $( $('.calendar-cell-event-wrapper')[15]).append( _a( 7 ) );
     };
 
 

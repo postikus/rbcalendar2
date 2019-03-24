@@ -200,6 +200,7 @@
 }
 
 .calendar-event-icons{
+    min-width: 42px;
     font-size: 12px;
     padding-right: 10px;
 }
