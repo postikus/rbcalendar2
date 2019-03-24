@@ -3,9 +3,15 @@ https://www.json-generator.com/
  */
 
 [
-    '{{repeat(400,400)}}',
+    '{{repeat(40,4)}}',
     {
         id: '{{objectId()}}',
+        name: '{{firstName()}} {{surname()}}',
+        company: '{{company().toUpperCase()}}',
+        address: '{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}',
+        max_pers: '{{integer(20, 40)}}',
+        price: '{{floating(1000, 4000, 2, "$0,0.00")}}',
+        isObligatory: '{{bool()}}',
         description: '{{lorem(integer(10, 40), "words")}}',
         start_date: '{{date(new Date(2019, 0, 1), new Date(2020, 0, 1), "YYYY-MM-ddThh:mm:ss")}}',
         finish_date: '{{date(new Date(2019, 0, 1), new Date(2020, 0, 1), "YYYY-MM-ddThh:mm:ss")}}'
