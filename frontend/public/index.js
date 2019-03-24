@@ -230,7 +230,8 @@
         __row_cells_html += '</div>';
         return __row_cells_html;
     };
-    _private.CalendarObj.prototype.get_calendar_block_html = function (__calendar_object) {
+    _private.CalendarObj.prototype.get_calendar_block_html = function (__calendar_object)
+    {
         __calendar_object.cl();
         var __calendar_obj_array = []; //[[{},{}...],[...],[],[],[]]
         var row_count = 5;
