@@ -171,20 +171,6 @@
     response.then( function( resp ){
         events = resp;
 
-
-        // get this month events: delete after backend configured
-        var middleware = function( _events ){
-            _events = _events.filter(function(_events){
-                return (new Date(_events.start_date) > new Date());
-            });
-
-
-            return _events;
-        };
-
-
-        middleware(events);
-
         function _a( idx ) {
             return '<div class="calendar-event ce-4" data-event-color_2>\n' +
                 '<div class="calendar-event-container container-fluid">\n' +

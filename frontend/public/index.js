@@ -32,6 +32,7 @@
         __self.date_month_name_ru = __self.month_array[__self.date_month];
         __self.date_year = (1900 + __self.date_with_first_day.getYear());
         __self.date_days_in_month = __self.daysInMonth(__self.date_year, __self.date_month);
+        __self.date_with_last_day = new Date((1900 + __date.getYear()), __date.getMonth(), __self.date_days_in_month);
         __self.date_month_first_dayweek = new Date(__self.date_year, __self.date_month, 1).getDay();
         __self.date_month_first_dayweek === 0 ? __self.date_month_first_dayweek = 7 : '';
         __self.next_month_num = __self.get_next_month_num(__self.date_month);
@@ -56,6 +57,13 @@
         var __self = this;
         __self.date_days_in_month = __self.daysInMonth(__self.date_year, __self.date_month);
     };
+
+    _private.CalendarObj.prototype.set_date_with_last_day = function (){
+        var __self = this;
+        __self.date_with_last_day = new Date(__self.date_year, __self.date_month, __self.date_days_in_month);
+    };
+
+
     _private.CalendarObj.prototype.set_date_month_first_dayweek = function (){
         this.date_month_first_dayweek = new Date(this.date_year, this.date_month, 1).getDay();
         this.date_month_first_dayweek === 0 ? this.date_month_first_dayweek = 7 : '';
@@ -324,6 +332,7 @@
         cl(this.date_month);
         this.date_with_first_day = new Date(this.date_year, direction ==='f' ? (this.date_month + 1) : (this.date_month - 1), 1);
         this.render_calendar();
+        $public.get_events();
     };
     _private.CalendarObj.prototype.render_calendar = function () {
         var __self = this;
@@ -331,6 +340,7 @@
         __self.set_date_month();
         __self.set_month_name_ru();
         __self.set_date_days_in_month();
+        __self.set_date_with_last_day();
         __self.set_date_month_first_dayweek();
         __self.set_next_month_num(__self.date_month);
         __self.set_next_prev_num(__self.date_month);
@@ -363,6 +373,19 @@
 
     $public.get_events = function(args){
         args = args || {};
+
+        // get this month events: delete after backend configured
+        var middleware = function( _events ){
+            console.log(this_calendar.date_with_first_day);
+            _events = _events
+                .filter(function(_events){
+                    return ( ( new Date(_events.start_date) > new Date(this_calendar.date_with_first_day)) && ( new Date(_events.start_date) < new Date(this_calendar.date_with_last_day)));
+                });
+
+            console.log('gogo powerRangers:', _events);
+            return _events;
+        };
+
         console.log('get_events args:', args);
         return new Promise ( function( resolve, reject ) {
             /* TODO fetch */
@@ -372,6 +395,7 @@
 //                ,data: { name: "John", location: "Boston" }
             })
                 .done( function( msg ) {
+                    msg = middleware(msg);
                     console.log( "Event data loaded: ", msg );
                     resolve( msg );
                 });
