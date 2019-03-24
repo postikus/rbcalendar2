@@ -261,16 +261,20 @@
 .m-main .m-cell-1,
 .m-main .m-cell-2 {
   text-align: left;
-  padding-top: 8px;
+  /*padding-top: 16px;*/
   padding-bottom: 8px
 }
 .m-main .m-cell-2::before {
   left: 0px;
 }
-
+.m-footer .m-cell-1,
+.m-footer .m-cell-2 {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
 .m-title {
   display: block;
-  margin: 1em 0;
+  margin: 1em 0 0.5em;
   font-size: 16px;
   text-transform: uppercase;
   font-weight: 700;

@@ -151,9 +151,11 @@
     
   }
 
-  function createContent( obj ) {
+  function createContent( idx ) {
 
-    modal.content.innerHTML = ''; 
+    modal.content.innerHTML = '';
+
+    var obj = events[ idx ]; 
 
     var _data = document.createDocumentFragment();
 
@@ -165,7 +167,7 @@
 
     /* TODO */
     mHeader.innerHTML = '<div class="m-cell-1">'
-    +'<div class="m-name"> &quot;' + obj.data.name + '!!!&quot; Lorem ipsum dolor sit  elit.</div>'
+    +'<div class="m-name">' + obj.name + '</div>'
     +'</div>'
     +'<div class="m-cell-2">'
     +'<div class="m-icons">'
@@ -181,17 +183,21 @@
     mMain.classList.add( "m-main" );
     /* TODO */
     mMain.innerHTML = '<div class="m-cell-1">'
-    +'<div class="m-title">who</div>'
-    +'<p><strong><em>not replaced:</em> &laquo;Рец&lsquo;&rsquo;епт&amp;amp;©успе&bull;шной®презе&ldquo;нт&rdquo;ац&bdquo;ии&deg;от&nbsp;ай&mdash;&hellip;ай&lt;ен&gt;ан&trade;ка&raquo;</strong> innerHTML форматирует &amp;raquo; .</p>'
-    +'<div class="m-title">title title 2</div>'
-    +'<p><strong><em>replaced:</em> ' + replacer("&laquo;Рец&lsquo;&rsquo;епт&amp;amp;©успе&bull;шной®презе&ldquo;нт&rdquo;ац&bdquo;ии&deg;от&nbsp;ай&mdash;&hellip;ай&lt;ен&gt;ан&trade;ка&raquo;") + '</strong> cumque excepturi quo libero quis non.</p>'
-    +'</div>'
+    + replacer(obj.description) +
+    '</div>'
     +'<div class="m-cell-2">'
-    +'<div class="m-title">who?</div>'
-    +'<p>' + obj.data.who + '</p>'
-    +'<div class="m-title">title title 2</div>'
-    +'<p>' + obj.data.a1 + '</p>'
-    +'                '
+    +'<div class="m-title">Start:</div>'
+    +'<p>' + obj.start_date + '</p>'
+    +'<div class="m-title">Finish:</div>'
+    +'<p>' + obj.finish_date + '</p>'
+    +'<div class="m-title">Max-persons:</div>'
+    +'<p>' + obj.max_pers + '</p>'
+    +'<div class="m-title">Price:</div>'
+    +'<p>' + obj.price + '</p>'
+    +'<div class="m-title">Company:</div>'
+    +'<p>' + obj.company + '</p>'
+    +'<div class="m-title">Adress:</div>'
+    +'<p>' + obj.address + '</p>'
     +'</div>';
 
 
@@ -217,14 +223,18 @@
   function catchEventOpen( e ) {
     if ( !e.target.classList.contains( "calendar-event_btn" ) || !e.target.hasAttribute( "for" )  ) return false;
 
-    var response = getInfo( e.target.getAttribute( "data-name" ) );
+    //var response = getInfo( e.target.getAttribute( "data-name" ) );
+    //var response = get_events( e.target.getAttribute( "data-name" ) );
 
     modal.window.removeAttribute( "data-loaded" );
 
-    response.then( function( resp ){
-      createContent( resp );  
-    } ).catch( function( e ){ console.error( e ); } )
+    // response.then( function( resp ){
+       // createContent( resp );  
+    // } ).catch( function( e ){ console.error( e ); } )
     
+    console.log( events[e.target.getAttribute( "data-idx" )].name );
+    createContent( e.target.getAttribute( "data-idx" ) );
+
   }
   document.body.addEventListener( "click", catchEventOpen, false );
 }());
