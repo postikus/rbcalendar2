@@ -142,7 +142,7 @@
 }
 
 .calendar-event {
-    position: absolute;
+    /*position: absolute;*/
     height: 15px;
     margin-left: 3px;
     margin-top: 3px;

@@ -220,10 +220,15 @@
         calendar_weekday_html += '</div>';
         return calendar_weekday_html;
     };
-    _private.CalendarObj.prototype.get_calendar_cell_html = function (__date, __id, __ex, __calendar_object) {
+    _private.CalendarObj.prototype.get_calendar_cell_html = function (__date, __row, __cell, __id, __ex, __calendar_object) {
         var __calendar_cell_html = '';
-        __calendar_cell_html += '<div class="calendar-cell' + ( ( (__calendar_object.init_date.setHours(0,0,0,0)) === (new Date(__calendar_object.date_year, __calendar_object.date_month, __date, 0).setHours(0,0,0,0)) ) ? " calendar-cell-today" : "" ) + '"'+( __ex ? " data-ex" : "" )+' '+( __id ? " data-id="+__id+"" : "" ) + '>' +
-            '<div class="calendar-cell-date text-right">'+__date+'</div>' +
+        __calendar_cell_html += '<div class="calendar-cell' +
+            ( ( (__calendar_object.init_date.setHours(0,0,0,0)) === (new Date(__calendar_object.date_year, __calendar_object.date_month, __date, 0).setHours(0,0,0,0)) ) ? " calendar-cell-today" : "" ) +
+            '"'+( __ex ? " data-ex" : "" )+
+            ' '+( __id ? " data-id="+__id+"" : "" ) +
+            ' '+( (__row !== undefined) ? " data-row="+__row+"" : "" ) +
+            ' '+( (__cell !== undefined) ? " data-cell="+__cell+"" : "" ) +
+            '>' +'<div class="calendar-cell-date text-right">'+__date+'</div>' +
             '<div class="calendar-cell-event-wrapper"></div>' +
             '</div>';
         return __calendar_cell_html;
@@ -235,6 +240,8 @@
         for (var __cell_counter = 0; __cell_counter < __calendar_object.days_in_row; __cell_counter++){
             __row_cells_html += _private.CalendarObj.prototype.get_calendar_cell_html(
                 __cells_array[__cell_counter].date
+                ,__cells_array[__cell_counter].row
+                ,__cells_array[__cell_counter].cell
                 ,__cells_array[__cell_counter].id
                 ,__cells_array[__cell_counter].ex
                 ,__calendar_object
@@ -259,7 +266,7 @@
             if (__date_row_counter === 0){
                 if (__calendar_object.date_month_first_dayweek <= __calendar_object.days_in_row){
                     for (var __prev_month_counter = 1; __prev_month_counter < __calendar_object.date_month_first_dayweek; __prev_month_counter++){
-                        __calendar_obj_array[__date_row_counter].push( { date: ( ( prev_months_days_count - __calendar_object.date_month_first_dayweek) + ( 1 + __prev_month_counter )), ex: this_ex } );
+                        __calendar_obj_array[__date_row_counter].push( { date: ( ( prev_months_days_count - __calendar_object.date_month_first_dayweek) + ( 1 + __prev_month_counter )), ex: this_ex, row: __date_row_counter, cell: (__prev_month_counter-1) } );
                         __this_row_cell_counter++;
                     }
                 }
@@ -271,7 +278,7 @@
                 this_ex = 0;
             }
             for (var __date_cell_counter = __this_row_cell_counter; __date_cell_counter < 7; __date_cell_counter++){
-                __calendar_obj_array[__date_row_counter].push({date: __overall_date_counter, ex: this_ex, id: (this_ex === 0 ? __overall_date_counter : '')});
+                __calendar_obj_array[__date_row_counter].push({date: __overall_date_counter, ex: this_ex, row: __date_row_counter, cell: (__date_cell_counter),  id: (this_ex === 0 ? __overall_date_counter : '')});
                 if (__overall_date_counter >= __calendar_object.date_days_in_month){
                     next_month = 1;
                     this_ex = 1;
@@ -357,20 +364,50 @@
         $(__self.mount_id+' .calendar-mount-container').html(_private.CalendarObj.prototype.get_calendar_html(__self));
     };
 
-    _private.morph_events_array = function (__event_array) {
-        var __morphed_array = [];
 
-        __morphed_array = __event_array.slice();
+    _private.find_event_by_id = function(__events_array, __id){
+        var event_obj = {};
+
+        return event_obj;
+    };
+
+    _private.morph_events_array = function (__event_array) {
+        var __morphed_array = __event_array.slice();
+
+
+        var event_cell_row_array = [];
+        for (var _row_counter = 0; _row_counter < 5; _row_counter++){
+            event_cell_row_array[_row_counter] = [];
+            for (var _cell_counter = 0; _cell_counter < 5; _cell_counter++) {
+                event_cell_row_array[_row_counter][_cell_counter] = [];
+            }
+        }
+
+
+        for (var __event = 0; __event < __morphed_array.length; __event++){
+            // event_cell_row_array[_row_counter][_cell_counter].push(__morphed_array[__event]);
+        }
+
+        cl(event_cell_row_array);
+
 
         __morphed_array.map(function(self){
             self.length = ((new Date(self.finish_date).getTime()) - (new Date(self.start_date)).getTime()) / (1000 * 3600 * 24);
             self.length_round = Math.round(self.length);
             self.day_start = new Date(self.start_date).getUTCDate();
+            self.day_end = new Date(self.finish_date).getUTCDate();
+            self.position = self.position ? self.position++ : 0;
             // cl('day_start', self.day_start);
         });
 
+
+
+
+
         return __morphed_array;
     };
+
+
 
 
     $public.init = function(args) {
