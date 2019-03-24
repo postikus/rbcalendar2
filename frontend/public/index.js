@@ -361,18 +361,21 @@
         return new_calendar;
     };
 
-
     $public.get_events = function(args){
-      args = args || {};
-      cl('get_events args:', args);
-        $.ajax({
-            method: "GET",
-            url: "../server/db.json",
-            data: { name: "John", location: "Boston" }
-        })
-        .done(function( msg ) {
-            cl( "Event data loaded: ", msg );
-        });
+        args = args || {};
+        console.log('get_events args:', args);
+        return new Promise ( function( resolve, reject ) {
+            /* TODO fetch */
+            $.ajax({
+                method: "GET",
+                url: "./server/db.json"
+//                ,data: { name: "John", location: "Boston" }
+            })
+                .done( function( msg ) {
+                    console.log( "Event data loaded: ", msg );
+                    resolve( msg );
+                });
+        } );
     };
     /*<-public*/
 }(window.rb_calendar = (window.rb_calendar || {}), window, jQuery));

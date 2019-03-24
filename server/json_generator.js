@@ -3,7 +3,7 @@ https://www.json-generator.com/
  */
 
 [
-    '{{repeat(40,4)}}',
+    '{{repeat(400,400)}}',
     {
         id: '{{objectId()}}',
         name: '{{firstName()}} {{surname()}}',
