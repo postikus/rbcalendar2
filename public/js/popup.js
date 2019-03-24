@@ -18,8 +18,13 @@
   
   var modalWindow = document.createElement( "div" );
   modalWindow.setAttribute( "data-modalWindow", "" );
-  //modalWindow.innerHTML = '<div id="spn" class="container" style="position: relative;top:150px;display: inline-block;box-sizing: border-box;padding: 0px;width: 25%;height: 140px;">'
-    //+'<div class="circle" style="box-sizing: border-box;width: 140px;height: 140px;border-radius: 100%; border: 24px solid rgba(55, 255, 55, 0.2);border-top-color: #FF5;animation: spin 1s infinite linear;"></div></div>';
+
+  var modalContent = document.createElement( "div" );
+  modalContent.setAttribute( "data-modalContent", "" );
+
+  var modalSpiner = document.createElement( "div" );
+  modalSpiner.setAttribute( "data-modalSpiner", "" );
+  modalSpiner.innerHTML = '<div class="circle"></div>';
 
   var modalClose = document.createElement( "label" );
   modalClose.setAttribute( "for", "modalTrigger" );
@@ -29,7 +34,9 @@
   modal.appendChild( modalTrigger );
   modal.appendChild( modalOverlay );
   modal.appendChild( modalWindow );
-  modal.appendChild( modalClose );
+  modalWindow.appendChild( modalSpiner );
+  modalWindow.appendChild( modalContent );
+  modalWindow.appendChild( modalClose );
   document.body.appendChild( modal );
 
 
@@ -66,7 +73,9 @@
   }
 
   window.modal = modal;
+  modal.content = modalContent;
   modal.window = modalWindow;
+  modal.spiner = modalSpiner;
 
 
 }( window, void( 0 ) ) );
@@ -74,6 +83,33 @@
 
 /* типа обработчик клика и эмуляция запроса */
 ;( function() {
+
+  /* replacer function */
+  if ( !window.replacer ) window['replacer'] = function ( item ){
+    return item.replace( /&amp;/g, "&" )
+    .replace( /&amp;/g, "&" )
+    .replace( /&nbsp;/g, " " )
+    .replace( /&raquo;/g, "»" )
+    .replace( /&laquo;/g, "«" )
+    .replace( /&quot;/g, "\"" )
+    .replace( /&lsquo;/g, "‘" )
+    .replace( /&rsquo;/g, "’" )
+    .replace( /&copy;/g, "©" )
+    .replace( /&bull;/g, "•" )
+    .replace( /&reg;/g, "®" )
+    .replace( /&deg;/g, "°" )
+    .replace( /&lt;/g, "<" )
+    .replace( /&gt;/g, ">" )
+    .replace( /&tilde;/g, "~" )
+    .replace( /&ndash;/g, "–" )
+    .replace( /&mdash;/g, "—" )
+    .replace( /&ldquo;/g, "“" )
+    .replace( /&rdquo;/g, "”" )
+    .replace( /&bdquo;/g, "„" )
+    .replace( /&hellip;/g, "…" )
+    .replace( /&trade;/g, "™" )
+  }
+
   window.modal || console.error( "not loaded module popup" );
 
   function getInfo( name ) {
@@ -109,7 +145,7 @@
         }
         resolve( {name:name,data:resp} );
 
-      }, 1000 );  
+      }, 300 );  
     } );
     
     
@@ -117,8 +153,7 @@
 
   function createContent( obj ) {
 
-    modal.window.innerHTML = ''; 
-    modal.window.setAttribute( "data-loaded", "" ); 
+    modal.content.innerHTML = ''; 
 
     var _data = document.createDocumentFragment();
 
@@ -126,6 +161,7 @@
     mHeader.classList.add( "m-header" );
 
     console.log( obj.data );
+    console.log( replacer("&laquo;Рец&lsquo;&rsquo;епт&amp;amp;©успе&bull;шной®презе&ldquo;нт&rdquo;ац&bdquo;ии&deg;от&nbsp;ай&mdash;&hellip;ай&lt;ен&gt;ан&trade;ка&raquo;") );
 
     /* TODO */
     mHeader.innerHTML = '<div class="m-cell-1">'
@@ -146,10 +182,9 @@
     /* TODO */
     mMain.innerHTML = '<div class="m-cell-1">'
     +'<div class="m-title">who</div>'
-    +'<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, est nam perspiciatis provident esse error veritatis nulla corrupti mollitia sapiente labore, ipsum officia tenetur, cumque excepturi quo libero quis non.</p>'
+    +'<p><strong><em>not replaced:</em> &laquo;Рец&lsquo;&rsquo;епт&amp;amp;©успе&bull;шной®презе&ldquo;нт&rdquo;ац&bdquo;ии&deg;от&nbsp;ай&mdash;&hellip;ай&lt;ен&gt;ан&trade;ка&raquo;</strong> innerHTML форматирует &amp;raquo; .</p>'
     +'<div class="m-title">title title 2</div>'
-    +'<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, est nam perspiciatis provident esse error veritatis nulla corrupti mollitia sapiente labore, ipsum officia tenetur, cumque excepturi quo libero quis non.</p>'
-    +'<img src="https://picsum.photos/140/60/" alt="" style="width:auto;height:auto;">'
+    +'<p><strong><em>replaced:</em> ' + replacer("&laquo;Рец&lsquo;&rsquo;епт&amp;amp;©успе&bull;шной®презе&ldquo;нт&rdquo;ац&bdquo;ии&deg;от&nbsp;ай&mdash;&hellip;ай&lt;ен&gt;ан&trade;ка&raquo;") + '</strong> cumque excepturi quo libero quis non.</p>'
     +'</div>'
     +'<div class="m-cell-2">'
     +'<div class="m-title">who?</div>'
@@ -174,7 +209,8 @@
     _data.appendChild( mMain);
     _data.appendChild( mFooter );
 
-    modal.window.appendChild( _data );
+    modal.content.appendChild( _data );
+    modal.window.setAttribute( "data-loaded", "" ); 
 
   } 
 
@@ -184,8 +220,6 @@
     var response = getInfo( e.target.getAttribute( "data-name" ) );
 
     modal.window.removeAttribute( "data-loaded" );
-    modal.window.innerHTML = '<div id="spn" class="container" >'
-    +'<div class="circle" ></div></div>';
 
     response.then( function( resp ){
       createContent( resp );  
