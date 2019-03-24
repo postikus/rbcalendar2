@@ -205,7 +205,7 @@
     mFooter.classList.add( "m-footer" );
     /* TODO */
     mFooter.innerHTML = '<div class="m-cell-1">'
-    +'<button class="btn m-btn m-btn_black">Зарегистрироваться</button>    '
+    // +'<button class="btn m-btn m-btn_black">Зарегистрироваться</button>    '
     +'</div>'
     +'<div class="m-cell-2">'
     +'<button class="btn m-btn m-btn_white">Зарегистрироваться</button>    '

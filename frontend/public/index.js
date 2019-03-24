@@ -37,6 +37,7 @@
         __self.date_month_first_dayweek === 0 ? __self.date_month_first_dayweek = 7 : '';
         __self.next_month_num = __self.get_next_month_num(__self.date_month);
         __self.prev_month_num = __self.get_prev_month_num(__self.date_month);
+        __self.events = [];
     };
     _private.CalendarObj.prototype.cl = function () {
         var __self = this;
@@ -332,7 +333,12 @@
         cl(this.date_month);
         this.date_with_first_day = new Date(this.date_year, direction ==='f' ? (this.date_month + 1) : (this.date_month - 1), 1);
         this.render_calendar();
-        $public.get_events();
+
+        $public.get_events().then( function( resp ){
+            events = resp;
+            this_calendar.events = events;
+            this_calendar.render_events(this_calendar.events);
+        } ).catch( function( e ){ console.error( e ); } );
     };
     _private.CalendarObj.prototype.render_calendar = function () {
         var __self = this;
@@ -376,17 +382,17 @@
 
         // get this month events: delete after backend configured
         var middleware = function( _events ){
-            console.log(this_calendar.date_with_first_day);
+            cl(this_calendar.date_with_first_day);
             _events = _events
                 .filter(function(_events){
                     return ( ( new Date(_events.start_date) > new Date(this_calendar.date_with_first_day)) && ( new Date(_events.start_date) < new Date(this_calendar.date_with_last_day)));
                 });
 
-            console.log('gogo powerRangers:', _events);
+            cl('gogo powerRangers:', _events);
             return _events;
         };
 
-        console.log('get_events args:', args);
+        cl('get_events args:', args);
         return new Promise ( function( resolve, reject ) {
             /* TODO fetch */
             $.ajax({
@@ -396,10 +402,39 @@
             })
                 .done( function( msg ) {
                     msg = middleware(msg);
-                    console.log( "Event data loaded: ", msg );
+                    cl( "Event data loaded: ", msg );
                     resolve( msg );
                 });
         } );
     };
+
+    _private.CalendarObj.prototype.render_events = function (events) {
+        console.log('rendering events... ', events);
+        function _a( idx ) {
+            return '<div class="calendar-event ce-4" data-event-color_2>\n' +
+                '<div class="calendar-event-container container-fluid">\n' +
+                '<div class="row">\n' +
+                '<div class="col-9">\n' +
+                '<div class="calendar-event-type "></div>\n' +
+                '<span class="calendar-event-name">' + events[idx].name + '</span>\n' +
+                '</div>\n' +
+                '<div class="col-3">\n' +
+                '<div class="calendar-event-icons text-right">\n' + events[idx].max_pers +
+                ' <i class="fa fa-users"></i>\n' +
+                '</div>\n' +
+                '</div>\n' +
+                '</div>\n' +
+                '</div>\n' +
+                '<label for="modalTrigger" data-modalBtn class="calendar-event_btn" data-idx="' + idx + '" title="show more info about ' + events[idx].name + ' "></label>\n'
+        }
+
+
+        $( $('.calendar-cell-event-wrapper')[6]).append( _a( 1 ) );
+        $( $('.calendar-cell-event-wrapper')[10]).append( _a( 3 ) );
+        $( $('.calendar-cell-event-wrapper')[15]).append( _a( 7 ) );
+    };
+
+
+
     /*<-public*/
 }(window.rb_calendar = (window.rb_calendar || {}), window, jQuery));
