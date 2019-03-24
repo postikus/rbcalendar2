@@ -58,16 +58,14 @@
     function get_events( args ) {
         args = args || {};
         console.log('get_events args:', args);
-
-        var response;
-
+//        var response;
         return new Promise ( function( resolve, reject ) {
 
             /* TODO fetch */
             $.ajax({
                 method: "GET",
-                url: "./server/db.json",
-                data: { name: "John", location: "Boston" }
+                url: "./server/db.json"
+//                ,data: { name: "John", location: "Boston" }
             })
                 .done( function( msg ) {
                     console.log( "Event data loaded: ", msg );
@@ -77,7 +75,7 @@
         } );
 
 
-    };
+    }
 
     var response = get_events( "any thng" );
     var events = {};
@@ -102,7 +100,7 @@
                 '</div>\n' +
                 '</div>\n' +
                 '<label for="modalTrigger" data-modalBtn class="calendar-event_btn" data-idx="' + idx + '" title="show more info about ' + resp[idx].name + ' "></label>\n'
-        };
+        }
 
 
         $( $('.calendar-cell-event-wrapper')[6]).append( _a( 0 ) );
