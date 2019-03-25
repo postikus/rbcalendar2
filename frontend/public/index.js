@@ -365,30 +365,39 @@
     };
 
 
-    _private.find_event_by_id = function(__events_array, __id){
-        var event_obj = {};
-
-        return event_obj;
+    _private.find_index_event_by_id = function(__events_array, __id){
+        // return __events_array.filter(function(_events){
+        //     return ( _events.id === __id);
+        // });
+        for (var i=0; i<__events_array.length; i++){
+            if (__events_array[i].id === __id){
+                return i;
+            }
+        }
     };
 
     _private.morph_events_array = function (__event_array) {
         var __morphed_array = __event_array.slice();
 
 
-        var event_cell_row_array = [];
-        for (var _row_counter = 0; _row_counter < 5; _row_counter++){
-            event_cell_row_array[_row_counter] = [];
-            for (var _cell_counter = 0; _cell_counter < 5; _cell_counter++) {
-                event_cell_row_array[_row_counter][_cell_counter] = [];
-            }
+        var event_cell_row_array = new Array(31);
+        for (var i = 0; i < event_cell_row_array.length; i++){
+            event_cell_row_array[i] = [];
         }
 
+        // for (var _row_counter = 0; _row_counter < 5; _row_counter++){
+        //     event_cell_row_array[_row_counter] = [];
+        //     for (var _cell_counter = 0; _cell_counter < 5; _cell_counter++) {
+        //         event_cell_row_array[_row_counter][_cell_counter] = [];
+        //     }
+        // }
 
-        for (var __event = 0; __event < __morphed_array.length; __event++){
-            // event_cell_row_array[_row_counter][_cell_counter].push(__morphed_array[__event]);
-        }
 
-        cl(event_cell_row_array);
+        // for (var __event = 0; __event < __morphed_array.length; __event++){
+        //     event_cell_row_array[_row_counter][_cell_counter].push(__morphed_array[__event]);
+        // }
+
+        // cl(event_cell_row_array);
 
 
         __morphed_array.map(function(self){
@@ -400,10 +409,34 @@
             // cl('day_start', self.day_start);
         });
 
+        __morphed_array.sort(function(a,b){
+            return (a.day_start - b.day_start);
+        });
+
+        var additional_cells = 0;
+
+        for (var __event = 0; __event < __morphed_array.length; __event++){
+            event_cell_row_array[__morphed_array[__event].day_start].push(__morphed_array[__event]);
+            for (var _event_length = 1; _event_length < (__morphed_array[__event].length_round); _event_length++){
+                additional_cells = __morphed_array[__event].day_start + (+_event_length);
+                if (additional_cells < 31){
+                    event_cell_row_array[additional_cells][event_cell_row_array[__morphed_array[__event].day_start].length-1] = __morphed_array[__event];
+                }
+            }
+        }
 
 
+        for (var __cell = 0; __cell < 31; __cell++){
+            for (var _event = 0; _event<event_cell_row_array[__cell].length; _event++){
+                if (event_cell_row_array[__cell][_event]){
+                    cl('event_cell_row_array[__cell][_event]',_private.find_index_event_by_id(__morphed_array, event_cell_row_array[__cell][_event].id));
+                    __morphed_array[ _private.find_index_event_by_id(__morphed_array, event_cell_row_array[__cell][_event].id) ].top = _event;
+                }
+            }
+        }
 
 
+        cl('event_cell_row_array', event_cell_row_array);
         return __morphed_array;
     };
 
@@ -479,7 +512,7 @@
         cl('morphed events... ', events);
 
         function _a( idx ) {
-            return '<div class="calendar-event ce-'+events[idx].length_round +'" data-event-color_2>\n' +
+            return '<div class="calendar-event ct-'+events[idx].top+' ce-'+events[idx].length_round +'" data-event-color_2>\n' +
                 '<div class="calendar-event-container container-fluid">\n' +
                 '<div class="row">\n' +
                 '<div class="col-9">\n' +
