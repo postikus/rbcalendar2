@@ -18,13 +18,13 @@
   vertical-align: middle;
 }
 .calendar-event-name {
-  font-size: 10px;
-  display: inline-block;
-  top: -3px;
-  height: 1em;
-  line-height: 1;
-  vertical-align: middle;
-  position: relative;
+      font-size: 12px;
+    display: inline-block;
+    top: -3px;
+    height: 1em;
+    line-height: 1;
+    vertical-align: middle;
+    position: relative;
 }
 .calendar-event-type {
   height: 17px;
@@ -87,13 +87,13 @@
 }
 .form-check-label {
   line-height: 1.1;
-}
+} 
 .form-check {
   margin-left: 16px;
   font-size: 14px;
   color: #000;
 }
-.form-check .form-check-input,
+.form-check .form-check-input, 
 .form-check .form-check-label {
   cursor: pointer;
 }

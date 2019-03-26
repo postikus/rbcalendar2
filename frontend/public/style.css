@@ -219,6 +219,7 @@
     min-width: 42px;
     font-size: 12px;
     padding-right: 10px;
+    right: 10px;
 }
 
 .grid-event-container{
