@@ -117,7 +117,11 @@
     color: #330072 !important;
 }
 
-#calendar-cells-container {
+.calendar-cells{
+    overflow: hidden;
+}
+
+.calendar-cells-container {
 
 }
 
@@ -147,6 +151,18 @@
     margin-left: 3px;
     margin-top: 3px;
     background-color: #e3e3e3;
+}
+
+.ct-1{
+    top: 42px;
+}
+
+.ct-2{
+    top: 62px;
+}
+
+.ct-3{
+    top: 82px;
 }
 
 .calendar-event-container{
@@ -200,6 +216,7 @@
 }
 
 .calendar-event-icons{
+    min-width: 42px;
     font-size: 12px;
     padding-right: 10px;
 }
