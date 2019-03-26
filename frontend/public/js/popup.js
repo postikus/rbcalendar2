@@ -162,7 +162,7 @@
         var mHeader = document.createElement( "div" );
         mHeader.classList.add( "m-header" );
 
-        console.log( obj.data );
+        console.log( idx, obj );
         console.log( replacer("&laquo;Рец&lsquo;&rsquo;епт&amp;amp;©успе&bull;шной®презе&ldquo;нт&rdquo;ац&bdquo;ии&deg;от&nbsp;ай&mdash;&hellip;ай&lt;ен&gt;ан&trade;ка&raquo;") );
 
         /* TODO */

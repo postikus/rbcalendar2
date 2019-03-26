@@ -429,7 +429,7 @@
         for (var __cell = 0; __cell < 31; __cell++){
             for (var _event = 0; _event<event_cell_row_array[__cell].length; _event++){
                 if (event_cell_row_array[__cell][_event]){
-                    cl('event_cell_row_array[__cell][_event]',_private.find_index_event_by_id(__morphed_array, event_cell_row_array[__cell][_event].id));
+                    // cl('event_cell_row_array[__cell][_event]',_private.find_index_event_by_id(__morphed_array, event_cell_row_array[__cell][_event].id));
                     __morphed_array[ _private.find_index_event_by_id(__morphed_array, event_cell_row_array[__cell][_event].id) ].top = _event;
                 }
             }
@@ -506,34 +506,36 @@
         } );
     };
 
-    _private.CalendarObj.prototype.render_events = function (events) {
-        cl('rendering events... ', events);
-        events = _private.morph_events_array(events);
-        cl('morphed events... ', events);
+    _private.CalendarObj.prototype.render_events = function (__events) {
+        cl('rendering events... ', __events);
+        __events = _private.morph_events_array(__events);
+        cl('morphed events... ', __events);
 
         function _a( idx ) {
-            return '<div data-event-color_2 class="calendar-event ct-'+events[idx].top+' ce-'+events[idx].length_round +'" data-event-color_2>\n' +
+            return '<div data-event-color_2 class="calendar-event ct-'+__events[idx].top+' ce-'+__events[idx].length_round +'" data-event-color_2>\n' +
                 '<div class="calendar-event-container container-fluid">\n' +
                 '<div class="row">\n' +
                 '<div class="col-9">\n' +
                 '<div class="calendar-event-type "></div>\n' +
-                '<span class="calendar-event-name">' + events[idx].name + '</span>\n' +
+                '<span class="calendar-event-name">' + __events[idx].name + '</span>\n' +
                 '</div>\n' +
                 '<div class="col-3 no-padding">\n' +
-                '<div class="calendar-event-icons text-right">\n' + events[idx].max_pers +
+                '<div class="calendar-event-icons text-right">\n' + __events[idx].max_pers +
                 ' <i class="fa fa-users"></i>\n' +
                 '</div>\n' +
                 '</div>\n' +
                 '</div>\n' +
                 '</div>\n' +
-                '<label for="modalTrigger" data-modalBtn class="calendar-event_btn" data-idx="' + idx + '" data-opt="2" title="show more info about ' + events[idx].name + ' "></label>\n'
+                '<label for="modalTrigger" data-modalBtn class="calendar-event_btn" data-idx="' + idx + '" data-opt="2" title="show more info about ' + __events[idx].name + ' "></label>\n'
         }
 
 
-        for (var _event = 0; _event < events.length; _event++){
-            $('[data-id="'+events[_event].day_start+'"]').append( _a( _event ) );
+        for (var _event = 0; _event < __events.length; _event++){
+            $('[data-id="'+__events[_event].day_start+'"]').append( _a( _event ) );
         }
 
+
+        events = __events;
         // $( $('.calendar-cell-event-wrapper')[6]).append( _a( 1 ) );
         // $( $('.calendar-cell-event-wrapper')[10]).append( _a( 3 ) );
         // $( $('.calendar-cell-event-wrapper')[15]).append( _a( 7 ) );
