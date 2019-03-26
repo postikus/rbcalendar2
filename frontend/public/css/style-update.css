@@ -1,11 +1,12 @@
 .calendar-cell-today {
   background-color: #fbd0e6;
+  background-color: rgba(255, 229, 243, 0.78);
   /*background-color: #eb2d90;*/
 }
 .weekday-name {
-  height: 2em;
+  height: 2.3em;
   font-size: 1em;
-  line-height: 2em;
+  line-height: 2.2em;
   vertical-align: middle;
   padding: 0;
 }
@@ -45,23 +46,23 @@
   top: 1px;
 }
 
-[data-event-color_1] {
+[data-event-type="webinar"] {
   background-color: #e9d6ff;
 }
-[data-event-color_1] .calendar-event-type {
+[data-event-type="webinar"] .calendar-event-type {
   background-color: #4900a3;
 }
 
-[data-event-color_2] {
+[data-event-type="training"] {
   background-color:#ccfbff;
 }
-[data-event-color_2] .calendar-event-type {
+[data-event-type="training"] .calendar-event-type {
   background-color: #005961;
 }
-[data-event-color_3] {
+[data-event-type="conf"] {
   background-color: #f0adb3;
 }
-[data-event-color_3] .calendar-event-type {
+[data-event-type="conf"] .calendar-event-type {
   background-color: red;
 }
 
@@ -103,6 +104,27 @@
 .weekday-name {
   font-size: 14px;
 }
+.btn-outline-secondary {
+  border-color:rgba( 0, 0, 0, 0.03 );
+}
 .btn-outline-secondary:hover {
+  background: red;
+}
+.month-select-name-container_color {
+  color: red;
+  font-weight: 700;
+  position: relative;
+}
+.month-select-name-container {
+  font-weight: 400;
+  position: relative;
+}
+.month-select-name-container_color::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 90%;
+  width: 3em;
+  height: 2px;
   background: red;
 }

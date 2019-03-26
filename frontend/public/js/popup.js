@@ -186,6 +186,8 @@
             + replacer(obj.description) +
             '</div>'
             +'<div class="m-cell-2">'
+            +'<div class="m-title">Type:</div>'
+            +'<p>' + obj.type + '</p>'
             +'<div class="m-title">Start:</div>'
             +'<p>' + obj.start_date + '</p>'
             +'<div class="m-title">Finish:</div>'
@@ -230,9 +232,11 @@
         // createContent( resp );
         // } ).catch( function( e ){ console.error( e ); } )
 
-        console.log( events[e.target.getAttribute( "data-idx" )].name );
+        //console.log( events[e.target.getAttribute( "data-idx" )].name );
+        var data_opt_event_type = e.target.getAttribute( "data-opt-event-type" );
         //if ( modal.window.hasAttribute( e.target.getAttribute( "data-opt" ) ) ) modal.window.removeAttribute( e.target.getAttribute( "data-opt" ) );
-        modal.window.setAttribute( "data-event-color", e.target.getAttribute( "data-opt" ) );
+        modal.window.setAttribute( "data-event-type", data_opt_event_type );
+        //console.log( e.target.getAttribute( "data-opt-event-type" )  );
         createContent( e.target.getAttribute( "data-idx" ) );
 
     }
