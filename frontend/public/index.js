@@ -114,7 +114,7 @@
     _private.CalendarObj.prototype.get_checkbox_html = function (__q_object) {
         var __checkbox_html = '';
         __checkbox_html +=   '<div class="form-check">';
-        __checkbox_html +=   '<input class="form-check-input" type="checkbox" checked value="" id="'+__q_object.id+'">';
+        __checkbox_html +=   '<input class="form-check-input" type="checkbox" value="" id="'+__q_object.id+'">';
         __checkbox_html += '<label class="form-check-label" for="'+__q_object.id+'">';
         __checkbox_html += __q_object.label;
         __checkbox_html += '</label>';
@@ -126,7 +126,7 @@
         __checkboxs_html += '<div class="filter-name" id="'+__q_object.id+'">'+__q_object.label+'</div>';
         for (var __checkbox_counter = 0; __checkbox_counter < __q_object.checkbox_array.length; __checkbox_counter++){
             __checkboxs_html += '<div class="form-check">';
-            __checkboxs_html += '<input class="form-check-input" checked type="checkbox" value="" id="'+__q_object.checkbox_array[__checkbox_counter].id+'">';
+            __checkboxs_html += '<input class="form-check-input"  type="checkbox" value="" id="'+__q_object.checkbox_array[__checkbox_counter].id+'">';
             __checkboxs_html += '<label class="form-check-label" for="'+__q_object.checkbox_array[__checkbox_counter].id+'">';
             __checkboxs_html += __q_object.checkbox_array[__checkbox_counter].label;
             __checkboxs_html += '</label>';
@@ -553,7 +553,7 @@
 
         var make_url = function(){
             var $checked_cb = $('.filters-container').find('input:checked');
-            // cl($checked_cb);
+             cl($checked_cb);
             var checked_cb_ids = [];
             $checked_cb.map(function (cb) {
                 // cl(cb);
@@ -566,20 +566,20 @@
 
 		$(_options.mount_id).on('click','#filters-clear',function () {
 			cl('click');
-			$('.filters-container').find('input').attr('checked', true);
+			$('.filters-container').find('input').prop('checked', false);
 			make_url();
 		})
 		
 		
         if (window.location.hash === ''){
-            // cl('make');
+            cl('make');
             make_url();
         }
         else{
             var checked_cbs = window.location.hash.replace('#', '').split('?')[0].split('&');
-            $('.filters-container').find('input').attr('checked', false);
+            $('.filters-container').find('input').prop('checked', false);
             for (_cb=0; _cb<checked_cbs.length; _cb++){
-                $('#'+checked_cbs[_cb]).attr('checked', true);
+                $('#'+checked_cbs[_cb]).prop('checked', true);
             }
             // cl(checked_cbs);
         }
