@@ -6,7 +6,7 @@
 /// Module Pattern with Imports and Exports
 ///
 
-;(function($public, $window, undefined) {
+;(function($public, $window, $, undefined) {
     var _private = {};
     _private = {
         state: 'start_init',
@@ -19,7 +19,7 @@
     var cl = function(msg, msg2){
         msg2 = msg2 || '';
         if(_private.mode === 'test'){
-            console.log(msg, msg2);
+            console.log(msg, msg2?msg2:'');
         }
     };
     _private.CalendarObj = function (__date, __days_in_row){
@@ -41,9 +41,9 @@
     };
     _private.CalendarObj.prototype.cl = function () {
         var __self = this;
-        cl('-----------CALENDAR OBJ------------------->');
+        // cl('-----------CALENDAR OBJ------------------->');
         cl(__self);
-        cl('<-----------CALENDAR OBJ-------------------');
+        // cl('<-----------CALENDAR OBJ-------------------');
     };
     _private.CalendarObj.prototype.set_date_month = function (){
         this.date_month = this.date_with_first_day.getMonth();
@@ -93,16 +93,16 @@
         __calendar_obj.date_with_first_day = new Date(__calendar_obj.date_year, __new_month, 1);
     };
     _private.CalendarObj.prototype.init_calendar_view = function(__$_calendar_v_mount_obj){
-        cl('calendar view init');
+        // cl('calendar view init');
         var __calendar_view_html = '';
         __$_calendar_v_mount_obj.html(__calendar_view_html);
-        cl('calendar view mounted');
+        // cl('calendar view mounted');
     };
     _private.CalendarObj.prototype.get_calendar_view_button_container = function () {
         var __calendar_view_button_html = '';
         __calendar_view_button_html += '<div class="col-12 text-right filters-header-icons">';
-        __calendar_view_button_html += '<i class="fas fa-th fa-active calendar-view-button"></i> ';
-        __calendar_view_button_html += '<i class="fas fa-list list-view-button"></i>';
+        //__calendar_view_button_html += '<i class="fas fa-th fa-active calendar-view-button"></i> ';
+        //__calendar_view_button_html += '<i class="fas fa-list list-view-button"></i>';
         __calendar_view_button_html += '</div>';
         return __calendar_view_button_html;
     };
@@ -114,7 +114,7 @@
     _private.CalendarObj.prototype.get_checkbox_html = function (__q_object) {
         var __checkbox_html = '';
         __checkbox_html +=   '<div class="form-check">';
-        __checkbox_html +=   '<input class="form-check-input" type="checkbox" value="" id="'+__q_object.id+'">';
+        __checkbox_html +=   '<input class="form-check-input" type="checkbox" checked value="" id="'+__q_object.id+'">';
         __checkbox_html += '<label class="form-check-label" for="'+__q_object.id+'">';
         __checkbox_html += __q_object.label;
         __checkbox_html += '</label>';
@@ -126,7 +126,7 @@
         __checkboxs_html += '<div class="filter-name" id="'+__q_object.id+'">'+__q_object.label+'</div>';
         for (var __checkbox_counter = 0; __checkbox_counter < __q_object.checkbox_array.length; __checkbox_counter++){
             __checkboxs_html += '<div class="form-check">';
-            __checkboxs_html += '<input class="form-check-input" type="checkbox" value="" id="'+__q_object.checkbox_array[__checkbox_counter].id+'">';
+            __checkboxs_html += '<input class="form-check-input" checked type="checkbox" value="" id="'+__q_object.checkbox_array[__checkbox_counter].id+'">';
             __checkboxs_html += '<label class="form-check-label" for="'+__q_object.checkbox_array[__checkbox_counter].id+'">';
             __checkboxs_html += __q_object.checkbox_array[__checkbox_counter].label;
             __checkboxs_html += '</label>';
@@ -160,10 +160,11 @@
         var __filters_html = '';
         __filters_html += '<div class="row" id="filters-header-container">';
         __filters_html += _private.CalendarObj.prototype.get_calendar_view_button_container();
-        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('search');
-        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkbox', {id: 'defaultCheck9', label: 'Я участвую'});
+        // __filters_html += _private.CalendarObj.prototype.get_filters_row_container('search');
+        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkbox', {id: 'defaultCheck9', label: 'Мои мероприятия'});
         __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkbox', {id: 'defaultCheck8', label: 'Открыта регистрация'});
-        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkboxs', {
+        /*
+		__filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkboxs', {
             id: 'test1',
             label: 'Форма обучения:',
             checkbox_array:[
@@ -171,6 +172,7 @@
                 {id: 'defaultCheck2', label: 'Внутреннее'}
             ]
         });
+		*/
         __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkboxs', {
             id: 'test2',
             label: 'Для кого:',
@@ -185,9 +187,12 @@
             checkbox_array:[
                 {id: 'defaultCheck5', label: 'Тренинги личной эффективности'},
                 {id: 'defaultCheck6', label: 'Менеджерские программы'},
-                {id: 'defaultCheck7', label: 'Профессиональное обучение'}
+                {id: 'defaultCheck7', label: 'Профессиональное обучение'},
+                {id: 'defaultCheck11', label: 'Общебанковские тренинги'}
             ]
         });
+		
+		__filters_html += '<div class="row" style="margin: 10px auto; "><div class="col-12"><button type="button" id="filters-clear" class="btn btn-primary btn-lg btn-block">Сбросить фильтры</button></div></div>';
         return __filters_html;
     };
     _private.CalendarObj.prototype.get_calendar_header_html = function(__calendar_object){
@@ -195,7 +200,7 @@
         __calendar_header_html += '<div class="row justify-content-center month-select-container">';
         __calendar_header_html += '<div class="col text-center month-select-arrow-name">';
         __calendar_header_html += '<span class="month-select-left-button">' +
-            '<button type="button" class="btn btn-outline-secondary btn-sm month-select-arrow-left-button"><</button>' +
+            '<button type="button" class="btn btn-outline-secondary btn-sm month-select-arrow-left-button "><</button>' +
             '</span>';
         __calendar_header_html += '<span class="month-select-name-container"><span class="month-select-name-container_color">';
         __calendar_header_html += __calendar_object.date_month_name_ru + '</span> <span>' + __calendar_object.date_year;
@@ -223,7 +228,7 @@
     _private.CalendarObj.prototype.get_calendar_cell_html = function (__date, __row, __cell, __id, __ex, __calendar_object) {
         var __calendar_cell_html = '';
         __calendar_cell_html += '<div class="calendar-cell' +
-            ( ( (__calendar_object.init_date.setHours(0,0,0,0)) === (new Date(__calendar_object.date_year, __calendar_object.date_month, __date, 0).setHours(0,0,0,0)) ) ? " calendar-cell-today" : "" ) +
+            ( ( (__calendar_object.init_date.setHours(0,0,0,0)) === (new Date(__calendar_object.date_year, __calendar_object.date_month, __date, 0).setHours(0,0,0,0)) && !__ex ) ? " calendar-cell-today" : "" ) +
             '"'+( __ex ? " data-ex" : "" )+
             ' '+( __id ? " data-id="+__id+"" : "" ) +
             ' '+( (__row !== undefined) ? " data-row="+__row+"" : "" ) +
@@ -252,7 +257,7 @@
         return __row_cells_html;
     };
     _private.CalendarObj.prototype.get_calendar_block_html = function (__calendar_object){
-        __calendar_object.cl();
+        // __calendar_object.cl();
         var __calendar_obj_array = []; //[[{},{}...],[...],[],[],[]]
         var row_count = 5;
         var __overall_date_counter = 1;
@@ -312,11 +317,11 @@
         return calendar_html;
     };
     _private.CalendarObj.prototype.init_calendar = function (_mount_id, _calendar_obj) {
-        cl('Start mounting');
+        // cl('Start mounting');
         var $_mount_obj = $(_mount_id);
         var _calendar_inner_html;
         if ($_mount_obj.length === 0){
-            cl('No valid mount object parameter. Aborting...' + _mount_id);
+            // cl('No valid mount object parameter. Aborting...' + _mount_id);
         }
         else{
             _calendar_inner_html = '';
@@ -335,17 +340,17 @@
             _calendar_inner_html += '</div>';
             /* <- magic goes here*/
             _private.CalendarObj.prototype.state = 'mounted';
-            cl('Mounted');
+            // cl('Mounted');
             $_mount_obj.html(_calendar_inner_html);
         }
         return _calendar_obj;
     };
     _private.CalendarObj.prototype.change_month = function(direction){ //f/b
-        cl(this.date_month);
+        // cl(this.date_month);
         this.date_with_first_day = new Date(this.date_year, direction ==='f' ? (this.date_month + 1) : (this.date_month - 1), 1);
         this.render_calendar();
 
-        $public.get_events().then( function( resp ){
+        $public.get_events(this_calendar.date_month, this_calendar.date_year).then( function( resp ){
             events = resp;
             this_calendar.events = events;
             this_calendar.render_events(this_calendar.events);
@@ -380,53 +385,66 @@
         var __morphed_array = __event_array.slice();
 
 
-        var event_cell_row_array = new Array(31);
+        var event_cell_row_array = new Array(32);
         for (var i = 0; i < event_cell_row_array.length; i++){
             event_cell_row_array[i] = [];
         }
 
-        // for (var _row_counter = 0; _row_counter < 5; _row_counter++){
-        //     event_cell_row_array[_row_counter] = [];
-        //     for (var _cell_counter = 0; _cell_counter < 5; _cell_counter++) {
-        //         event_cell_row_array[_row_counter][_cell_counter] = [];
-        //     }
-        // }
-
-
-        // for (var __event = 0; __event < __morphed_array.length; __event++){
-        //     event_cell_row_array[_row_counter][_cell_counter].push(__morphed_array[__event]);
-        // }
-
-        // cl(event_cell_row_array);
-
-
         __morphed_array.map(function(self){
-            self.length = ((new Date(self.finish_date).getTime()) - (new Date(self.start_date)).getTime()) / (1000 * 3600 * 24);
-            self.length_round = Math.round(self.length);
-            self.day_start = new Date(self.start_date).getUTCDate();
-            self.day_end = new Date(self.finish_date).getUTCDate();
+
+            // self.length = (Math.abs((new Date(self.finish_date)).getTime() - (new Date(self.start_date)).getTime())) / (1000 * 3600 * 24);
+            self.length = ((new Date(self.finish_date)).getDate() - (new Date(self.start_date)).getDate())+1;
+            self.length = self.length > 0 ? self.length : 31+self.length;
+            self.length_round = Math.ceil(self.length);
+            self.day_start = new Date(self.start_date).getDate();
+            self.day_end = new Date(self.finish_date).getDate();
             self.position = self.position ? self.position++ : 0;
-            // cl('day_start', self.day_start);
+            self.break = 'none';
+            // // cl('day_start', self.day_start);
         });
 
         __morphed_array.sort(function(a,b){
             return (a.day_start - b.day_start);
         });
 
-        var additional_cells = 0;
 
+        // __morphed_array = __morphed_array.slice(1, 5);
+
+        var additional_cells = 0;
+        var date_start_length = 0;
         for (var __event = 0; __event < __morphed_array.length; __event++){
-            event_cell_row_array[__morphed_array[__event].day_start].push(__morphed_array[__event]);
-            for (var _event_length = 1; _event_length < (__morphed_array[__event].length_round); _event_length++){
-                additional_cells = __morphed_array[__event].day_start + (+_event_length);
-                if (additional_cells < 31){
-                    event_cell_row_array[additional_cells][event_cell_row_array[__morphed_array[__event].day_start].length-1] = __morphed_array[__event];
+
+
+            // cl(__morphed_array[__event].day_start);
+            // cl(event_cell_row_array);
+            date_start_length = event_cell_row_array[__morphed_array[__event].day_start].length;
+            for (var n = 0; n <= date_start_length; n++) {
+                // cl(!event_cell_row_array[__morphed_array[__event].day_start][n] === true);
+                if(!event_cell_row_array[__morphed_array[__event].day_start][n] ){
+                    event_cell_row_array[__morphed_array[__event].day_start][n] = __morphed_array[__event];
+                    break;
+                }
+            }
+
+
+
+            additional_cells = 0;
+            for (var _event_length = 0; _event_length < (__morphed_array[__event].length_round-1); _event_length++){
+                // cl(__morphed_array[__event].name + ' 1 ->', additional_cells);
+
+                additional_cells = __morphed_array[__event].day_start + _event_length+1;
+                // cl(__morphed_array[__event].name + ' 2 ->', additional_cells);
+                if (additional_cells < 32){
+                    // if (__morphed_array[__event].id === "5c97cb0095a8b5441d9b026f"){
+                    //     cl(additional_cells);
+                    //     cl(event_cell_row_array[__morphed_array[__event].day_start]);
+                    // }
+                    event_cell_row_array[additional_cells][n] = __morphed_array[__event];
                 }
             }
         }
 
-
-        for (var __cell = 0; __cell < 31; __cell++){
+        for (var __cell = 0; __cell < 32; __cell++){
             for (var _event = 0; _event<event_cell_row_array[__cell].length; _event++){
                 if (event_cell_row_array[__cell][_event]){
                     // cl('event_cell_row_array[__cell][_event]',_private.find_index_event_by_id(__morphed_array, event_cell_row_array[__cell][_event].id));
@@ -436,7 +454,47 @@
         }
 
 
-        cl('event_cell_row_array', event_cell_row_array);
+        // cl('event_cell_row_array', event_cell_row_array);
+
+
+
+
+
+
+        // cl(__morphed_array);
+
+        var morphed_lenth = __morphed_array.length;
+        for (var __event_counter = 0; __event_counter < morphed_lenth; __event_counter++){
+            var __this_event = Object.assign({}, __morphed_array[__event_counter]);
+            var __event_start_date = new Date(__this_event.start_date);
+            var __event_weekday = __event_start_date.getDay();
+			if (__morphed_array[__event_counter].id === '0x5B7A86A426EE5661')
+            cl (' __event_start_date',  __event_start_date.getDay());
+            __event_weekday = __event_weekday === 0 ? 7 : __event_weekday;
+            // cl(__event_weekday);
+
+
+            // cl('7 - '+ __event_weekday, 7 - __event_weekday - __morphed_array[__event_counter].length_round );
+
+            var this_week_length =  8 - __event_weekday - __morphed_array[__event_counter].length_round < 0 ?  8 - __event_weekday : __morphed_array[__event_counter].length_round;
+
+
+            if (__morphed_array[__event_counter].length_round !== this_week_length){
+                var next_week_length = __morphed_array[__event_counter].length_round - this_week_length;
+                // cl('next_week_length',next_week_length);
+                __morphed_array[__event_counter].length_round = this_week_length;
+                __morphed_array[__event_counter].break = 'end';
+                __this_event.length_round = next_week_length;
+                __this_event.day_start += this_week_length;
+                __this_event.break = 'start';
+                __morphed_array.push(__this_event);
+            }
+
+
+        }
+
+        this_calendar.events = __morphed_array;
+        cl (this_calendar.events);
         return __morphed_array;
     };
 
@@ -451,73 +509,142 @@
             for (var public_attrname in $public) { __options[public_attrname] = $public[public_attrname]; }
             return __options;
         })(_private, args);
-        cl('_options:', _options);
+        // cl('_options:', _options);
         _options.state = 'started';
         _private.calendar_object = new _private.CalendarObj(_options.cur_date, _options.days_in_row);
         var new_calendar = _private.calendar_object.init_calendar(_options.mount_id, _private.calendar_object);
         new_calendar.mount_id = _options.mount_id;
-        $(_options.mount_id+' .weekday-name').css('width', Math.floor(100/_options.days_in_row)+'%');
-        $(_options.mount_id).on('click', '.month-select-arrow-left-button', function () {
-            cl('prev');
-            new_calendar.change_month('b');
-        });
-        $(_options.mount_id).on('click', '.month-select-arrow-right-button', function () {
-            cl('next');
-            new_calendar.change_month('f');
-        });
 
-        $public.get_events().then( function( resp ){
+        $public.get_events(_private.calendar_object.date_month).then( function( resp ){
             events = resp;
             _private.calendar_object.events = events;
             _private.calendar_object.render_events(this_calendar.events);
         } ).catch( function( e ){ cl( e ); } );
 
+
+
+
+        $(_options.mount_id+' .weekday-name').css('width', Math.floor(100/_options.days_in_row)+'%');
+        $(_options.mount_id).on('click', '.month-select-arrow-left-button', function () {
+            // cl('prev');
+            new_calendar.change_month('b');
+        });
+        $(_options.mount_id).on('click', '.month-select-arrow-right-button', function () {
+            // cl('next');
+            new_calendar.change_month('f');
+        });
+
+
+        $(_options.mount_id).on('mouseenter','.calendar-event',function () {
+            if (!$(this).hasClass('event-hover')){
+                var this_id = $(this).attr('data-id');
+                $('[data-id="'+this_id+'"]').addClass('event-hover');
+            }
+            // cl(this_id);
+            // cl('hover');
+        });
+
+        $(_options.mount_id).on('mouseleave','.calendar-event',function () {
+            var this_id = $(this).attr('data-id');
+            $('[data-id="'+this_id+'"]').removeClass('event-hover');
+            // cl(this_id);
+            // cl('hover');
+        });
+
+        var make_url = function(){
+            var $checked_cb = $('.filters-container').find('input:checked');
+            // cl($checked_cb);
+            var checked_cb_ids = [];
+            $checked_cb.map(function (cb) {
+                // cl(cb);
+                checked_cb_ids.push($(this).attr('id'));
+            });
+            var hash = window.location.hash.split('?');
+            var new_hash = checked_cb_ids.join('&') + ( hash.length > 1 ? hash[1] : '' );
+            window.location.hash = checked_cb_ids.join('&');
+        };
+
+		$(_options.mount_id).on('click','#filters-clear',function () {
+			cl('click');
+			$('.filters-container').find('input').attr('checked', true);
+			make_url();
+		})
+		
+		
+        if (window.location.hash === ''){
+            // cl('make');
+            make_url();
+        }
+        else{
+            var checked_cbs = window.location.hash.replace('#', '').split('?')[0].split('&');
+            $('.filters-container').find('input').attr('checked', false);
+            for (_cb=0; _cb<checked_cbs.length; _cb++){
+                $('#'+checked_cbs[_cb]).attr('checked', true);
+            }
+            // cl(checked_cbs);
+        }
+
+
+
+        $(_options.mount_id).on('change','.form-check-input',function () {
+            make_url();
+            // cl();
+        });
+
         return new_calendar;
     };
 
-    $public.get_events = function(args){
-        args = args || {};
+    $public.get_events = function(date_month, date_year){
+        //args = args || {};
 
         // get this month events: delete after backend configured
         var middleware = function( _events ){
-            cl(this_calendar.date_with_first_day);
+            // cl(this_calendar.date_with_first_day);
             _events = _events
                 .filter(function(_events){
                     return ( ( new Date(_events.start_date) > new Date(this_calendar.date_with_first_day)) && ( new Date(_events.start_date) < new Date(this_calendar.date_with_last_day)));
                 });
 
-            cl('gogo powerRangers:', _events);
+            // cl('gogo powerRangers:', _events);
             return _events;
         };
 
-        cl('get_events args:', args);
+        // cl('get_events args:', args);
         return new Promise ( function( resolve, reject ) {
             /* TODO fetch */
             $.ajax({
                 method: "GET",
-                url: "./server/db.json"
-//                ,data: { name: "John", location: "Boston" }
+				dataType: 'json',
+                json_path: '/server/db.json'
+                // url: "./custom_web_template.html?object_id=6673451655755009275"
+                ,data: { date_month: date_month, date_year: date_year }
             })
                 .done( function( msg ) {
-                    msg = middleware(msg);
-                    cl( "Event data loaded: ", msg );
+                    //cl( "Event data loaded: ", msg );
+                    //msg = middleware(msg);
                     resolve( msg );
                 });
         } );
     };
 
     _private.CalendarObj.prototype.render_events = function (__events) {
-        cl('rendering events... ', __events);
+        // cl('rendering events... ', __events);
         __events = _private.morph_events_array(__events);
-        cl('morphed events... ', __events);
+        // cl('morphed events... ', __events);
 
         function _a( idx ) {
-            return '<div class="calendar-event ct-'+__events[idx].top+' ce-'+__events[idx].length_round +'" data-event-type="' + __events[idx].type + '">\n' +
+            __event_html = '<div data-event-type="' + __events[idx].type + '" data-id="'+__events[idx].id+'" class="calendar-event ct-'+__events[idx].top+' ce-'+(__events[idx].length_round) +'">\n' +
                 '<div class="calendar-event-container container-fluid">\n' +
                 '<div class="row">\n' +
-                '<div class="col-12">\n' +
-                '<div class="calendar-event-type "></div>\n' +
-                '<span class="calendar-event-name">' + __events[idx].name + '</span>\n' +
+                '<div class="col-12">\n'
+            if (__events[idx].break === 'start'){
+                __event_html+= '<div class="calendar-event-break "></div>\n';
+            }
+            else{
+                __event_html+= '<div class="calendar-event-type "></div>\n';
+            }
+
+            __event_html+= '<span class="calendar-event-name">' + __events[idx].name + '</span>\n' +
                 '</div>\n' +
                 '<div class="calendar-event-pers">\n' +
                 '<div class="calendar-event-icons text-right">\n' + __events[idx].max_pers +
@@ -527,6 +654,7 @@
                 '</div>\n' +
                 '</div>\n' +
                 '<label for="modalTrigger" data-modalBtn class="calendar-event_btn" data-idx="' + idx + '" data-opt-event-type="' + __events[idx].type + '" title="show more info about ' + __events[idx].name + ' "></label>\n'
+             return __event_html;
         }
 
 
@@ -535,7 +663,7 @@
         }
 
 
-        events = __events;
+
         // $( $('.calendar-cell-event-wrapper')[6]).append( _a( 1 ) );
         // $( $('.calendar-cell-event-wrapper')[10]).append( _a( 3 ) );
         // $( $('.calendar-cell-event-wrapper')[15]).append( _a( 7 ) );

@@ -155,15 +155,15 @@
 
         modal.content.innerHTML = '';
 
-        var obj = events[ idx ];
+        var obj = this_calendar.events[ idx ];
 
         var _data = document.createDocumentFragment();
 
         var mHeader = document.createElement( "div" );
         mHeader.classList.add( "m-header" );
 
-        console.log( idx, obj );
-        console.log( replacer("&laquo;Рец&lsquo;&rsquo;епт&amp;amp;©успе&bull;шной®презе&ldquo;нт&rdquo;ац&bdquo;ии&deg;от&nbsp;ай&mdash;&hellip;ай&lt;ен&gt;ан&trade;ка&raquo;") );
+        // console.log( idx, obj );
+        // console.log( replacer("&laquo;Рец&lsquo;&rsquo;епт&amp;amp;©успе&bull;шной®презе&ldquo;нт&rdquo;ац&bdquo;ии&deg;от&nbsp;ай&mdash;&hellip;ай&lt;ен&gt;ан&trade;ка&raquo;") );
 
         /* TODO */
         mHeader.innerHTML = '<div class="m-cell-1">'
@@ -208,7 +208,7 @@
             +'<button class="btn m-btn m-btn_black">Зарегистрироваться</button>    '
             +'</div>'
             +'<div class="m-cell-2">'
-            +'<button class="btn m-btn m-btn_white">Зарегистрироваться</button>    '
+            /*+'<button class="btn m-btn m-btn_white">Зарегистрироваться</button>    '*/
             +'</div>';
 
         _data.appendChild( mHeader );

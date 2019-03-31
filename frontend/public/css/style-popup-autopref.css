@@ -402,7 +402,9 @@
   transition: 0.3s cubic-bezier( 0.3, 1, 0.3, 1 );
 }
 .m-btn_black {
-
+	background-color: red;
+	border-color: red;
+	color: #fff;
 }
 
 .m-btn_white {
@@ -410,9 +412,9 @@
   margin: 16px 0 16px 10px;
 }
 .m-btn_black:hover {
-  background-color: red;
-  border-color: red;
-  color: #fff;
+  background-color: #fff;
+  border-color: #000;
+  color: #000;
 }
 .m-btn_white:hover {
   background-color: #fff;
@@ -426,14 +428,16 @@
   color: #4900a3;
 }
 [data-modalwindow][data-event-type="training"] .m-cell-2 {
-  background: #005961;
-}
-[data-modalwindow][data-event-type="trainig"] .m-name {
-  color: #005961;
-}
-[data-modalwindow][data-event-type="conf"] .m-cell-2 {
+  /*background: #005961;*/
   background: red;
 }
-[data-modalwindow][data-event-type="conf"] .m-name {
+[data-modalwindow][data-event-type="trainig"] .m-name {
+  /*color: #005961;*/
   color: red;
+}
+[data-modalwindow][data-event-type="conf"] .m-cell-2 {
+  /*background: red;*/
+}
+[data-modalwindow][data-event-type="conf"] .m-name {
+  /*color: red;*/
 }
