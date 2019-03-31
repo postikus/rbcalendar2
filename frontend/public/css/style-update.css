@@ -128,3 +128,29 @@
   height: 2px;
   background: red;
 }
+.calendar-event-pers {
+  position: absolute;
+  right: -16px;
+}
+.calendar-event-container .row .col-12 {
+    padding-right: 54px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.legend-title {
+    font-weight: 700;
+    margin-left: -16px;
+    color: rgba(119, 119, 119, 0.92);
+}
+.legend-box {
+    display: inline-block;
+    width: 1em;
+    position: relative;
+    height: 1em;
+    top: 2px;
+    margin-right: 4px;
+}
+.legend-description {
+  display: inline-block;
+}

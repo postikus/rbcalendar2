@@ -512,14 +512,14 @@
         cl('morphed events... ', __events);
 
         function _a( idx ) {
-            return '<div data-event-color_2 class="calendar-event ct-'+__events[idx].top+' ce-'+__events[idx].length_round +'" data-event-type="' + __events[idx].type + '">\n' +
+            return '<div class="calendar-event ct-'+__events[idx].top+' ce-'+__events[idx].length_round +'" data-event-type="' + __events[idx].type + '">\n' +
                 '<div class="calendar-event-container container-fluid">\n' +
                 '<div class="row">\n' +
-                '<div class="col-9">\n' +
+                '<div class="col-12">\n' +
                 '<div class="calendar-event-type "></div>\n' +
                 '<span class="calendar-event-name">' + __events[idx].name + '</span>\n' +
                 '</div>\n' +
-                '<div class="col-3 no-padding">\n' +
+                '<div class="calendar-event-pers">\n' +
                 '<div class="calendar-event-icons text-right">\n' + __events[idx].max_pers +
                 ' <i class="fa fa-users"></i>\n' +
                 '</div>\n' +
