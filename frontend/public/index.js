@@ -6,7 +6,7 @@
 /// Module Pattern with Imports and Exports
 ///
 
-;(function($public, $window, $, undefined) {
+;(function($public, $window, undefined) {
     var _private = {};
     _private = {
         state: 'start_init',
@@ -114,7 +114,7 @@
     _private.CalendarObj.prototype.get_checkbox_html = function (__q_object) {
         var __checkbox_html = '';
         __checkbox_html +=   '<div class="form-check">';
-        __checkbox_html +=   '<input class="form-check-input" type="checkbox" value="" id="'+__q_object.id+'">';
+        __checkbox_html +=   '<input class="form-check-input" checked type="checkbox" id="'+__q_object.id+'">';
         __checkbox_html += '<label class="form-check-label" for="'+__q_object.id+'">';
         __checkbox_html += __q_object.label;
         __checkbox_html += '</label>';
@@ -126,7 +126,7 @@
         __checkboxs_html += '<div class="filter-name" id="'+__q_object.id+'">'+__q_object.label+'</div>';
         for (var __checkbox_counter = 0; __checkbox_counter < __q_object.checkbox_array.length; __checkbox_counter++){
             __checkboxs_html += '<div class="form-check">';
-            __checkboxs_html += '<input class="form-check-input"  type="checkbox" value="" id="'+__q_object.checkbox_array[__checkbox_counter].id+'">';
+            __checkboxs_html += '<input class="form-check-input" checked type="checkbox" id="'+__q_object.checkbox_array[__checkbox_counter].id+'">';
             __checkboxs_html += '<label class="form-check-label" for="'+__q_object.checkbox_array[__checkbox_counter].id+'">';
             __checkboxs_html += __q_object.checkbox_array[__checkbox_counter].label;
             __checkboxs_html += '</label>';
@@ -143,7 +143,7 @@
                 __filter_row_html += _private.CalendarObj.prototype.get_search_html();
                 break;
             case 'checkbox':
-                __filter_row_html += _private.CalendarObj.prototype.get_checkbox_html(q_object);
+                 __filter_row_html += _private.CalendarObj.prototype.get_checkbox_html(q_object);
                 break;
             case 'checkboxs':
                 __filter_row_html += _private.CalendarObj.prototype.get_checkboxs_html(q_object);
@@ -160,6 +160,7 @@
         var __filters_html = '';
         __filters_html += '<div class="row" id="filters-header-container">';
         __filters_html += _private.CalendarObj.prototype.get_calendar_view_button_container();
+        __filters_html += '</div>';
         // __filters_html += _private.CalendarObj.prototype.get_filters_row_container('search');
         __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkbox', {id: 'defaultCheck9', label: 'Мои мероприятия'});
         __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkbox', {id: 'defaultCheck8', label: 'Открыта регистрация'});
@@ -191,8 +192,12 @@
                 {id: 'defaultCheck11', label: 'Общебанковские тренинги'}
             ]
         });
-		
-		__filters_html += '<div class="row" style="margin: 10px auto; "><div class="col-12"><button type="button" id="filters-clear" class="btn btn-primary btn-lg btn-block">Сбросить фильтры</button></div></div>';
+
+        __filters_html += '<div class="row" style="margin: 10px auto; "><div class="col-12">' +
+            '<button type="button" id="filters-clear" class="btn btn-primary btn-lg btn-block">' +
+            'Сбросить фильтры' +
+            '</button>' +
+            '</div></div>';
         return __filters_html;
     };
     _private.CalendarObj.prototype.get_calendar_header_html = function(__calendar_object){
@@ -228,7 +233,9 @@
     _private.CalendarObj.prototype.get_calendar_cell_html = function (__date, __row, __cell, __id, __ex, __calendar_object) {
         var __calendar_cell_html = '';
         __calendar_cell_html += '<div class="calendar-cell' +
-            ( ( (__calendar_object.init_date.setHours(0,0,0,0)) === (new Date(__calendar_object.date_year, __calendar_object.date_month, __date, 0).setHours(0,0,0,0)) && !__ex ) ? " calendar-cell-today" : "" ) +
+            ( ( (__calendar_object.init_date.setHours(0,0,0,0))
+                === (new Date(__calendar_object.date_year, __calendar_object.date_month, __date, 0).setHours(0,0,0,0))
+                && !__ex ) ? " calendar-cell-today" : "" ) +
             '"'+( __ex ? " data-ex" : "" )+
             ' '+( __id ? " data-id="+__id+"" : "" ) +
             ' '+( (__row !== undefined) ? " data-row="+__row+"" : "" ) +
@@ -271,7 +278,12 @@
             if (__date_row_counter === 0){
                 if (__calendar_object.date_month_first_dayweek <= __calendar_object.days_in_row){
                     for (var __prev_month_counter = 1; __prev_month_counter < __calendar_object.date_month_first_dayweek; __prev_month_counter++){
-                        __calendar_obj_array[__date_row_counter].push( { date: ( ( prev_months_days_count - __calendar_object.date_month_first_dayweek) + ( 1 + __prev_month_counter )), ex: this_ex, row: __date_row_counter, cell: (__prev_month_counter-1) } );
+                        __calendar_obj_array[__date_row_counter].push(
+                            {
+                                date: ( ( prev_months_days_count - __calendar_object.date_month_first_dayweek) + ( 1 + __prev_month_counter )),
+                                ex: this_ex, row: __date_row_counter, cell: (__prev_month_counter-1)
+                            }
+                        );
                         __this_row_cell_counter++;
                     }
                 }
@@ -283,7 +295,15 @@
                 this_ex = 0;
             }
             for (var __date_cell_counter = __this_row_cell_counter; __date_cell_counter < 7; __date_cell_counter++){
-                __calendar_obj_array[__date_row_counter].push({date: __overall_date_counter, ex: this_ex, row: __date_row_counter, cell: (__date_cell_counter),  id: (this_ex === 0 ? __overall_date_counter : '')});
+                __calendar_obj_array[__date_row_counter].push(
+                    {
+                        date: __overall_date_counter
+                        , ex: this_ex
+                        , row: __date_row_counter
+                        , cell: (__date_cell_counter)
+                        ,  id: (this_ex === 0 ? __overall_date_counter : '')
+                    }
+                );
                 if (__overall_date_counter >= __calendar_object.date_days_in_month){
                     next_month = 1;
                     this_ex = 1;
@@ -380,7 +400,6 @@
             }
         }
     };
-
     _private.morph_events_array = function (__event_array) {
         var __morphed_array = __event_array.slice();
 
@@ -468,15 +487,17 @@
             var __this_event = Object.assign({}, __morphed_array[__event_counter]);
             var __event_start_date = new Date(__this_event.start_date);
             var __event_weekday = __event_start_date.getDay();
-			if (__morphed_array[__event_counter].id === '0x5B7A86A426EE5661')
-            cl (' __event_start_date',  __event_start_date.getDay());
+            if (__morphed_array[__event_counter].id === '0x5B7A86A426EE5661')
+                cl (' __event_start_date',  __event_start_date.getDay());
             __event_weekday = __event_weekday === 0 ? 7 : __event_weekday;
             // cl(__event_weekday);
 
 
             // cl('7 - '+ __event_weekday, 7 - __event_weekday - __morphed_array[__event_counter].length_round );
 
-            var this_week_length =  8 - __event_weekday - __morphed_array[__event_counter].length_round < 0 ?  8 - __event_weekday : __morphed_array[__event_counter].length_round;
+            var this_week_length =  (8 - __event_weekday - __morphed_array[__event_counter].length_round) < 0
+                ?  8 - __event_weekday
+                : __morphed_array[__event_counter].length_round;
 
 
             if (__morphed_array[__event_counter].length_round !== this_week_length){
@@ -553,7 +574,7 @@
 
         var make_url = function(){
             var $checked_cb = $('.filters-container').find('input:checked');
-             cl($checked_cb);
+            // cl($checked_cb);
             var checked_cb_ids = [];
             $checked_cb.map(function (cb) {
                 // cl(cb);
@@ -564,36 +585,45 @@
             window.location.hash = checked_cb_ids.join('&');
         };
 
-		$(_options.mount_id).on('click','#filters-clear',function () {
-			cl('click');
-			$('.filters-container').find('input').prop('checked', false);
-			make_url();
-		})
-		
-		
+        $(_options.mount_id).on('click','#filters-clear',function () {
+            cl('click');
+            $(this).toggleClass('cb_toggled');
+            var $all_inputs;
+            $all_inputs = $('.filters-container').find('input');
+            // cl($all_inputs);
+            $all_inputs.prop('checked', true);
+            make_url();
+        });
+
+        // $(_options.mount_id+' .filters-container').on('change ','input',function () {
+        //     $(this).toggleClass('this_cb_toggled');
+        //     $(this).prop('checked', $(this).hasClass('cb_toggled'));
+        // });
+        // $('.filters-container').find('input');
+
         if (window.location.hash === ''){
-            cl('make');
+            // cl('make');
             make_url();
         }
         else{
             var checked_cbs = window.location.hash.replace('#', '').split('?')[0].split('&');
             $('.filters-container').find('input').prop('checked', false);
-            for (_cb=0; _cb<checked_cbs.length; _cb++){
+            for (var _cb=0; _cb<checked_cbs.length; _cb++){
                 $('#'+checked_cbs[_cb]).prop('checked', true);
             }
-            // cl(checked_cbs);
+            cl(checked_cbs);
         }
 
 
 
         $(_options.mount_id).on('change','.form-check-input',function () {
+            // cl($(this));
             make_url();
             // cl();
         });
 
         return new_calendar;
     };
-
     $public.get_events = function(date_month, date_year){
         //args = args || {};
 
@@ -602,7 +632,11 @@
             // cl(this_calendar.date_with_first_day);
             _events = _events
                 .filter(function(_events){
-                    return ( ( new Date(_events.start_date) > new Date(this_calendar.date_with_first_day)) && ( new Date(_events.start_date) < new Date(this_calendar.date_with_last_day)));
+                    return (
+                        ( new Date(_events.start_date) > new Date(this_calendar.date_with_first_day) )
+                        && ( new Date(_events.start_date) < new Date(this_calendar.date_with_last_day) )
+                        && _events.type !== 'conf'
+                    );
                 });
 
             // cl('gogo powerRangers:', _events);
@@ -614,14 +648,14 @@
             /* TODO fetch */
             $.ajax({
                 method: "GET",
-				dataType: 'json',
-                json_path: '/server/db.json'
+                dataType: 'json',
                 // url: "./custom_web_template.html?object_id=6673451655755009275"
+                url: "./server/db.json"
                 ,data: { date_month: date_month, date_year: date_year }
             })
                 .done( function( msg ) {
                     //cl( "Event data loaded: ", msg );
-                    //msg = middleware(msg);
+                    msg = middleware(msg);
                     resolve( msg );
                 });
         } );
@@ -633,10 +667,13 @@
         // cl('morphed events... ', __events);
 
         function _a( idx ) {
-            __event_html = '<div data-event-type="' + __events[idx].type + '" data-id="'+__events[idx].id+'" class="calendar-event ct-'+__events[idx].top+' ce-'+(__events[idx].length_round) +'">\n' +
+            __event_html = '<div data-event-type="' + __events[idx].type + '" ' +
+                'data-id="'+__events[idx].id+'" ' +
+                'class="calendar-event ct-'+__events[idx].top+' ' +
+                'ce-'+(__events[idx].length_round) +'">\n' +
                 '<div class="calendar-event-container container-fluid">\n' +
                 '<div class="row">\n' +
-                '<div class="col-12">\n'
+                '<div class="col-12">\n';
             if (__events[idx].break === 'start'){
                 __event_html+= '<div class="calendar-event-break "></div>\n';
             }
@@ -653,8 +690,12 @@
                 '</div>\n' +
                 '</div>\n' +
                 '</div>\n' +
-                '<label for="modalTrigger" data-modalBtn class="calendar-event_btn" data-idx="' + idx + '" data-opt-event-type="' + __events[idx].type + '" title="show more info about ' + __events[idx].name + ' "></label>\n'
-             return __event_html;
+                '<label for="modalTrigger" data-modalBtn class="calendar-event_btn" ' +
+                'data-idx="' + idx + '" ' +
+                'data-opt-event-type="' + __events[idx].type + '" ' +
+                'title="show more info about ' + __events[idx].name + ' ">' +
+                '</label>\n'
+            return __event_html;
         }
 
 

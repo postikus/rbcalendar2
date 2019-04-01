@@ -1,54 +1,28 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=0.5, maximum-scale=1.0, minimum-scale=0.3">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RBcalendar</title>
-
-<link href="/frontend/public/libs/normalize-8.0.1/normalize.css" rel="stylesheet">
-<!-- <link href="/rosbank/rb_calendar/frontend/public/libs/normalize-8.0.1/normalize.css" rel="stylesheet"> -->
-
-<link href="/frontend/public/libs/bootstrap-4.3.1-dist/css/bootstrap.css" rel="stylesheet">
-<!-- <link href="/rosbank/rb_calendar/frontend/public/libs/bootstrap-4.3.1-dist/css/bootstrap.css" rel="stylesheet"> -->
-
-<link href="/frontend/public/libs/fontawesome-free-5.7.2-web/css/all.css" rel="stylesheet">
-<!-- <link href="/rosbank/rb_calendar/frontend/public/libs/fontawesome-free-5.7.2-web/css/all.css" rel="stylesheet"> -->
-
-<link href="/frontend/public/style.css" rel="stylesheet">
-<!-- <link href="/rosbank/rb_calendar/frontend/public/style.css" rel="stylesheet"> -->
-
-<!-- <link href="/frontend/public/css/style-popup-autopref.css" rel="stylesheet"> -->
-<!-- <link href="/rosbank/rb_calendar/frontend/public/css/style-popup-autopref.css" rel="stylesheet"> -->
-
-<link href="/frontend/public/css/style-popup.css" rel="stylesheet">
-<!-- <link href="/rosbank/rb_calendar/frontend/public/css/style-popup.css" rel="stylesheet"> -->
-
-<!-- <link href="/frontend/public/css/style-update-autopref.css" rel="stylesheet"> -->
-<!-- <link href="/rosbank/rb_calendar/frontend/public/css/style-update-autopref.css" rel="stylesheet"> -->
-
-<link href="/frontend/public/css/style-update.css" rel="stylesheet">
-<!-- <link href="/rosbank/rb_calendar/frontend/public/css/style-update.css" rel="stylesheet"> -->
-
-<script src="/frontend/public/libs/es6-promise.min.js"></script>
-<!-- <script src="/rosbank/rb_calendar/frontend/public/libs/es6-promise.min.js"></script> -->
-
-<script src="/frontend/public/libs/es6-promise.auto.min.js"></script>
-<!-- <script src="/rosbank/rb_calendar/frontend/public/libs/es6-promise.auto.min.js"></script> -->
-
-<script src="/frontend/public/libs/jquery-3.3.1.min.js"></script>
-<!-- <script src="/rosbank/rb_calendar/frontend/public/libs/jquery-3.3.1.min.js"></script> -->
-
-<script>
-    $.noConflict();
-</script>
-
-<script src="/frontend/public/index.js"></script>
-<!-- <script src="/rosbank/rb_calendar/frontend/public/index.js"></script> -->
-
-
+    <link href="./frontend/public/libs/normalize-8.0.1/normalize.css" rel="stylesheet">
+    <link href="./frontend/public/libs/bootstrap-4.3.1-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="./frontend/public/libs/fontawesome-free-5.7.2-web/css/all.css" rel="stylesheet">
+    <link href="./frontend/public/style.css" rel="stylesheet">
+    <!-- <link href="./frontend/public/css/style-popup.css" rel="stylesheet"> -->
+    <link href="./frontend/public/css/style-popup-autopref.css" rel="stylesheet">
+    <!-- <link href="./frontend/public/css/style-update.css" rel="stylesheet"> -->
+    <link href="./frontend/public/css/style-update-autopref.css" rel="stylesheet">
+    <script src="./frontend/public/libs/es6-promise.min.js"></script>
+    <script src="./frontend/public/libs/es6-promise.auto.min.js"></script>
+    <script src="./frontend/public/libs/jquery-3.3.1.min.js"></script>
 </head>
 <body>
+<script>
+//$.noConflict();
+</script>
+
+<script src="./frontend/public/index.js"></script>
 
 <div id="calendar-app"></div>
 <!--
@@ -227,18 +201,17 @@ function dateFormatter(_date){
         });
     }
 
-    var cur_date = new Date( Date() );
+    var cur_date = new Date();
     // var cur_date = new Date('<%=dateFormatter(Date())%>');
 	//console.log(cur_date);
-	
-	
+
+
     var this_calendar = rb_calendar.init({
         mount_id: '#calendar-app'
         ,cur_date: cur_date
         ,days_in_row: 5
-        ,json_path: '/server/db.json'
-        //,json_path: '/rosbank/rb_calendar/server/db.json'
-        //,json_path: "./custom_web_template.html?object_id=6673451655755009275"
+        //,json_path: './server/db.json'
+        ,json_path: "./server/db.json"
     });
 
 
@@ -278,8 +251,6 @@ function dateFormatter(_date){
     } ( void( 0 ) ) );
 </script>
 
-<script src="/frontend/public/js/popup.js"></script>
-<!-- <script src="/rosbank/rb_calendar/frontend/public/js/popup.js"></script> -->
-
+<script src="./frontend/public/js/popup.js"></script>
 </body>
 </html>

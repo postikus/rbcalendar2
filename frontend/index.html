@@ -21,15 +21,18 @@
 </head>
 <body>
 <div id="calendar-app"></div>
-
+<input type="checkbox" id="1"> 1
 <script>
 //    $(document).ready(function(){
+
         var cur_date = new Date();
+        /*
         var this_calendar = rb_calendar.init({
             mount_id: '#calendar-app'
             ,cur_date: cur_date
             ,days_in_row: 5
         });
+        */
         //rb_calendar.get_events({calendar_obj: this_calendar});
 
 
@@ -78,8 +81,8 @@
         });
 
       } );
-        
-        
+
+
     };
 
 var response = get_events( "any" );
@@ -111,7 +114,7 @@ response.then( function( resp ){
     $( $('.calendar-cell-event-wrapper')[6]).append( _a( 0 ) );
     $( $('.calendar-cell-event-wrapper')[10]).append( _a( 3 ) );
     $( $('.calendar-cell-event-wrapper')[17]).append( _a( 7 ) );
-      
+
 } ).catch( function( e ){ console.error( e ); } )
 
 </script>

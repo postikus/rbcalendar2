@@ -105,7 +105,7 @@
 
 .calendar-cell-today{
     /*background-color: rgba(229, 95, 80, 0.8);*/
-	
+
 }
 
 .calendar-cell-date{
@@ -115,7 +115,7 @@
 }
 
 .filter-row-container{
-    display: inline-block;
+    /*display: inline-block;*/
     /*padding-top: 10px;*/
 	padding-top: 0 !important;
 	padding-bottom: 0 !important;
