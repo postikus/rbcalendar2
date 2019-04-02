@@ -13,6 +13,7 @@
     <link href="./frontend/public/css/style-popup-autopref.css" rel="stylesheet">
     <!-- <link href="./frontend/public/css/style-update.css" rel="stylesheet"> -->
     <link href="./frontend/public/css/style-update-autopref.css" rel="stylesheet">
+    <link href="./frontend/public/css/updates.css" rel="stylesheet">
     <script src="./frontend/public/libs/es6-promise.min.js"></script>
     <script src="./frontend/public/libs/es6-promise.auto.min.js"></script>
     <script src="./frontend/public/libs/jquery-3.3.1.min.js"></script>
@@ -245,6 +246,8 @@ function dateFormatter(_date){
         _str = '<div class="legend-list">'
             + '<div class="legend-list-item"><div class="legend-box" data-event-type="training"></div><div class="legend-description"> - Тренинг</div></div>'
             + '<div class="legend-list-item"><div class="legend-box" data-event-type="webinar"></div><div class="legend-description"> - Вебинар</div></div>'
+            + '<div class="legend-list-item"><br></div>'
+            + '<div class="legend-list-item"><div class="legend-box"><i class="fa fa-users"></i></div><div class="legend-description"> - Свободные места</div></div>'
             + '</div>';
         _legend.init( _str );
 

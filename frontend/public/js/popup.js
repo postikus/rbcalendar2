@@ -171,11 +171,11 @@
             +'</div>'
             +'<div class="m-cell-2">'
             +'<div class="m-icons">'
-            +'<span class="m-icons-item" title="title1"><i class="fa-2x far fa-clock"></i></span>'
-            +'<span class="m-icons-item" title="item"><i class="fa-2x far fa-compass"></i></span>'
-            +'<span class="m-icons-item" title="item"><i class="fa-2x far fa-handshake"></i></span>'
-            +'<span class="m-icons-item" title="item"><i class="fa-2x far fa-heart"></i></span>'
-            +'<span class="m-icons-item" title="item"><i class="fa-2x far fa-lightbulb"></i></span>'
+            +'<div class="m-icons-item" ><i class="fa-2x far fa-clock"></i><span>clock</span></div>'
+            +'<div class="m-icons-item" ><i class="fa-2x far fa-compass"></i><span>compass</span></div>'
+            +'<div class="m-icons-item" ><i class="fa-2x far fa-handshake"></i><span>handshake</span></div>'
+            +'<div class="m-icons-item" ><i class="fa-2x far fa-heart"></i><span>heart</span></div>'
+            +'<div class="m-icons-item" ><i class="fa-2x far fa-lightbulb"></i><span>lightbulb</span></div>'
             +'</div>'
             +'</div>';
 
