@@ -162,8 +162,9 @@
         __filters_html += _private.CalendarObj.prototype.get_calendar_view_button_container();
         __filters_html += '</div>';
         // __filters_html += _private.CalendarObj.prototype.get_filters_row_container('search');
-        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkbox', {id: 'defaultCheck9', label: 'Мои мероприятия'});
-        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkbox', {id: 'defaultCheck8', label: 'Открыта регистрация'});
+        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkbox', {id: 'registred', label: 'Мои мероприятия'});
+        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkbox', {id: 'is_open', label: 'Открыта регистрация'});
+        __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkbox', {id: 'beexpert', label: 'BeExpert'});
         /*
 		__filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkboxs', {
             id: 'test1',
@@ -175,21 +176,21 @@
         });
 		*/
         __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkboxs', {
-            id: 'test2',
+            id: 'for_type',
             label: 'Для кого:',
             checkbox_array:[
-                {id: 'defaultCheck3', label: 'Для руководителей'},
-                {id: 'defaultCheck4', label: 'Для сотрудников'}
+                {id: 'boss', label: 'Для руководителей'},
+                {id: 'spec', label: 'Для сотрудников'}
             ]
         });
         __filters_html += _private.CalendarObj.prototype.get_filters_row_container('checkboxs', {
             id: 'test3',
             label: 'Тип:',
             checkbox_array:[
-                {id: 'defaultCheck5', label: 'Тренинги личной эффективности'},
-                {id: 'defaultCheck6', label: 'Менеджерские программы'},
-                {id: 'defaultCheck7', label: 'Профессиональное обучение'},
-                {id: 'defaultCheck11', label: 'Общебанковские тренинги'}
+                {id: 'tle', label: 'Тренинги личной эффективности'},
+                {id: 'manp', label: 'Менеджерские программы'},
+                {id: 'prof', label: 'Профессиональное обучение'},
+                {id: 'all', label: 'Общебанковские тренинги'}
             ]
         });
 
@@ -586,6 +587,11 @@
             window.location.hash = checked_cb_ids.join('&');
         };
 
+        var opacity_change = function(_$events_array, filter_array){
+            var hide_events_ids = [];
+            
+        };
+
         $(_options.mount_id).on('click','#filters-clear',function () {
             cl('click');
             $(this).toggleClass('cb_toggled');
@@ -671,6 +677,14 @@
         function _a( idx ) {
             __event_html = '<div data-event-type="' + __events[idx].type + '" ' +
                 'data-id="'+__events[idx].id+'" ' +
+
+                'data-registred="'+ ( __events[idx].registred ? "registred" : "" ) +'" ' +
+                'data-is_open="'+ ( __events[idx].is_open ? "is_open" : "" ) +'" ' +
+                'data-beexpert="'+ ( __events[idx].registred ? "beexpert" : "" ) +'" ' +
+                'data-for_type="'+__events[idx].for_type+'" ' +
+                'data-event_rb_type="'+__events[idx].event_rb_type+'" ' +
+
+
                 'class="calendar-event ct-'+__events[idx].top+' ' +
                 'ce-'+(__events[idx].length_round) +'">\n' +
                 '<div class="calendar-event-container container-fluid">\n' +
