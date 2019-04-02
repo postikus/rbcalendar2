@@ -6,7 +6,7 @@
 /// Module Pattern with Imports and Exports
 ///
 
-;(function($public, $window, undefined) {
+;(function($public, $window, $, undefined) {
     var _private = {};
     _private = {
         state: 'start_init',
@@ -400,6 +400,7 @@
             }
         }
     };
+
     _private.morph_events_array = function (__event_array) {
         var __morphed_array = __event_array.slice();
 
@@ -624,6 +625,7 @@
 
         return new_calendar;
     };
+
     $public.get_events = function(date_month, date_year){
         //args = args || {};
 
